@@ -14,7 +14,7 @@ var fitbitStrategy = new FitbitStrategy({
   clientID: "23RTQD",
   clientSecret: "fce8b10c985c39fac31229e8a5ae5973",
   scope: ['activity','heartrate','location','profile'],
-  callbackURL: "http://localhost:3000/auth/fitbit/callback"
+  callbackURL: "https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/auth/fitbit/callback "
 }, function(accessToken, refreshToken, profile, done) {
   // TODO: save accessToken here for later use
 
