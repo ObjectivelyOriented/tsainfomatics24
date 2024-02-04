@@ -10,11 +10,31 @@ const uri = "mongodb+srv://HendricksonTSA:a4MzaUFZ67HcIFdh@tsa2324.nwxsyzn.mongo
 var passport = require('passport');
 var FitbitStrategy = require( 'passport-fitbit-oauth2' ).FitbitOAuth2Strategy;;
 
+
+mongoose.connect(process.env.MONGODB_URL || uri).then(() => {
+  console.log("MongoDB is connected!");
+});
+
+
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'));
+app.set('views', './views');
+app.set("view engine", "ejs")
+
+app.use(session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session({
+  resave: false,
+  saveUninitialized: true
+}));
 var fitbitStrategy = new FitbitStrategy({
   clientID: "23RTQD",
   clientSecret: "fce8b10c985c39fac31229e8a5ae5973",
   scope: ['activity','heartrate','location','profile'],
-  callbackURL: "https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/auth/fitbit/callback "
+  code_challenge_method: "S256",
+  callbackURL: "https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/auth/fitbit/callback",
+  response_type: "code",
+  code_challenge: "mefRFf3vcN_EAxVhYgWNBS6LDFVAu6dlHh__IEd-6u8",
 }, function(accessToken, refreshToken, profile, done) {
   // TODO: save accessToken here for later use
 
@@ -25,12 +45,8 @@ var fitbitStrategy = new FitbitStrategy({
   });
 
 });
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.authenticate('session'));
+
+//app.use(passport.authenticate('session'));
 passport.use(fitbitStrategy);
 
 passport.serializeUser(function(user, done) {
@@ -53,20 +69,6 @@ app.get('/auth/fitbit/success', function(req, res, next) {
   res.send(req.user);
 });
 
-mongoose.connect(process.env.MONGODB_URL || uri).then(() => {
-  console.log("MongoDB is connected!");
-});
-
-
-app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'));
-app.set('views', './views');
-app.set("view engine", "ejs")
-app.use(passport.initialize());
-app.use(passport.session({
-  resave: false,
-  saveUninitialized: true
-}));
 
 
 //Shows newly created journal entry
