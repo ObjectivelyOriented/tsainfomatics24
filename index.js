@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const JournalModel = require("./models/journal")
 const app = express();
 const port = 3000;
-const uri = "mongodb+srv://HendricksonTSA:a4MzaUFZ67HcIFdh@tsa2324.nwxsyzn.mongodb.net/";
+//const uri = "mongodb+srv://HendricksonTSA:a4MzaUFZ67HcIFdh@tsa2324.nwxsyzn.mongodb.net/";
+const uri = "mongodb+srv://HendricksonTSA:a4MzaUFZ67HcIFdh@tsa2324.nwxsyzn.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose.connect(process.env.MONGODB_URL || uri).then(() => {
   console.log("MongoDB is connected!");
