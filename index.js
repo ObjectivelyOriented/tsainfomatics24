@@ -25,7 +25,26 @@ var authOptions = {
 var apiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
-  headers: {'content-type': 'application/json', authorization: 'Bearer '}
+  headers: {'content-type': 'application/json', authorization: ''}
+};
+
+var testAuthOptions = {
+  method: 'POST',
+  url: 'https://api.fitbit.com/oauth2/token',
+  headers: {'content-type': 'application/x-www-form-urlencoded'},
+  data: new URLSearchParams({
+    grant_type: 'authorization_code',
+    client_id: '23RVHM',
+    client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
+    code: '',
+    redirect_uri: ' https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
+  })
+};
+
+var testApiCallOptions = {
+  method: 'GET',
+  url: 'https://api.fitbit.com/1/user/-/profile.json',
+  headers: {'content-type': 'application/json', authorization: ''}
 };
 
 mongoose.connect(process.env.MONGODB_URL /*|| uri*/).then(() => {
@@ -75,14 +94,18 @@ app.get("/journals", async (req, res) => {
 app.get("/callback", function (req, res) {
   console.log(req.query.code);
   console.log(req.query.state);
-  authOptions.data.code = req.query.code;
+  //authOptions.data.code = req.query.code;
+  testAuthOptions.data.code = req.query.code;
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
-  axios.request(authOptions).then(function (response) {
+  //axios.request(authOptions).then(function (response) {
+    axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
-    apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    //apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    testApiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
     //API call
-    axios.request(apiCallOptions).then(function (response) {
+   // axios.request(apiCallOptions).then(function (response) {
+    axios.request(testApiCallOptions).then(function (response) {
       console.log(response.data);
       res.status(201).json(response.data);
     }).catch(function (error) {
