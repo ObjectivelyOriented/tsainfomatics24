@@ -2,9 +2,11 @@
     <body>
         <form method="POST" action="/api/journal">
             <label for="">Firstname</label>
+            <br>
             <input type="text" name="firstname" id=""><br>
             <label for="">Lastname</label>
-            <input type="text" name="lastname" id=""><br>
+            <br/>
+            <textarea type="text" name="lastname" id=""></textarea><br>
             <input type="checkbox" name="checkbox1" id="checkbox1" value="true">
             <label for="checkbox1">Checkbox 1</label><br>
             <input type="checkbox" name="checkbox2" id="checkbox2" value="true">
@@ -16,6 +18,9 @@
         <a href="/journals">Journals</a>
         <br/>
         <a href="/purge">PURGE</a>
+        <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=CtMJGyITB9-jb38HM1WVXSFEzAJ3gkJ3ogfvqv0OM8c&code_challenge_method=S256&state=496x18041i2b684c132f2d1m196f3z16">
+FitBit authorize 
+</a>
         <% if(journals == null){ %>
             <p>None Avaliable</p>
         <% }else { %>
