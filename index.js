@@ -12,11 +12,11 @@ const uri = "mongodb+srv://HendricksonTSA:a4MzaUFZ67HcIFdh@tsa2324.nwxsyzn.mongo
 var authOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
-  headers: {'content-type': 'application/x-www-form-urlencoded'},
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
   data: new URLSearchParams({
     grant_type: 'authorization_code',
-    client_id: '23RTQD',
-    client_secret: 'fce8b10c985c39fac31229e8a5ae5973',
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
     code: '',
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
   })
@@ -27,21 +27,6 @@ var apiCallOptions = {
   url: 'https://api.fitbit.com/1/user/-/profile.json',
   headers: {'content-type': 'application/json', authorization: ''}
 };
-/*
-var testAuthOptions = {
-  method: 'POST',
-  url: 'https://api.fitbit.com/oauth2/token',
-  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
-  data: new URLSearchParams({
-    grant_type: 'authorization_code',
-    client_id: '23RVHM',
-    client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
-    code: '',
-    redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/',
-    code_verifier: '2j5n55325z562z1b5f3q6z4e2t3w3q0f132u4r36404i5v2f6l5t3v3m3770622c665b6e1w1t143g5j2g4c23182h190l0n6k435l5p2z62570v542u2b0c0l471r15'
-  })
-};
-*/
 
 
 var testApiCallOptions = {
@@ -50,7 +35,7 @@ var testApiCallOptions = {
   headers: {'content-type': 'application/json', Authorization: ''}
 };
 
-mongoose.connect(process.env.MONGODB_URL /*|| uri*/).then(() => {
+mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("MongoDB is connected!");
 });
 
@@ -96,21 +81,17 @@ app.get("/journals", async (req, res) => {
 });
 app.get("/callback", function (req, res) {
   console.log(req.query);
-  console.log(req.query.state);
-  //authOptions.data.code = req.query.code;
-  //testAuthOptions.data.code = req.query.code;
-  console.log("Authorization header: " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   //axios.request(authOptions).then(function (response) {
     var testAuthOptions = {
       method: 'POST',
       url: 'https://api.fitbit.com/oauth2/token',
-      headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
+      headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
       data: new URLSearchParams({
         grant_type: 'authorization_code',
-        client_id: '23RVHM',
-        client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
+        client_id: process.env.TEST_CLIENT_ID,
+        client_secret: process.env.TEST_CLIENT_SECRET,
         code: req.query.code,
         redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
         code_verifier: '4w2y554p2d5f3u323b1k3m032w6v442g3610362j2o354l713y116d1k3q1n5f6i04004a3y2f2k4k2h4p5215434z3r361j0q4s474z1n5x1x716w4221631q2g6s5y'
