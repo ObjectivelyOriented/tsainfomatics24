@@ -42,6 +42,20 @@ var testAuthOptions = {
   })
 };
 */
+
+var testAuthOptions = {
+  method: 'POST',
+  url: 'https://api.fitbit.com/oauth2/token',
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
+  data: new URLSearchParams({
+    grant_type: 'authorization_code',
+    client_id: '23RVHM',
+    client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
+    code: '',
+    redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
+    code_verifier: '4w2y554p2d5f3u323b1k3m032w6v442g3610362j2o354l713y116d1k3q1n5f6i04004a3y2f2k4k2h4p5215434z3r361j0q4s474z1n5x1x716w4221631q2g6s5y'
+  })
+};
 var testApiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
@@ -93,28 +107,16 @@ app.get("/journals", async (req, res) => {
   }
 });
 app.get("/callback", function (req, res) {
-  console.log(req.query.code);
+  console.log(req.query);
   console.log(req.query.state);
   //authOptions.data.code = req.query.code;
-  //testAuthOptions.data.code = req.query.code;
-  //console.log("Authorizaiton code: " + testAuthOptions.data.code);
-  console.log(Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
+  testAuthOptions.data.code = req.query.code;
+  console.log("Authorizaiton code: " + testAuthOptions.data.code);
+  console.log("Autherization header:" + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   //axios.request(authOptions).then(function (response) {
-    var testAuthOptions = {
-      method: 'POST',
-      url: 'https://api.fitbit.com/oauth2/token',
-      headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
-      data: new URLSearchParams({
-        grant_type: 'authorization_code',
-        client_id: '23RVHM',
-        client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
-        code: req.query.code,
-        redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
-        code_verifier: '4w2y554p2d5f3u323b1k3m032w6v442g3610362j2o354l713y116d1k3q1n5f6i04004a3y2f2k4k2h4p5215434z3r361j0q4s474z1n5x1x716w4221631q2g6s5y'
-      })
-    };
+    
     console.log(testAuthOptions.data);
     
     axios.request(testAuthOptions).then(function (response) {
