@@ -31,7 +31,7 @@ var apiCallOptions = {
 var testAuthOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
-  headers: {'content-type': 'application/x-www-form-urlencoded'},
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
   data: new URLSearchParams({
     grant_type: 'authorization_code',
     client_id: '23RVHM',
@@ -45,7 +45,7 @@ var testAuthOptions = {
 var testApiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
-  headers: {'content-type': 'application/json', authorization: ''}
+  headers: {'content-type': 'application/json', Authorization: ''}
 };
 
 mongoose.connect(process.env.MONGODB_URL /*|| uri*/).then(() => {
