@@ -111,8 +111,8 @@ app.get("/callback", function (req, res) {
         client_id: '23RVHM',
         client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
         code: req.query.code,
-        redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com',
-        code_verifier: '2j5n55325z562z1b5f3q6z4e2t3w3q0f132u4r36404i5v2f6l5t3v3m3770622c665b6e1w1t143g5j2g4c23182h190l0n6k435l5p2z62570v542u2b0c0l471r15'
+        redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
+        code_verifier: '4w2y554p2d5f3u323b1k3m032w6v442g3610362j2o354l713y116d1k3q1n5f6i04004a3y2f2k4k2h4p5215434z3r361j0q4s474z1n5x1x716w4221631q2g6s5y'
       })
     };
     console.log(testAuthOptions.data);
