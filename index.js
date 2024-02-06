@@ -18,7 +18,7 @@ var authOptions = {
     client_id: '23RTQD',
     client_secret: 'fce8b10c985c39fac31229e8a5ae5973',
     code: '',
-    redirect_uri: ' https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
+    redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
   })
 };
 
@@ -37,7 +37,7 @@ var testAuthOptions = {
     client_id: '23RVHM',
     client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
     code: '',
-    redirect_uri: ' https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
+    redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback '
   })
 };
 
