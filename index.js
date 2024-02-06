@@ -128,7 +128,7 @@ app.get("/callback", function (req, res) {
       console.error("API call error" + error);
     });
   }).catch(function (error) {
-    console.error("Token request error" + error);
+    console.error("Token request error " + error.response);
   });
 
 });
