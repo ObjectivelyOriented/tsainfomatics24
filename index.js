@@ -37,7 +37,8 @@ var testAuthOptions = {
     client_id: '23RVHM',
     client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
     code: '',
-    redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback '
+    redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
+    code_verifier: '2j5n55325z562z1b5f3q6z4e2t3w3q0f132u4r36404i5v2f6l5t3v3m3770622c665b6e1w1t143g5j2g4c23182h190l0n6k435l5p2z62570v542u2b0c0l471r15'
   })
 };
 
