@@ -98,6 +98,7 @@ app.get("/callback", function (req, res) {
   //authOptions.data.code = req.query.code;
   testAuthOptions.data.code = req.query.code;
   console.log("Authorizaiton code: " + testAuthOptions.data.code);
+  console.log(Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   //axios.request(authOptions).then(function (response) {
