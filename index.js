@@ -101,7 +101,7 @@ var testAuthOptions = {
     testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
    // axios.request(apiCallOptions).then(function (response) {
-    
+    res.redirect('/')
   }).catch(function (error) {
     console.error("Token request error " + error);
   });
