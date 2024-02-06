@@ -27,7 +27,7 @@ var apiCallOptions = {
   url: 'https://api.fitbit.com/1/user/-/profile.json',
   headers: {'content-type': 'application/json', authorization: ''}
 };
-
+/*
 var testAuthOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
@@ -41,7 +41,7 @@ var testAuthOptions = {
     code_verifier: '2j5n55325z562z1b5f3q6z4e2t3w3q0f132u4r36404i5v2f6l5t3v3m3770622c665b6e1w1t143g5j2g4c23182h190l0n6k435l5p2z62570v542u2b0c0l471r15'
   })
 };
-
+*/
 var testApiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
@@ -96,12 +96,25 @@ app.get("/callback", function (req, res) {
   console.log(req.query.code);
   console.log(req.query.state);
   //authOptions.data.code = req.query.code;
-  testAuthOptions.data.code = req.query.code;
+  //testAuthOptions.data.code = req.query.code;
   console.log("Authorizaiton code: " + testAuthOptions.data.code);
   console.log(Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   //axios.request(authOptions).then(function (response) {
+    var testAuthOptions = {
+      method: 'POST',
+      url: 'https://api.fitbit.com/oauth2/token',
+      headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
+      data: new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: '23RVHM',
+        client_secret: 'db95c38a5330ceadb41e0e0e333630ff',
+        code: req.query.code,
+        redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com',
+        code_verifier: '2j5n55325z562z1b5f3q6z4e2t3w3q0f132u4r36404i5v2f6l5t3v3m3770622c665b6e1w1t143g5j2g4c23182h190l0n6k435l5p2z62570v542u2b0c0l471r15'
+      })
+    };
     axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
     //apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
