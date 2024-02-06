@@ -109,10 +109,10 @@ app.get("/callback", function (req, res) {
       console.log(response.data);
       res.status(201).json(response.data);
     }).catch(function (error) {
-      console.error(error);
+      console.error("API call error" + error);
     });
   }).catch(function (error) {
-    console.error(error);
+    console.error("Token request error" + error);
   });
 
 });
