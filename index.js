@@ -112,7 +112,7 @@ app.get("/callback", function (req, res) {
   //authOptions.data.code = req.query.code;
   testAuthOptions.data.code = req.query.code;
   console.log("Authorizaiton code: " + testAuthOptions.data.code);
-  console.log("Autherization header:" + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
+  console.log("Autherization header: " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64'));
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   //axios.request(authOptions).then(function (response) {
@@ -122,7 +122,7 @@ app.get("/callback", function (req, res) {
     axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
     //apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
-    testApiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
    // axios.request(apiCallOptions).then(function (response) {
     axios.request(testApiCallOptions).then(function (response) {
