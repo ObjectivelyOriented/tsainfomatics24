@@ -1,0 +1,21 @@
+<html>
+    <body>
+
+        <% if(journals == null){ %>
+            <p>None Avaliable</p>
+        <% }else { %>
+    
+            
+                <% for (journal of journals) { %>
+        
+                    <h3><%= journal.firstname %></h3>
+                    <p><%= journal.lastname %></p>
+
+        
+                <% } %>
+ 
+
+            <% } %>
+        
+    </body>
+</html>
