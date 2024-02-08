@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
