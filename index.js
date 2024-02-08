@@ -1,7 +1,8 @@
 require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
-const JournalModel = require("./models/journal")
+const JournalModel = require("./models/journal");
+const { encryptData, decryptData } = require('./encrypt/crypto');
 var axios = require("axios").default;
 const app = express();
 const port = 3000;
@@ -33,10 +34,14 @@ app.set("view engine", "ejs")
 //Shows newly created journal entry
 app.post("/api/journal", async (req, res)=>{
   try {
+    const { data } = req.body;
+    const encryptedData = encryptData(data);
     const journals = await JournalModel.find();
-    const newJournal = await JournalModel.create(req.body);
+    //const journalHash = encrypt(Buffer.from(req.body, 'utf8'));
+   const newJournal = await JournalModel.create(encryptedData);
+    ///const journalText = decrypt(journals);
     
-    res.render("index", {journals: journals, newJournal: newJournal});
+    res.render("index", {journals: decryptData(journals), newJournal: newJournal});
     /*let myData = newJournal.firstname;
     //res.status(201).json(newJournal);
     res.render("index", {
