@@ -93,14 +93,14 @@ var testAuthOptions = {
   console.log(req.query);
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
-  //axios.request(authOptions).then(function (response) {
+  axios.request(authOptions).then(function (response) {
     
-    axios.request(testAuthOptions).then(function (response) {
+    //axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
-    //apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
-    testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+    apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-   // axios.request(apiCallOptions).then(function (response) {
+  
     res.redirect('/')
   }).catch(function (error) {
     console.error("Token request error " + error);
@@ -108,13 +108,16 @@ var testAuthOptions = {
 
 });
 app.get("/request", function (req, res) {
-axios.request(testApiCallOptions).then(function (response) {
+   axios.request(apiCallOptions).then(function (response) {
+//axios.request(testApiCallOptions).then(function (response) {
   console.log(response.data);
   res.status(201).json(response.data);
 }).catch(function (error) {
   console.error("API call error" + error);
 });
 });
+
+//TODO: add fitbit refresh token route
 
 //Shows home page
 app.get("/", async (req, res) => {
