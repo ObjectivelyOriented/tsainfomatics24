@@ -73,7 +73,7 @@ var authOptions = {
     grant_type: 'authorization_code',
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
-    code: '',
+    code: req.query.code,
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
   })
 };
