@@ -9,7 +9,7 @@ const port = 3000;
 var apiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
-  headers: {'content-type': 'application/json', authorization: ''}
+  headers: {'content-type': 'application/json', Authorization: ''}
 };
 
 
@@ -74,7 +74,8 @@ var authOptions = {
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     code: req.query.code,
-    redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
+    redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
+    code_verifier: '663v1s4b38564i3u6e1f2j5q6o4p2x1i6a4q3n6h0v5f2z1f473h1y594o343z1v5k2c5v2j5a622m2o2e4g2m2v6b545w1v1d3k5l5o4l6o723a0z185n0a0h0r4n2z'
   })
 };
 var testAuthOptions = {
