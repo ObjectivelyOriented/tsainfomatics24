@@ -3,7 +3,7 @@
 h1 {
     background-image: linear-gradient(to right, rgba(145, 243, 192, 0.802), rgba(149, 192, 249, 0.789));
     text-align: center;
-    background-color: #BDE1CE;
+    background-color: #b7e5f977;
     color: black;
     padding: 1.5%;
     font-family: "Georgia", serif;
@@ -11,7 +11,7 @@ h1 {
 
 h2 {
     text-align: center;
-    background-color: #cae5d7;
+    background-color: #b7e5f977;
     padding: 1%;
     font-family: "Georgia", serif;
 }
@@ -22,21 +22,11 @@ text{
 
 body {
     font-family:'Times New Roman', Times, serif;
-    background-color: #EAEFF1;
+    /*background-image: url(/css/blue-bg.png);*/
+    background-image: url("https://bizlender.com/wp-content/uploads/2022/10/blue-abstract-moving-flowing-waves-on-white-background-blurred-smooth-design-video-animation-ultra-hd-4k-3840x2160_rffdhgnp_thumbnail-1080_01.png")
 }
 
 
 .checkboxes {
     padding: 0.5%;
-    font-size: 20px;
-}
-
-#checkText {
-    font-size: larger;
-    color: rgb(1, 29, 66);
-}
-
-#button {
-    background-color: white;
-    border: none;
 }
