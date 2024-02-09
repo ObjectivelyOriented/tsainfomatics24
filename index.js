@@ -9,7 +9,7 @@ const port = 3000;
 var apiCallOptions = {
   method: 'GET',
   url: 'https://api.fitbit.com/1/user/-/profile.json',
-  headers: {'content-type': 'application/json', authorization: ''}
+  headers: {'content-type': 'application/json', Authorization: ''}
 };
 
 
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
@@ -73,8 +73,9 @@ var authOptions = {
     grant_type: 'authorization_code',
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
-    code: '',
-    redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback'
+    code: req.query.code,
+    redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
+    code_verifier: '663v1s4b38564i3u6e1f2j5q6o4p2x1i6a4q3n6h0v5f2z1f473h1y594o343z1v5k2c5v2j5a622m2o2e4g2m2v6b545w1v1d3k5l5o4l6o723a0z185n0a0h0r4n2z'
   })
 };
 var testAuthOptions = {
@@ -93,14 +94,14 @@ var testAuthOptions = {
   console.log(req.query);
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
-  //axios.request(authOptions).then(function (response) {
+  axios.request(authOptions).then(function (response) {
     
-    axios.request(testAuthOptions).then(function (response) {
+    //axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
-    //apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
-    testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+    apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-   // axios.request(apiCallOptions).then(function (response) {
+  
     res.redirect('/')
   }).catch(function (error) {
     console.error("Token request error " + error);
@@ -108,13 +109,16 @@ var testAuthOptions = {
 
 });
 app.get("/request", function (req, res) {
-axios.request(testApiCallOptions).then(function (response) {
+   axios.request(apiCallOptions).then(function (response) {
+//axios.request(testApiCallOptions).then(function (response) {
   console.log(response.data);
   res.status(201).json(response.data);
 }).catch(function (error) {
   console.error("API call error" + error);
 });
 });
+
+//TODO: add fitbit refresh token route
 
 //Shows home page
 app.get("/", async (req, res) => {
