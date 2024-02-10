@@ -133,7 +133,7 @@ var testAuthOptions = {
     
     //axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
-    apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
+    apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
     axios.request(apiCallOptions).then(function (response) {
@@ -143,7 +143,6 @@ var testAuthOptions = {
       console.error("API call error" + error);
     });
    // res.redirect('/')
-    alert("Your fitbit has been authorized!");
   }).catch(function (error) {
     console.error("Token request error " + error);
   });
