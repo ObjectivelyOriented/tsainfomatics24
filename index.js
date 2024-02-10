@@ -26,8 +26,10 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 
 app.use(express.urlencoded({extended: true}))
+
 app.use(express.static('public'));
 app.use("/doctor", doctorroutes);
+app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
@@ -134,7 +136,7 @@ var testAuthOptions = {
     apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
     //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-   
+
     res.redirect('/')
     alert("Your fitbit has been authorized!");
   }).catch(function (error) {
@@ -152,6 +154,23 @@ app.get("/request", function (req, res) {
 }).catch(function (error) {
   console.error("API call error" + error);
 });
+});
+
+
+//TODO: add fitbit refresh token route
+
+//Shows home page
+app.get("/", async (req, res) => {
+  try {
+    const journals = await JournalModel.find();
+    res.render("index", {journals, newJournal: null});
+    //res.status(200).json(journals);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.render("error", {error});
+    //res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 
