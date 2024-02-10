@@ -103,14 +103,14 @@ app.get("/callback", function (req, res) {
 var authOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
-  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RTQD" + ":" + "fce8b10c985c39fac31229e8a5ae5973", 'utf-8').toString('base64')},
   data: new URLSearchParams({
     grant_type: 'authorization_code',
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
+    client_id: "23RTQD",
+    client_secret: "fce8b10c985c39fac31229e8a5ae5973",
     code: req.query.code,
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
-    code_verifier: "454z096b410b5s17555j3s0o423u164i3b1j5908533m270i5w2q61620i42106n086q4t2v3m674c0e1p1q3d5d011j5d4z61436n3a542i536j2h6i0q445g0o4z1n"
+    code_verifier: "204p224i500h154j03333h2p4b2b553k6r1o4r3633303g1j6c5j1q350c3f5x2i4t5b5d1l3s5k0p47062y4n43206b0o3n4l642h164c1e5f5l2w4i65181p43290h"
   })
 };
 var testAuthOptions = {
