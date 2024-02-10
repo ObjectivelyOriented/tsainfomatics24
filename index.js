@@ -1,8 +1,9 @@
 require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
-const JournalModel = require("./models/journal")
+const JournalModel = require("./models/journal");
 var axios = require("axios").default;
+const doctorroutes = require('./routes/doctorroutes')
 const app = express();
 const port = 3000;
 
@@ -25,18 +26,36 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 
 app.use(express.urlencoded({extended: true}))
+
+app.use(express.static('public'));
+app.use("/doctor", doctorroutes);
 app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
+//Shows home page
+app.get("/", async (req, res) => {
+  try {
+    const journals = await JournalModel.find();
+    res.render("index", {journals:null, newJournal: null, date: null});
+    //res.status(200).json(journals);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.render("error", {error});
+    //res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 //Shows newly created journal entry
 app.post("/api/journal", async (req, res)=>{
   try {
     const journals = await JournalModel.find();
-    const newJournal = await JournalModel.create(req.body);
-    
-    res.render("index", {journals: journals, newJournal: newJournal});
+    //const journalHash = encrypt(Buffer.from(req.body, 'utf8'));
+   const newJournal = await JournalModel.create(req.body);
+    ///const journalText = decrypt(journals);
+    res.redirect("/");
+   // res.render("index", {journals: journals, newJournal: newJournal});
     /*let myData = newJournal.firstname;
     //res.status(201).json(newJournal);
     res.render("index", {
@@ -53,7 +72,7 @@ app.post("/api/journal", async (req, res)=>{
 //Shows all journals
 app.get("/journals", async (req, res) => {
   try {
-    const journals = await JournalModel.find();
+   const journals = await JournalModel.find();
     res.render("journals", {journals});
     //res.status(200).json(journals);
   } catch (error) {
@@ -63,6 +82,22 @@ app.get("/journals", async (req, res) => {
     res.render("error", {error});
   }
 });
+
+//deletes all journals
+app.get("/purge", async (req, res) => {
+  try {
+    await JournalModel.deleteMany();
+    res.render("index", {journals: null, newJournal: null});
+    //res.status(200).json(journals);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.render("error", {error});
+    //res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//FITBIT
 app.get("/callback", function (req, res) {
   
 var authOptions = {
@@ -75,7 +110,7 @@ var authOptions = {
     client_secret: process.env.CLIENT_SECRET,
     code: req.query.code,
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
-    code_verifier: '663v1s4b38564i3u6e1f2j5q6o4p2x1i6a4q3n6h0v5f2z1f473h1y594o343z1v5k2c5v2j5a622m2o2e4g2m2v6b545w1v1d3k5l5o4l6o723a0z185n0a0h0r4n2z'
+    code_verifier: "1s4n323n5m2r4e2h5p0u1e353v62622m0y090e2y3m5u2z43605g3i5v2y0w5a691g6v3a66572s3m2l1z3p0z6c473w4y3q144s3c176a6d27004r0n1n5a1u05681p"
   })
 };
 var testAuthOptions = {
@@ -101,22 +136,26 @@ var testAuthOptions = {
     apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
     //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-  
+
     res.redirect('/')
+    alert("Your fitbit has been authorized!");
   }).catch(function (error) {
     console.error("Token request error " + error);
   });
 
 });
+
+//test request after fitbit auth
 app.get("/request", function (req, res) {
-   axios.request(apiCallOptions).then(function (response) {
 //axios.request(testApiCallOptions).then(function (response) {
+   axios.request(apiCallOptions).then(function (response) {
   console.log(response.data);
   res.status(201).json(response.data);
 }).catch(function (error) {
   console.error("API call error" + error);
 });
 });
+
 
 //TODO: add fitbit refresh token route
 
@@ -134,18 +173,25 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/purge", async (req, res) => {
-  try {
-    await JournalModel.deleteMany();
-    res.render("index", {journals: null, newJournal: null});
-    //res.status(200).json(journals);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-    res.render("error", {error});
-    //res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+
+
+
+
+
+//TODO: Doctor routing
+app.get("/doctor", async (req, res) => {
+  //axios.request(testApiCallOptions).then(function (response) {
+    try {
+      const journals = await JournalModel.find();
+      res.render("index", {journals, newJournal: null});
+      //res.status(200).json(journals);
+    } catch (error) {
+      console.log(error);
+      res.status(500);
+      res.render("error", {error});
+      //res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 app.listen(process.env.PORT || port, () => {
   console.log(`Server is listening on port ${port}`);
 });

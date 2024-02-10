@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/journals.css" />
+    </head>
     <body>
 
         <% if(journals == null){ %>
@@ -7,9 +10,20 @@
     
             
                 <% for (journal of journals) { %>
-        
-                    <h3><%= journal.firstname %></h3>
-                    <p><%= journal.lastname %></p>
+        <div id="journals">
+            
+            <h3>Title: <%= journal.firstname %></h3>
+            <h4>Date: <%= journal.time.getFullYear() %>-<%= (journal.time.getMonth()) + 1 %>-<%= journal.time.getDate() %></h4>
+            <P>Recorded Moods: </P>
+            <ul>
+                <% for (mood of journal.checkbox) { %>
+<li><%= mood %></li>
+                    <% } %> 
+            </ul>
+          
+            <p><%= journal.lastname %></p>
+        </div>
+                    
 
         
                 <% } %>

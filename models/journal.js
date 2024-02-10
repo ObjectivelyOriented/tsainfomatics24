@@ -10,9 +10,10 @@ const JournalSchema = new Schema({
         type: String,
         required: [true, "Lastname is required"]
     },
-    checkbox1: Boolean,
-    checkbox2: Boolean,
-    checkbox3: Boolean,
+    checkbox: {
+        type: Array
+    },
+    time : { type : Date, default: Date.now }
 })
 
 const JournalModel = mongoose.model("journal", JournalSchema)
