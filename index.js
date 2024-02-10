@@ -110,7 +110,7 @@ var authOptions = {
     client_secret: process.env.CLIENT_SECRET,
     code: req.query.code,
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
-    code_verifier: "1s4n323n5m2r4e2h5p0u1e353v62622m0y090e2y3m5u2z43605g3i5v2y0w5a691g6v3a66572s3m2l1z3p0z6c473w4y3q144s3c176a6d27004r0n1n5a1u05681p"
+    code_verifier: "454z096b410b5s17555j3s0o423u164i3b1j5908533m270i5w2q61620i42106n086q4t2v3m674c0e1p1q3d5d011j5d4z61436n3a542i536j2h6i0q445g0o4z1n"
   })
 };
 var testAuthOptions = {
