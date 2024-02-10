@@ -1,21 +1,77 @@
 <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/homepage.css" />
+        
+<meta charset="UTF-8">
+
+        <script type = "text/javascript" src="/js/homepage.js" > </script>
+    </head>
     <body>
-        <form method="POST" action="/api/journal">
-            <label for="">Firstname</label>
-            <br>
-            <input type="text" name="firstname" id=""><br>
-            <label for="">Lastname</label>
-            <br/>
-            <textarea type="text" name="lastname" id=""></textarea><br>
-            <input type="checkbox" name="checkbox1" id="checkbox1" value="true">
-            <label for="checkbox1">Checkbox 1</label><br>
-            <input type="checkbox" name="checkbox2" id="checkbox2" value="true">
-            <label for="checkbox2">Checkbox 2</label><br>
-            <input type="checkbox" name="checkbox3" id="checkbox3" value="true">
-            <label for="checkbox3">Checkbox 3</label><br>
-            <input type="submit">
-        </form>
-        <a href="/journals">Journals</a>
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/journals">Journals</a>
+            <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+respiratory_rate+sleep+temperature+weight&code_challenge=qgYlPf8rYzwuHXsv3bgHJljg-pjcgQvsAt82sKU-k_w&code_challenge_method=S256&state=465l2968074l071m4n2u6i1k3m2i5g5r&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback">
+                Fitbit</a>
+        </nav>
+        <div id="container">
+            <form method="POST" action="/api/journal">
+                <!--
+<div class = "flex-container">
+                    <img id="logoimg" src ="/img/logo.png" />
+                
+            </div>
+                <img id="bannerimg" src ="/img/facesgallery.png" />
+
+                -->
+                
+                <div class="header">
+                    <h1>What was your mood today?</h1>
+                </div>
+            <div class = "flex-container">
+                <div class = "block" id="blockthree">
+                    <h3>Click the emoji(s) that best represent your mood today.</h3>
+                    <input type="checkbox" name="checkbox" id="checkbox1" class="checkbox"  value="Estatic">
+                    <label for="checkbox1">😀</label><br>
+                    <input type="checkbox" name="checkbox" id="checkbox2" class="checkbox" value="Pleased">
+                    <label for="checkbox2">😊</label><br>
+                    <input type="checkbox" name="checkbox" id="checkbox3" class="checkbox" value="Neutral">
+                    <label for="checkbox3">😐</label><br>
+                    <input type="checkbox" name="checkbox" id="checkbox4" class="checkbox" value="Sad">
+                    <label for="checkbox4">😔</label><br>
+                    <input type="checkbox" name="checkbox" id="checkbox5" class="checkbox" value="Anxious">
+                    <label for="checkbox5">😨</label><br>
+                    <input type="checkbox" name="checkbox" id="checkbox6" class="checkbox" value="Angry">
+                    <label for="checkbox6">😡</label><br>
+                </div>
+<br/>
+<br/>
+<br/>
+                <div class="block" id="blockone">
+                <h2>How are you today?</h2>
+                <textarea type="text" name="firstname" id="" rows="33" cols="100"></textarea>
+                <br/>
+                <label for="">Tell me any feelings, concerns, wants, needs or just anything you want to spill out to me. Remember, the only person who sees this is you and me!</label><br>
+             
+                </div>
+            </div>
+     
+                <div class = "block" id="blocktwo">
+                    <label for="">Any extra information to add?</label>
+                    <br/>
+                    <textarea type="text" name="lastname" id="" rows="33" cols="100"></textarea><br>
+                    <input type="submit" onclick="formSubmit()">
+                </div>
+              
+               
+                
+
+               
+            </form>
+        </div>
+        
+        
+        <!--
+      <a href="/journals">Journals</a>
         <br/>
         <a href="/purge">PURGE</a>
         <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=CtMJGyITB9-jb38HM1WVXSFEzAJ3gkJ3ogfvqv0OM8c&code_challenge_method=S256&state=496x18041i2b684c132f2d1m196f3z16">
@@ -25,25 +81,18 @@ FitBit authorize
 <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RVHM&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=N7t98bD4ZkJMDOMzJ7tLo1eccriHt8Z1Vch4ats_rvQ&code_challenge_method=S256&state=231x66622d3j5f5v4r4u3i481q1d4r68&redirect_uri=https%3A%2F%2Farcane-castle-84229-a0015ab2dc2b.herokuapp.com%2Fcallback">
     Test link FitBit authorize 
     </a>
-        <% if(journals == null){ %>
-            <p>None Avaliable</p>
-        <% }else { %>
-            <ul>
-            
-                <% for (todo of journals) { %>
-        
-                    <li><%= todo.firstname %></li>
-        
-                <% } %>
-            </ul>
 
-            <% } %>
-        <h3>Recent Journals</h3>
-        <% if(newJournal == null){ %>
-        <p>None avaliable</p>
-        <% }else { %>
-            <p><%= newJournal %></p>
-            <% } %>
-    </body>
+        -->
+       
+  <!--
+ <a href="/purge">PURGE</a>
+  -->
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/journals">Journals</a>
+    <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+respiratory_rate+sleep+temperature+weight&code_challenge=qgYlPf8rYzwuHXsv3bgHJljg-pjcgQvsAt82sKU-k_w&code_challenge_method=S256&state=465l2968074l071m4n2u6i1k3m2i5g5r&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback">
+        Fitbit</a>
+</nav>
+</body>
     
 </html>
