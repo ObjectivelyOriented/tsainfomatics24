@@ -26,7 +26,10 @@ body {
     background-image: url("https://bizlender.com/wp-content/uploads/2022/10/blue-abstract-moving-flowing-waves-on-white-background-blurred-smooth-design-video-animation-ultra-hd-4k-3840x2160_rffdhgnp_thumbnail-1080_01.png")
 }
 
-
+#checkText {
+    font-size: larger;
+}
 .checkboxes {
     padding: 0.5%;
+    font-size: larger;
 }
