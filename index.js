@@ -129,14 +129,14 @@ var testAuthOptions = {
   console.log(req.query);
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
-  axios.request(authOptions).then(function (response) {
+  axios.request(testAuthOptions).then(function (response) {
     
     //axios.request(testAuthOptions).then(function (response) {
     console.log(response.data);
-    apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+    testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-    axios.request(apiCallOptions).then(function (response) {
+    axios.request(testAuthOptions).then(function (response) {
       console.log(response.data);
       res.status(201).json(response.data);
     }).catch(function (error) {
