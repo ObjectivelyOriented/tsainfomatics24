@@ -3,12 +3,23 @@ const express = require("express");
 const mongoose = require("mongoose");
 const JournalModel = require("./models/journal");
 var axios = require("axios").default;
+const randomstring = require("randomstring");
 const crypto = require("crypto");
+const base64url = require("base64url");
 const doctorroutes = require('./routes/doctorroutes')
 const app = express();
 const port = 3000;
-const hash = crypto.createHash("sha256").update(process.env.CODE_VERIFIER).digest("hex");
-const code_challenge = Buffer.from(hash, 'utf-8').toString('base64');
+
+
+const code_verifier = randomstring.generate(128);
+
+const base64Digest = crypto
+  .createHash("sha256")
+  .update(code_verifier)
+  .digest("base64");
+
+const code_challenge = base64url.fromBase64(base64Digest);
+
 
 var apiCallOptions = {
   method: 'GET',
