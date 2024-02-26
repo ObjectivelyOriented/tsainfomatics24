@@ -3,9 +3,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const JournalModel = require("./models/journal");
 var axios = require("axios").default;
+const crypto = require("crypto");
 const doctorroutes = require('./routes/doctorroutes')
 const app = express();
 const port = 3000;
+const hash = crypto.createHash("sha256").update(process.env.CODE_VERIFIER).digest("hex");
+const code_challenge = Buffer.from(hash, 'utf-8').toString('base64');
 
 var apiCallOptions = {
   method: 'GET',
@@ -38,7 +41,7 @@ app.set("view engine", "ejs")
 app.get("/", async (req, res) => {
   try {
     const journals = await JournalModel.find();
-    res.render("index", {journals:null, newJournal: null, date: null});
+    res.render("index", { journals:null, newJournal: null, date: null});
     //res.status(200).json(journals);
   } catch (error) {
     console.log(error);
@@ -69,6 +72,10 @@ app.post("/api/journal", async (req, res)=>{
     //res.status(500).json({ error: "Internal Server Error" });
   }
 })
+app.get("/fitbit", async (req, res) => {
+
+  res.redirect("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge="+ code_challenge +"&code_challenge_method=S256&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback");
+});
 
 //Shows all journals
 app.get("/journals", async (req, res) => {
