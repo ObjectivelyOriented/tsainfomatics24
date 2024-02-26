@@ -145,7 +145,7 @@ var testAuthOptions = {
    
     code: req.query.code,
     redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
-    code_verifier: code_verifier
+    code_verifier: "01234567890123456789012345678901234567890123456789"
   })
 };
   console.log(req.query);
