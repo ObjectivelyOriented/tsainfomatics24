@@ -23,15 +23,9 @@ console.log(code_verifier);
 console.log(code_challenge);
 
 
+
+
 var apiCallOptions = {
-  method: 'GET',
-  url: 'https://api.fitbit.com/1/user/-/profile.json',
-  //url: 'https://api.fitbit.com/1.2/user/-/sleep/list.json?afterDate=2010-05-01&sort=asc&offset=0&limit=1n',
-  headers: {'content-type': 'application/json', Authorization: ''}
-};
-
-
-var testApiCallOptions = {
   method: 'GET',
   url: '',
   headers: {'content-type': 'application/json', Authorization: ''}
@@ -150,14 +144,7 @@ var authOptions = {
     console.log(response.data);
     apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     
-    //API call
-    axios.request(apiCallOptions).then(function (response) {
-      console.log(response.data);
-      res.status(201).json(response.data);
-    }).catch(function (error) {
-      console.error("API call error" + error);
-    });
-   // res.redirect('/')
+    res.redirect("/");
   }).catch(function (error) {
     console.error("Token request error " + error);
   });
@@ -190,7 +177,7 @@ app.get("/testcallback", function (req, res) {
       //axios.request(testAuthOptions).then(function (response) {
       console.log(response.data);
       //apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
-      testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+      apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
       res.redirect("/");
      // res.redirect('/')
     }).catch(function (error) {
@@ -202,7 +189,7 @@ app.get("/testcallback", function (req, res) {
     testApiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
     
       //API call
-      axios.request(testApiCallOptions).then(function (response) {
+      axios.request(apiCallOptions).then(function (response) {
         console.log(response.data);
         res.status(201).json(response.data);
       }).catch(function (error) {
