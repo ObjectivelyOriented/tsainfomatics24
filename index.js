@@ -19,6 +19,7 @@ const base64Digest = crypto
   .digest("base64");
 
 const code_challenge = base64url.fromBase64(base64Digest);
+console.log(code_challenge);
 
 
 var apiCallOptions = {
