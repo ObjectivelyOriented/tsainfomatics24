@@ -190,6 +190,7 @@ app.get("/testcallback", function (req, res) {
       //axios.request(testAuthOptions).then(function (response) {
       console.log(response.data);
       //apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+      testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
       res.redirect("/");
      // res.redirect('/')
     }).catch(function (error) {
@@ -199,7 +200,7 @@ app.get("/testcallback", function (req, res) {
   });
   app.get("/fitbit/profile", function(req,res){
     testApiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
-    testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+    
       //API call
       axios.request(testApiCallOptions).then(function (response) {
         console.log(response.data);
@@ -225,19 +226,7 @@ app.get("/request", function (req, res) {
 
 //TODO: add fitbit refresh token route
 
-//Shows home page
-app.get("/", async (req, res) => {
-  try {
-    const journals = await JournalModel.find();
-    res.render("index", {journals, newJournal: null});
-    //res.status(200).json(journals);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-    res.render("error", {error});
-    //res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+
 
 
 
