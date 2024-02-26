@@ -161,7 +161,7 @@ var testAuthOptions = {
     //apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
     //API call
-    axios.request(testAuthOptions).then(function (response) {
+    axios.request(testApiCallOptions).then(function (response) {
       console.log(response.data);
       res.status(201).json(response.data);
     }).catch(function (error) {
