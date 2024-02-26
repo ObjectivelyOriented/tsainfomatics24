@@ -173,6 +173,7 @@ var testAuthOptions = {
 });
 
 //test request after fitbit auth
+/*
 app.get("/request", function (req, res) {
 //axios.request(testApiCallOptions).then(function (response) {
    //axios.request(apiCallOptions).then(function (response) {
@@ -182,7 +183,7 @@ app.get("/request", function (req, res) {
   console.error("API call error" + error);
 });
 //});
-
+*/
 
 //TODO: add fitbit refresh token route
 
