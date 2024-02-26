@@ -186,7 +186,7 @@ app.get("/testcallback", function (req, res) {
   
   });
   app.get("/fitbit/profile", function(req,res){
-    testApiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
+    apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
     
       //API call
       axios.request(apiCallOptions).then(function (response) {
