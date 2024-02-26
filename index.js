@@ -86,7 +86,7 @@ app.post("/api/journal", async (req, res)=>{
 })
 app.get("/fitbit", async (req, res) => {
 
-  res.redirect("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RVHM&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=dD4HXXeAnY2IlmYk4ErJwF2oh-Z3ei7Gf8Kqid5ftIw&code_challenge_method=S256&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback");
+  res.redirect("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge="+ code_challenge +"&code_challenge_method=S256&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback");
 });
 
 //Shows all journals
@@ -145,7 +145,7 @@ var testAuthOptions = {
    
     code: req.query.code,
     redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
-    code_verifier: "725w5p2z4n2o1p4n1e041l4n1v0q171w3n6u4x051g4l6h2j1g6p105i3g0s2y110w5o6g2y3a4k586e170r0y52443n4x733a6i6g0m5k2l3k37714n2k673q565g4r"
+    code_verifier: code_verifier
   })
 };
   console.log(req.query);
