@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 
 
-const code_verifier = randomstring.generate(128);
+const code_verifier = "01234567890123456789012345678901234567890123456789";
 
 const base64Digest = crypto
   .createHash("sha256")
