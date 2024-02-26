@@ -149,7 +149,8 @@ var testAuthOptions = {
     code_verifier: code_verifier
   })
 };
-  console.log(req.query);
+  console.log(req.params);
+  console.log(req.query.code);
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   axios.request(testAuthOptions).then(function (response) {
