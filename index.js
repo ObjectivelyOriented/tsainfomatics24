@@ -136,18 +136,13 @@ var authOptions = {
 var testAuthOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
-  /*
-  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
+
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
   data: new URLSearchParams({
     grant_type: 'authorization_code',
-    client_id: process.env.TEST_CLIENT_ID,
-    client_secret: process.env.TEST_CLIENT_SECRET,
-    */
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RTQD" + ":" + "fce8b10c985c39fac31229e8a5ae5973", 'utf-8').toString('base64')},
-  data: new URLSearchParams({
-    grant_type: 'authorization_code',
-    client_id: "23RTQD",
-    client_secret: "fce8b10c985c39fac31229e8a5ae5973",
+    client_id: "23RVHM",
+    client_secret: "db95c38a5330ceadb41e0e0e333630ff",
+   
     code: req.query.code,
     redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
     code_verifier: code_verifier
