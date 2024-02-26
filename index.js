@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 
 
-const code_verifier = "01234567890123456789012345678901234567890123456789";
+const code_verifier = randomstring.generate(128);
 
 const base64Digest = crypto
   .createHash("sha256")
@@ -19,6 +19,7 @@ const base64Digest = crypto
   .digest("base64");
 
 const code_challenge = base64url.fromBase64(base64Digest);
+console.log(code_verifier);
 console.log(code_challenge);
 
 
@@ -145,7 +146,7 @@ var testAuthOptions = {
    
     code: req.query.code,
     redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
-    code_verifier: "01234567890123456789012345678901234567890123456789"
+    code_verifier: code_verifier
   })
 };
   console.log(req.query);
