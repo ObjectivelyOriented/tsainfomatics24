@@ -197,6 +197,18 @@ app.get("/testcallback", function (req, res) {
       });
 
   });
+  app.get("/fitbit/heart", function(req,res){
+    apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
+    
+      //API call
+      axios.request(apiCallOptions).then(function (response) {
+        console.log(response.data);
+        res.status(201).json(response.data);
+      }).catch(function (error) {
+        console.error("API call error" + error);
+      });
+
+  });
 
 //test request after fitbit auth
 /*
