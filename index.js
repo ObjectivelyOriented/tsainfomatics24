@@ -203,7 +203,7 @@ app.get("/testcallback", function (req, res) {
       //API call
       axios.request(apiCallOptions).then(function (response) {
         console.log(response.data);
-        res.render("heart", {heartData: response.data.activities-heart});
+        res.render("heart", {heartData: response.data});
       }).catch(function (error) {
         console.error("API call error" + error);
       });
