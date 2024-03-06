@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require('express');
 const router = express.Router();
-const JournalModel = require("../models/journal");
-const mongoose = require("mongoose");
+const randomstring = require("randomstring");
+const crypto = require("crypto");
+const base64url = require("base64url");
 var axios = require("axios").default;
 const configvars = require('../config/configvars');
 

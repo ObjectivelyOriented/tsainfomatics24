@@ -2,10 +2,6 @@ require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
 const JournalModel = require("./models/journal");
-var axios = require("axios").default;
-const randomstring = require("randomstring");
-const crypto = require("crypto");
-const base64url = require("base64url");
 const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
 const app = express();
