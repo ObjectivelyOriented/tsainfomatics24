@@ -4,7 +4,7 @@ const router = express.Router();
 const JournalModel = require("../models/journal");
 const mongoose = require("mongoose");
 var axios = require("axios").default;
-const configvars = require('./config/configvars');
+const configvars = require('../config/configvars');
 
 var apiCallOptions = {
     method: 'GET',
