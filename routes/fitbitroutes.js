@@ -28,6 +28,7 @@ var apiCallOptions = {
   
     console.log(req.params);
     console.log(req.query.code);
+    configvars.authCode = req.query.code;
     //TODO: Add if statement to check if state in url is equal to generated state
     //Access token request
     axios.request(configvars.authOptions).then(function (response) {
@@ -43,11 +44,9 @@ var apiCallOptions = {
   });
   
   router.get("/testcallback", function (req, res) {
-    
-  
-  
       console.log(req.params);
       console.log(req.query.code);
+      configvars.authCode = req.query.code;
       //TODO: Add if statement to check if state in url is equal to generated state
       //Access token request
       axios.request(configvars.testAuthOptions).then(function (response) {
