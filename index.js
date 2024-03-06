@@ -124,11 +124,11 @@ app.get("/callback", function (req, res) {
 var authOptions = {
   method: 'POST',
   url: 'https://api.fitbit.com/oauth2/token',
-  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RTQD" + ":" + "fce8b10c985c39fac31229e8a5ae5973", 'utf-8').toString('base64')},
+  headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
   data: new URLSearchParams({
     grant_type: 'authorization_code',
-    client_id: "23RTQD",
-    client_secret: "fce8b10c985c39fac31229e8a5ae5973",
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
     code: req.query.code,
     redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
     code_verifier: code_verifier
@@ -158,11 +158,11 @@ app.get("/testcallback", function (req, res) {
     method: 'POST',
     url: 'https://api.fitbit.com/oauth2/token',
   
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from("23RVHM" + ":" + "db95c38a5330ceadb41e0e0e333630ff", 'utf-8').toString('base64')},
+    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
     data: new URLSearchParams({
       grant_type: 'authorization_code',
-      client_id: "23RVHM",
-      client_secret: "db95c38a5330ceadb41e0e0e333630ff",
+      client_id: process.env.TEST_CLIENT_ID,
+      client_secret: process.env.TEST_CLIENT_SECRET,
       code: req.query.code,
       redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/testcallback',
       code_verifier: code_verifier
@@ -209,27 +209,6 @@ app.get("/testcallback", function (req, res) {
       });
 
   });
-
-//test request after fitbit auth
-/*
-app.get("/request", function (req, res) {
-//axios.request(testApiCallOptions).then(function (response) {
-   //axios.request(apiCallOptions).then(function (response) {
-  console.log(response.data);
-  res.status(201).json(response.data);
-}).catch(function (error) {
-  console.error("API call error" + error);
-});
-//});
-*/
-
-//TODO: add fitbit refresh token route
-
-
-
-
-
-
 
 
 //TODO: Doctor routing
