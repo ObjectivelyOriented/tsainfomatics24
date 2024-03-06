@@ -7,11 +7,6 @@ const fitbitroutes = require('./routes/fitbitroutes')
 const app = express();
 const port = 3000;
 
-
-
-
-
-
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("MongoDB is connected!");
 });
