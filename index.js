@@ -8,18 +8,8 @@ const crypto = require("crypto");
 const base64url = require("base64url");
 const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
-const configvars = require('./config/configvars');
 const app = express();
 const port = 3000;
-
-
-const base64Digest = crypto
-  .createHash("sha256")
-  .update(configvars.code_verifier)
-  .digest("base64");
-
-const code_challenge = base64url.fromBase64(base64Digest);
-
 
 
 
