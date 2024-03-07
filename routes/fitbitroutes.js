@@ -20,21 +20,6 @@ var apiCallOptions = {
     headers: {'content-type': 'application/json', Authorization: ''}
   };
 
-  
-var testAuthOptions = {
-    method: 'POST',
-    url: 'https://api.fitbit.com/oauth2/token',
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.TEST_CLIENT_ID,
-      client_secret: process.env.TEST_CLIENT_SECRET,
-      code: authCode,
-      redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/fitbit/testcallback',
-      code_verifier: code_verifier
-    })
-};
-
   router.get("/", async (req, res) => {
 
     res.redirect("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+sleep+social+temperature+weight&code_challenge="+ code_challenge +"&code_challenge_method=S256&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Ffitbit%2Fcallback");
