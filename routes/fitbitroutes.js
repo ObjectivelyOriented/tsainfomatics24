@@ -20,19 +20,7 @@ var apiCallOptions = {
     url: '',
     headers: {'content-type': 'application/json', Authorization: ''}
   };
-  var authOptions = {
-    method: 'POST',
-    url: 'https://api.fitbit.com/oauth2/token',
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
-      code: authCode,
-      redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/fitbit/callback',
-      code_verifier: code_verifier
-    })
-  };
+
   
 var testAuthOptions = {
     method: 'POST',
@@ -60,7 +48,19 @@ var testAuthOptions = {
   });
   
   router.get("/callback", function (req, res) {
-    
+    var authOptions = {
+        method: 'POST',
+        url: 'https://api.fitbit.com/oauth2/token',
+        headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+        data: new URLSearchParams({
+          grant_type: 'authorization_code',
+          client_id: process.env.CLIENT_ID,
+          client_secret: process.env.CLIENT_SECRET,
+          code: req.query.code,
+          redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/fitbit/callback',
+          code_verifier: code_verifier
+        })
+      };
   
     console.log(req.params);
     console.log(req.query.code);
