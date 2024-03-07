@@ -2,6 +2,7 @@ require("dotenv").config(); //for using variables from .env file.
 const randomstring = require("randomstring");
 const code_verifier = randomstring.generate(128);
 const authCode = '';
+
 var authOptions = {
     method: 'POST',
     url: 'https://api.fitbit.com/oauth2/token',
