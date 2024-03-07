@@ -7,7 +7,7 @@ const base64url = require("base64url");
 var axios = require("axios").default;
 const configvars = require('../config/configvars');
 const code_verifier = randomstring.generate(128);
-
+const authCode = "";
 const base64Digest = crypto
   .createHash("sha256")
   .update(code_verifier)
@@ -64,7 +64,7 @@ var testAuthOptions = {
   
     console.log(req.params);
     console.log(req.query.code);
-    configvars.authCode = req.query.code;
+    authCode = req.query.code;
     //TODO: Add if statement to check if state in url is equal to generated state
     //Access token request
     axios.request(authOptions).then(function (response) {
@@ -84,6 +84,7 @@ var testAuthOptions = {
       console.log(req.query.code);
       //TODO: Add if statement to check if state in url is equal to generated state
       //Access token request
+      authCode = req.query.code;
       axios.request(testAuthOptions).then(function (response) {
         
         //axios.request(testAuthOptions).then(function (response) {
