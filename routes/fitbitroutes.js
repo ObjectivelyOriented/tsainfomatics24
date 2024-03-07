@@ -6,11 +6,10 @@ const crypto = require("crypto");
 const base64url = require("base64url");
 var axios = require("axios").default;
 const configvars = require('../config/configvars');
-const code_verifier = randomstring.generate(128);
-const authCode = "";
+
 const base64Digest = crypto
   .createHash("sha256")
-  .update(code_verifier)
+  .update(configvars.code_verifier)
   .digest("base64");
 
 const code_challenge = base64url.fromBase64(base64Digest);
@@ -20,33 +19,6 @@ var apiCallOptions = {
     url: '',
     headers: {'content-type': 'application/json', Authorization: ''}
   };
-  var authOptions = {
-    method: 'POST',
-    url: 'https://api.fitbit.com/oauth2/token',
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
-      code: authCode,
-      redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/fitbit/callback',
-      code_verifier: code_verifier
-    })
-  };
-  
-var testAuthOptions = {
-    method: 'POST',
-    url: 'https://api.fitbit.com/oauth2/token',
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.TEST_CLIENT_ID,
-      client_secret: process.env.TEST_CLIENT_SECRET,
-      code: authCode,
-      redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/fitbit/testcallback',
-      code_verifier: code_verifier
-    })
-};
 
   router.get("/", async (req, res) => {
 
@@ -64,10 +36,10 @@ var testAuthOptions = {
   
     console.log(req.params);
     console.log(req.query.code);
-    authCode = req.query.code;
+    configvars.authCode = req.query.code;
     //TODO: Add if statement to check if state in url is equal to generated state
     //Access token request
-    axios.request(authOptions).then(function (response) {
+    axios.request(configvars.authOptions).then(function (response) {
       
       console.log(response.data);
       apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
@@ -82,10 +54,10 @@ var testAuthOptions = {
   router.get("/testcallback", function (req, res) {
       console.log(req.params);
       console.log(req.query.code);
+      configvars.authCode = req.query.code;
       //TODO: Add if statement to check if state in url is equal to generated state
       //Access token request
-      authCode = req.query.code;
-      axios.request(testAuthOptions).then(function (response) {
+      axios.request(configvars.testAuthOptions).then(function (response) {
         
         //axios.request(testAuthOptions).then(function (response) {
         console.log(response.data);
