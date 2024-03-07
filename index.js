@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 const config = {
   authRequired: false,
   auth0Logout: true,
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com',
   clientID: 'gmZvUkTxUt9c7PTzn2gb1Z6pNHxYZIZ3',
   issuerBaseURL: 'https://dev-v-xmfn6j.us.auth0.com',
   secret: randomstring.generate(64)
