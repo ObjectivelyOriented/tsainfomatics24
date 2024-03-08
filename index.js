@@ -35,14 +35,6 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-
-}));
-
-app.use(passport.session());
 
 //Shows home page
 app.get("/", async (req, res) => {
