@@ -4,6 +4,7 @@ const router = express.Router();
 var passport = require('passport');
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const jwt = require('jsonwebtoken');
 require("dotenv").config(); //for using variables from .env file.
 const LocalStrategy = require("passport-local");
 const User = require("../models/userModel");
