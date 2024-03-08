@@ -34,7 +34,8 @@ app.set("view engine", "ejs")
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true,
+  
 }));
 
 app.use(passport.session());
