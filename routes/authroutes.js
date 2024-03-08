@@ -2,29 +2,15 @@ require("dotenv").config(); //for using variables from .env file.
 const express = require('express');
 const router = express.Router();
 var passport = require('passport');
-var session = require('express-session');
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 require("dotenv").config(); //for using variables from .env file.
 const LocalStrategy = require("passport-local");
 const User = require("../models/userModel");
 
-passport.serializeUser((user, done) => { 
-    done(null, user.id);
-  });
-  router.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-  }));
-  router.use(passport.initialize());
-  router.use(passport.session());
-  
-  passport.use(User.createStrategy());
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
-  
-    //signup 
+ //signup 
  passport.use(
-   "local-signup",
+   "signup",
    new LocalStrategy(
      {
        usernameField: "username",
@@ -49,7 +35,7 @@ passport.serializeUser((user, done) => {
 
  //login
  passport.use(
-    "local-login",
+    "login",
     new LocalStrategy(
       {
         usernameField: "username",
@@ -72,33 +58,69 @@ passport.serializeUser((user, done) => {
     )
   );
 
+  passport.use(
+    new JWTstrategy(
+      {
+        secretOrKey: 'TOP_SECRET',
+        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+      },
+      async (token, done) => {
+        try {
+          return done(null, token.user);
+        } catch (error) {
+          done(error);
+        }
+      }
+    )
+  );
 
-router.post( "/signup",
-passport.authenticate('local-signup', { session: false }),
-(req, res, next) => {
-  // sign up
-  res.json({
-    user: req.user,
-  });
-}
-);
 
-router.post(
-    '/login',
-    passport.authenticate('local-login', { successRedirect: '/', failureRedirect: '/login' })
-  )
-
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
+  router.post(
+    '/signup',
+    passport.authenticate('signup', { session: false }),
+    async (req, res, next) => {
+      res.json({
+        message: 'Signup successful',
+        user: req.user
+      });
     }
-    //create and redirect to login/signup view
-    res.redirect('/auth/login')
+  );
+
+  router.post(
+    '/login',
+    async (req, res, next) => {
+      passport.authenticate(
+        'login',
+        async (err, user, info) => {
+          try {
+            if (err || !user) {
+              const error = new Error('An error occurred.');
   
-  }
+              return next(error);
+            }
   
-  router.get('/protected', ensureAuthenticated, (req, res) => {
-    res.render('index')
-  })
+            req.login(
+              user,
+              { session: false },
+              async (error) => {
+                if (error) return next(error);
+  
+                const body = { _id: user._id, email: user.email };
+                const token = jwt.sign({ user: body }, 'TOP_SECRET');
+  
+                return res.json({ token });
+              }
+            );
+          } catch (error) {
+            return next(error);
+          }
+        }
+      )(req, res, next);
+    }
+  );
+
+
+  
+  
 
 module.exports = router

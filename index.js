@@ -11,6 +11,7 @@ const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
 const journalroutes = require('./routes/journalroutes')
 const authroutes = require('./routes/authroutes')
+const secureRoute = require('./routes/secureroutes');
 
 const app = express();
 const port = 3000;
@@ -23,10 +24,13 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 app.use(express.urlencoded({extended: true}))
 
 app.use(express.static('public'));
+
 app.use("/doctor", doctorroutes);
 app.use("/fitbit", fitbitroutes);
 app.use("/journals", journalroutes);
 app.use("/auth", authroutes);
+app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+
 app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
