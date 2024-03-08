@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+var passport = require('passport');
 const User = require("../models/userModel");
 
 router.get(
