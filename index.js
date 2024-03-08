@@ -35,7 +35,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  
+
 }));
 
 app.use(passport.session());
@@ -53,18 +53,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-  //create and redirect to login/signup view
-  res.redirect('/auth/login')
 
-}
-
-app.get('/protected', ensureAuthenticated, (req, res) => {
-  res.render('index')
-})
 
 app.listen(process.env.PORT || port, () => {
   console.log(`Server is listening on port ${port}`);

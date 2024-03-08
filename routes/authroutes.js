@@ -88,6 +88,17 @@ router.post(
     passport.authenticate('local-login', { successRedirect: '/', failureRedirect: '/login' })
   )
 
+  function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
+    }
+    //create and redirect to login/signup view
+    res.redirect('/auth/login')
   
+  }
+  
+  router.get('/protected', ensureAuthenticated, (req, res) => {
+    res.render('index')
+  })
 
 module.exports = router
