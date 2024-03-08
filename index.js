@@ -1,9 +1,10 @@
 require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
-var passport = require('passport');
 var session = require('express-session');
+var passport = require('passport');
 
+require('./passport');
 
 const User = require("./models/userModel");
 
