@@ -13,7 +13,7 @@ passport.serializeUser((user, done) => {
   router.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
   }));
   router.use(passport.initialize());
   router.use(passport.session());
