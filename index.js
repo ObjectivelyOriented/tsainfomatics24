@@ -1,12 +1,17 @@
 require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
-const { auth, requiresAuth } = require('express-openid-connect');
-const randomstring = require("randomstring");
-const JournalModel = require("./models/journal");
+var passport = require('passport');
+var session = require('express-session');
+
+
+const User = require("./models/userModel");
+
 const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
 const journalroutes = require('./routes/journalroutes')
+const authroutes = require('./routes/authroutes')
+
 const app = express();
 const port = 3000;
 
@@ -14,16 +19,6 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("MongoDB is connected!");
 });
 
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  baseURL: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com',
-  clientID: 'gmZvUkTxUt9c7PTzn2gb1Z6pNHxYZIZ3',
-  issuerBaseURL: 'https://dev-v-xmfn6j.us.auth0.com',
-  secret: randomstring.generate(64)
-};
-
-app.use(auth(config));
 
 app.use(express.urlencoded({extended: true}))
 
@@ -31,16 +26,23 @@ app.use(express.static('public'));
 app.use("/doctor", doctorroutes);
 app.use("/fitbit", fitbitroutes);
 app.use("/journals", journalroutes);
+app.use("/auth", authroutes);
 app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set("view engine", "ejs")
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.session());
+
 //Shows home page
 app.get("/", async (req, res) => {
   try {
-    const journals = await JournalModel.find();
-    res.render("index", { journals:null, newJournal: null, date: null});
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+    res.render("index");
     //res.status(200).json(journals);
   } catch (error) {
     console.log(error);
@@ -50,9 +52,18 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user, null, 2));
-});
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  //create and redirect to login/signup view
+  res.redirect('/auth/login')
+
+}
+
+app.get('/protected', ensureAuthenticated, (req, res) => {
+  res.render('index')
+})
 
 app.listen(process.env.PORT || port, () => {
   console.log(`Server is listening on port ${port}`);
