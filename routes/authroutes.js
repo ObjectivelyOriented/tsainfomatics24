@@ -1,59 +1,40 @@
-require("dotenv").config(); //for using variables from .env file.
 const express = require('express');
 const router = express.Router();
-var passport = require('passport');
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
-const jwt = require('jsonwebtoken');
-const LocalStrategy = require("passport-local");
-const User = require("../models/userModel");
 
-  router.post(
-    '/signup',
-    passport.authenticate('signup', { session: false }),
-    async (req, res, next) => {
-      res.json({
-        message: 'Signup successful',
-        user: req.user
-      });
-    }
-  );
 
-  router.post(
-    '/login',
-    async (req, res, next) => {
-      passport.authenticate(
-        'login',
-        async (err, user, info) => {
-          try {
-            if (err || !user) {
-              const error = new Error('An error occurred.');
-  
-              return next(error);
-            }
-  
-            req.login(
-              user,
-              { session: false },
-              async (error) => {
-                if (error) return next(error);
-  
-                const body = { _id: user._id, username: user.username };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET');
-  
-                return res.json({ token });
-              }
-            );
-          } catch (error) {
-            return next(error);
-          }
-        }
-      )(req, res, next);
-    }
-  );
+module.exports = function(passport){
 
+    /* GET login page. */
+    router.get('/', function(req, res) {
+      // Display the Login page with any flash message, if any
+      res.render('index', { message: req.flash('message') });
+    });
+    /* Handle Login POST */
+    router.post('/login', passport.authenticate('login', {
+      successRedirect: '/user/profile',
+      failureRedirect: '/',
+      failureFlash : true  
+    }));
+    /* GET Registration Page */
+    router.get('/signup', function(req, res){
+      res.render('register',{message: req.flash('message')});
+    });
+    /* Handle Registration POST */
+    router.post('/signup', passport.authenticate('signup', {
+      successRedirect: '/user/profile',
+      failureRedirect: '/signup',
+      failureFlash : true  
+    }));
+    /* Handle Logout */
+    router.get('/signout',  function(req, res, next) {
+        req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/')
+        })
+    });
 
   
   
-
-module.exports = router
+    return router;
+  }
+  

@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
-var passport = require('passport');
-const User = require("../models/userModel");
-
-router.get('/profile', function(req, res, next) {
-    res.send(req.user);
-});
+/* GET Home Page */
+// As with any middleware it is quintessential to call next()
+  // if the user is authenticated
+  var isAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+    res.redirect('/');
+  }
+router.get('/profile', isAuthenticated, function(req, res){
+    res.render('profile', { user: req.user });
+  });
 
   module.exports = router;

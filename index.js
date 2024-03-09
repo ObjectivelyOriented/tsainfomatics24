@@ -1,36 +1,60 @@
 require("dotenv").config(); //for using variables from .env file.
 const express = require("express");
 const mongoose = require("mongoose");
-var session = require('express-session');
-var passport = require('passport');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-require('./passport');
-
-const User = require("./models/userModel");
 
 const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
 const journalroutes = require('./routes/journalroutes')
-const authroutes = require('./routes/authroutes')
-const secureRoute = require('./routes/secureroutes');
+const secureRoutes = require('./routes/secureroutes');
 
 const app = express();
 const port = 3000;
+
+var passport = require('passport');
+
+var expressSession = require('express-session');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+
+app.use(expressSession({
+  secret: 'mySecretKey',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+var flash = require('connect-flash');
+app.use(flash());
+
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+var routes = require('./routes/authroutes')(passport);
+app.use('/auth', routes);
+
 
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("MongoDB is connected!");
 });
 
 
-app.use(express.urlencoded({extended: true}))
+
 
 app.use(express.static('public'));
 
 app.use("/doctor", doctorroutes);
 app.use("/fitbit", fitbitroutes);
 app.use("/journals", journalroutes);
-app.use("/auth", authroutes);
-app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use("/user", secureRoutes);
+
 
 app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
