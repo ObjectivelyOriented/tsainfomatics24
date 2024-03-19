@@ -15,14 +15,30 @@ module.exports = function(passport){
       failureRedirect: '/',
       failureFlash : true  
     }));
+    router.post('/doctorslogin', passport.authenticate('login', {
+      successRedirect: '/user/profile',
+      failureRedirect: '/',
+      failureMessage: true,
+      failureFlash : true  
+    }));
     /* GET Registration Page */
     router.get('/signup', function(req, res){
       res.render('register',{message: req.flash('message')});
     });
+    router.get('/doctor/signup', function(req, res){
+      //Test NPI ID 1427000116
+      res.render('doctorRegister',{message: req.flash('message')});
+    });
     /* Handle Registration POST */
     router.post('/signup', passport.authenticate('signup', {
       successRedirect: '/user/profile',
-      failureRedirect: '/signup',
+      failureRedirect: '/',
+      failureMessage: true,
+      failureFlash : true  
+    }));
+    router.post('/doctorsignup', passport.authenticate('docSignup', {
+      successRedirect: '/user/profile',
+      failureRedirect: '/auth/doctor/signup',
       failureFlash : true  
     }));
     /* Handle Logout */

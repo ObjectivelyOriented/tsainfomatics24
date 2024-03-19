@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const JournalSchema = new Schema({
-    firstname: {
+    journalType: String,
+    
+    journalOne: {
         type: String,
         required: [true, "Firstname is required"]
     }, 
-    lastname: {
+    journalTwo: {
         type: String,
         required: [true, "Lastname is required"]
     },

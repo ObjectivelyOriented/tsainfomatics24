@@ -1,0 +1,33 @@
+<html>
+    <body>
+
+<h1>Signup</h1>
+<form method="POST" action="/auth/doctorsignup">
+  <div class="mb-2">
+      <label for="npiId" class="form-label">NPI ID</label>
+      <input type="text" class="form-control" name="username" placeholder="NPI Id" required>
+  </div>
+  <div class="mb-2">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" placeholder="Password" required>
+  </div>
+  <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+</form>
+
+
+<h1>Login</h1>
+<form method="POST" action="/auth/doctorslogin">
+    <div class="mb-2">
+        <label for="username" class="form-label">NPI ID</label>
+        <input type="text" class="form-control" name="username" placeholder="NPI ID" required>
+    </div>
+    <div class="mb-2">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+  
+  
+  <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+</form>
+    </body>
+</html>

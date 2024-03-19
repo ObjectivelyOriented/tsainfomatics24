@@ -9,6 +9,7 @@ const doctorroutes = require('./routes/doctorroutes')
 const fitbitroutes = require('./routes/fitbitroutes')
 const journalroutes = require('./routes/journalroutes')
 const secureRoutes = require('./routes/secureroutes');
+const apptRoutes = require("./routes/apptroute");
 
 const app = express();
 const port = 3000;
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
 app.use(expressSession({
-  secret: 'mySecretKey',
+  secret: process.env.AUTH_SECRET_KEY,
   resave: true,
   saveUninitialized: true
 }));
@@ -37,13 +38,11 @@ app.use(flash());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
-var routes = require('./routes/authroutes')(passport);
-app.use('/auth', routes);
+var authroutes = require('./routes/authroutes')(passport);
+app.use('/auth', authroutes);
 
 
-mongoose.connect(process.env.MONGODB_URL).then(() => {
-  console.log("MongoDB is connected!");
-});
+
 
 
 
@@ -54,6 +53,7 @@ app.use("/doctor", doctorroutes);
 app.use("/fitbit", fitbitroutes);
 app.use("/journals", journalroutes);
 app.use("/user", secureRoutes);
+app.use("/appt", apptRoutes);
 
 
 app.use(express.static(__dirname + '/public'));

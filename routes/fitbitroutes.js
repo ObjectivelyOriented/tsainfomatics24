@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const base64url = require("base64url");
 var axios = require("axios").default;
 const code_verifier = randomstring.generate(128);
-var authCode = "";
 const base64Digest = crypto
   .createHash("sha256")
   .update(code_verifier)

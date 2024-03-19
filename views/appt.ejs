@@ -1,0 +1,136 @@
+<html>
+    <style>
+        body {font-family: Arial;}
+        
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #ddd;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #ccc;
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #ccc;
+          border-top: none;
+        }
+        </style>
+    <body>
+
+<h1>Appointment Scheduler</h1>
+<div class="tab">
+    <button class="tablinks" onclick="schedulerTabs('appt')">Appointment</button>
+    <button class="tablinks" onclick="schedulerTabs('meds')">Medication</button>
+  </div>
+<div id="appt" class="tabcontent">
+    <form method="POST" action="/appt/newappt">
+     
+        <div class="mb-2">
+            <label for="apptName" class="form-label">Name of Appointment</label>
+            <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
+        </div>
+    
+        <div class="mb-2">
+             <label for="date">Date:</label>
+    <input type="date" id="date" name="date"> 
+        </div>
+    
+       <div class="mb-2">
+        <label for="startTime">Start Time:</label>
+    <input type="time" id="startTime" name="startTime"> 
+    </div>
+    <div class="mb-2">
+       <label for="endTime">End Time:</label>
+    <input type="time" id="endTime" name="endTime"> 
+    </div>
+    <div class="mb-2" style="display:none;">
+        <input type="checkbox" id="doctor" name="doctor" value="true" checked>
+        <label for="doctor">Doctor's appointment?</label><br>
+     </div>
+   
+      <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+    </form>
+</div>
+
+<div id="meds" class="tabcontent">
+    <form method="POST" action="/appt/newappt">
+        <div class="mb-2">
+            <label for="apptName" class="form-label">Name of Medication</label>
+            <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
+        </div>
+    
+        <div class="mb-2">
+             <label for="date">Date:</label>
+    <input type="date" id="date" name="date"> 
+        </div>
+    
+       <div class="mb-2">
+        <label for="startTime">Time:</label>
+    <input type="time" id="startTime" name="startTime"> 
+    </div>
+ 
+    <div class="mb-2" style="display:none;" >
+        <input type="checkbox" id="meds" name="meds" value="true" checked>
+        <label for="meds">Medication Scheduling?</label><br>
+     </div>
+      <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+    </form>
+</div>
+  
+<% if(appointments.appointments == null){ %>
+    <p>No appointments/medications scheduled</p>
+<% }else { %>
+    <% for (appt of appointments.appointments) { %>
+        <% if (appt.doctor) { %>
+        <p><%= appt.apptName %> Doctor's Appointment scheduled by <%= appointments.firstName %> <%= appointments.lastName %> on <%= appt.date %> from  <%= appt.startTime %> to <%= appt.endTime %> </p>
+        <a href = "/appt/purge/<%= appt._id %>">Delete <%= appt.apptName %> Doctor's Appointment</a>
+            <% } %>
+            <% if (appt.meds) { %>
+                <p><%= appt.apptName %> Medication scheduled by <%= appointments.firstName %> <%= appointments.lastName %> on <%= appt.date %> at <%= appt.startTime %>  </p>
+                <a href = "/appt/purge/<%= appt._id %>">Delete scheduled <%= appt.apptName %> medication</a>
+                    <% } %>
+        <% } %>
+    <% } %>
+
+
+    <script>
+        function schedulerTabs(tabs) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabs).style.display = "block";
+          event.currentTarget.className += " active";
+        }
+        </script>
+    </body>
+</html>

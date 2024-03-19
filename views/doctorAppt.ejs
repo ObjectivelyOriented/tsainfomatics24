@@ -1,0 +1,74 @@
+<html>
+    <body>
+            <form method="POST" action="/doctor/setappt">
+                <% if(patientList != null){ %>
+                    <label for="userList">Choose a car:</label>
+                    <select name="userList" id="userList">
+                    <% for (patient of patientList) { %>
+                        <option value="<%= patient.userid %>"><%= patient.username %></option>
+                        <% } %>
+                      </select>
+                    
+                    <% } %>
+     
+                <div class="mb-2">
+                    <label for="apptName" class="form-label">Name of Appointment</label>
+                    <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
+                </div>
+            
+                <div class="mb-2">
+                     <label for="date">Date:</label>
+            <input type="date" id="date" name="date"> 
+                </div>
+            
+               <div class="mb-2">
+                <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="startTime"> 
+            </div>
+            <div class="mb-2">
+               <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="endTime"> 
+            </div>
+            <div class="mb-2" style="display:none;">
+                <input type="checkbox" id="doctor" name="doctor" value="true" checked>
+                <label for="doctor">Doctor's appointment?</label><br>
+             </div>
+           
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+            </form>
+        </div>
+        
+        <div id="meds" class="tabcontent">
+            <form method="POST" action="/doctor/setappt">
+                <% if(patientList != null){ %>
+                    <label for="userList">Choose a car:</label>
+                    <select name="userList" id="userList">
+                    <% for (patient of patientList) { %>
+                        <option value="<%= patient.userid %>"><%= patient.username %></option>
+                        <% } %>
+                      </select>
+                    
+                    <% } %>
+                <div class="mb-2">
+                    <label for="apptName" class="form-label">Name of Medication</label>
+                    <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
+                </div>
+            
+                <div class="mb-2">
+                     <label for="date">Date:</label>
+            <input type="date" id="date" name="date"> 
+                </div>
+            
+               <div class="mb-2">
+                <label for="startTime">Time:</label>
+            <input type="time" id="startTime" name="startTime"> 
+            </div>
+         
+            <div class="mb-2" style="display:none;" >
+                <input type="checkbox" id="meds" name="meds" value="true" checked>
+                <label for="meds">Medication Scheduling?</label><br>
+             </div>
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+            </form>
+    </body>
+</html>
