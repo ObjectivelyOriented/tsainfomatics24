@@ -113,7 +113,7 @@ var apiCallOptions = {
         };
         await fitbitUser.save();
         
-        apiCallOptions.headers.Authorization = "Beer " + fitbitUser.fitbitData.accessToken;
+        //apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
         
         res.redirect("/");
        // res.redirect('/')
