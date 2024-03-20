@@ -25,7 +25,7 @@ var isAuthenticated = function (req, res, next) {
 var apiCallOptions = {
     method: 'GET',
     url: '',
-    headers: {'content-type': 'application/json', Authorization: User.findById(req.user._id).fitbitData.accessToken}
+    headers: {'content-type': 'application/json', Authorization: ''}
   };
 
   router.get("/",isAuthenticated, async (req, res) => {
@@ -73,6 +73,7 @@ var apiCallOptions = {
       fitbitUser.fitbitData = fitbitModel._id;
       fitbitUser.save();
       fitbitUser.populate("fitbitData");
+      apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
       
       res.redirect("/");
     }).catch(function (error) {
@@ -101,12 +102,22 @@ var apiCallOptions = {
       //TODO: Add if statement to check if state in url is equal to generated state
       //Access token request
       authCode = req.query.code;
-      axios.request(testAuthOptions).then(function (response) {
+      axios.request(testAuthOptions).then(async function (response) {
         
         //axios.request(testAuthOptions).then(function (response) {
         console.log(response.data);
-        //apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
-        apiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
+        const fitbitModel = await FitbitModel.create({
+          user_id: response.data.access_token, 
+          accessToken: response.data.access_token, 
+          refreshToken: response.data.refresh_token
+        })
+        
+        const fitbitUser = User.findById(req.user._id);
+        fitbitUser.fitbitData = fitbitModel._id;
+        fitbitUser.save();
+        fitbitUser.populate("fitbitData");
+        apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
+        
         res.redirect("/");
        // res.redirect('/')
       }).catch(function (error) {
