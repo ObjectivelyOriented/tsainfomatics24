@@ -136,7 +136,7 @@ router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
       
     res.redirect("/");
   }).catch(function (error) {
-    console.error("Token request error " + error);
+    res.status(400).json(error);
   });
 
 });
