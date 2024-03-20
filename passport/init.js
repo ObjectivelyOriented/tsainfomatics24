@@ -13,8 +13,8 @@ module.exports = function(passport){
 
     passport.deserializeUser(async(id, done)  => {
         const queriedUser = await User.findById(id).exec();
-        console.log('id:',id);
-            console.log('deserializing user:',queriedUser);
+       // console.log('id:',id);
+            //console.log('deserializing user:',queriedUser);
             done(null, queriedUser);
         
     });
