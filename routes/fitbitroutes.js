@@ -130,9 +130,7 @@ var apiCallOptions = {
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
-          console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+          res.status(401).json(error);
         });
   
     });
