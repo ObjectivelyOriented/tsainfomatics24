@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
+
+
 const apptSchema = new Schema({
       createdAt: { type : Date, default: Date.now },
     apptName: String,
@@ -14,6 +16,12 @@ const patientSchema = new Schema ({
     username: { type: String, required: true },
 
 })
+const fitbitSchema = new Schema({
+    userId: String,
+    accessToken: String,
+    refreshToken: String
+})
+
 
 const UserSchema = new Schema ({
     username: String,
@@ -28,10 +36,7 @@ createdOn : { type : Date, default: Date.now },
 appointments: [apptSchema],
 patient:[patientSchema],
 illnesses: {type: Array},
-fitbitData:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'fitbit'
-}
+fitbitData: fitbitSchema
 
 })
 

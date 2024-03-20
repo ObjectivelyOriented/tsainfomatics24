@@ -106,17 +106,14 @@ var apiCallOptions = {
         
         //axios.request(testAuthOptions).then(function (response) {
         console.log(response.data);
-        const fitbitModel = new FitbitModel({
+
+        const fitbitUser = await User.findById(req.user._id);
+        fitbitUser.fitbitData = {
           user_id: response.data.access_token, 
           accessToken: response.data.access_token, 
           refreshToken: response.data.refresh_token
-        })
-        fitbitModel.save();
-
-        const fitbitUser = await User.findById(req.user._id);
-        fitbitUser.fitbitData = fitbitModel._id;
+        };
         await fitbitUser.save();
-        User.findById(req.user._id).populate("fitbitData").exec();
         
         apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
         
