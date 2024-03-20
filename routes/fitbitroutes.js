@@ -63,18 +63,16 @@ var apiCallOptions = {
       
       console.log(response.data);
       
-      const fitbitModel = await FitbitModel.create({
-        user_id: response.data.access_token, 
-        accessToken: response.data.access_token, 
-        refreshToken: response.data.refresh_token
-      })
-      
-      const fitbitUser = User.findById(req.user._id);
-      fitbitUser.fitbitData = fitbitModel._id;
-      fitbitUser.save();
-      fitbitUser.populate("fitbitData");
-      apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
-      
+      const fitbitUser = await User.findById(req.user._id);
+        fitbitUser.fitbitData = {
+          user_id: response.data.access_token, 
+          accessToken: response.data.access_token, 
+          refreshToken: response.data.refresh_token
+        };
+        await fitbitUser.save();
+        
+        apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
+        
       res.redirect("/");
     }).catch(function (error) {
       console.error("Token request error " + error);
@@ -115,12 +113,12 @@ var apiCallOptions = {
         };
         await fitbitUser.save();
         
-        apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
+        apiCallOptions.headers.Authorization = "Beer " + fitbitUser.fitbitData.accessToken;
         
         res.redirect("/");
        // res.redirect('/')
       }).catch(function (error) {
-        console.error("Token request error " + error);
+        console.error("Token request error " + error.response.data.message);
       });
     
     });
