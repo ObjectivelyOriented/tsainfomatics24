@@ -86,7 +86,7 @@ var apiCallOptions = {
         data: new URLSearchParams({
           grant_type: 'refresh_token',
           client_id: process.env.CLIENT_ID,
-          refresh_token: req.user.fitbitData.accessToken
+          refresh_token: req.user.fitbitData.refreshToken
         })
       };
   

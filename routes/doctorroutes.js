@@ -128,7 +128,7 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
               data: new URLSearchParams({
                 grant_type: 'refresh_token',
                 client_id: process.env.CLIENT_ID,
-                refresh_token: pickedUser.fitbitData.refresh_token
+                refresh_token: pickedUser.fitbitData.refreshToken
               })
             };
           axios.request(refreshOptions).then(async function (response) {
