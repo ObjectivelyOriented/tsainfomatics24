@@ -114,7 +114,7 @@ var apiCallOptions = {
         
         const fitbitUser = User.findById(req.user._id);
         fitbitUser.fitbitData = fitbitModel._id;
-        fitbitUser.save();
+        await fitbitUser.save();
         fitbitUser.populate("fitbitData");
         apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
         
