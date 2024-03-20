@@ -109,7 +109,7 @@ res.render('fitbitData', {fitbitUsers:fitbitUsers});
 
 router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
   const pickedUser = await User.findById( req.body.userList ).exec();
-  console.log(pickedUser);
+  console.log("User info" + pickedUser);
   if(pickedUser.fitbitData.accessToken != '' && pickedUser.fitbitData.refreshToken != ''){
   apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
       apiCallOptions.headers.Authorization = "Bearer " + (pickedUser.fitbitData.accessToken);
