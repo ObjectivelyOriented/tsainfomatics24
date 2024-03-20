@@ -5,7 +5,6 @@ const randomstring = require("randomstring");
 const crypto = require("crypto");
 const base64url = require("base64url");
 var axios = require("axios").default;
-const FitbitModel = require("../models/fitbitModel");
 const User = require('../models/userModel');
 
 const code_verifier = randomstring.generate(128);
@@ -131,6 +130,9 @@ var apiCallOptions = {
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
+          console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
         });
   
     });
@@ -142,7 +144,7 @@ var apiCallOptions = {
           console.log(response.data["activities-heart"]);
           res.render("heart", {heartData: response.data["activities-heart"]});
         }).catch(function (error) {
-          console.error("API call error" + error.response.data.message);
+          console.error("API call error" + error);
         });
   
     });
