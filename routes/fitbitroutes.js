@@ -122,7 +122,7 @@ var apiCallOptions = {
     });
     router.get("/profile",isAuthenticated, function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
-      apiCallOptions.headers.Authorization = "Bearer " + User.findById(req.user._id).fitbitData.accessToken;
+      apiCallOptions.headers.Authorization = "Bearer " + (User.findById(req.user._id).fitbitData.accessToken);
         //API call
         axios.request(apiCallOptions).then(function (response) {
           console.log(response.data);
