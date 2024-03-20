@@ -109,7 +109,7 @@ res.render('fitbitData', {fitbitUsers:fitbitUsers});
 
 router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
   const pickedUser = await User.findById( req.body.userList ).exec();
-  console.log("User info" + pickedUser);
+  console.log("User info" + pickedUser.fitbitData.accessToken, " " + pickedUser.fitbitData.refresh_token);
   if(pickedUser.fitbitData.accessToken != '' && pickedUser.fitbitData.refreshToken != ''){
   apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
       apiCallOptions.headers.Authorization = "Bearer " + (pickedUser.fitbitData.accessToken);
@@ -120,7 +120,7 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
           
         }).catch(function (error) {
           console.error("API call error" + error);
-          if(error.status = 401){
+          if(error.status == 401){
             var refreshOptions = {
               method: 'POST',
               url: 'https://api.fitbit.com/oauth2/token',
