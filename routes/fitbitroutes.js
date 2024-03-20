@@ -142,7 +142,7 @@ var apiCallOptions = {
           console.log(response.data["activities-heart"]);
           res.render("heart", {heartData: response.data["activities-heart"]});
         }).catch(function (error) {
-          console.error("API call error" + error);
+          console.error("API call error" + error.response.data.message);
         });
   
     });
