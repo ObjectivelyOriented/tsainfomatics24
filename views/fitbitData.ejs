@@ -56,40 +56,9 @@
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
         <% } %>
     </form>
-    <% if(patientList != null){ %>
-    <h1>Edit patient records</h1>
-    <form method="POST" action="/doctor/patientSelect">
-   
-        <label for="patientList">Patient list:</label>
-        <select name="patientList" id="patientList">
-        <% for (user of patientList) { %>
-            <option value="<%= user.userid %>"><%= user.username %></option>
-            <% } %>
-          </select>
-        
-        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
-        <% } %>
-      </form>
-        <% if(pickedUser != null){ %>
-          <h1><%= firstName %> <%= lastName %> Patient Record:</h1>
-          <ul>
-            <% for (illness of pickedUser.illnesses) { %>
-              <li><%= illness %></li>
-              <% } %>
-          </ul>
-          <form method="POST" action="/doctor/editRecords">
-            <div class="mb-2">
-              <input type="checkbox" name="illnesses" id="illnesses1" class="illnesses"  value="Anxiety">
-              <label for="checkbox1">Anxiety</label><br>
-              <input type="checkbox" name="illnesses" id="illnesses2" class="illnesses" value="Depression">
-              <label for="checkbox2">Depression</label><br>
-          </div>
-            
-            <button type="submit" class="btn btn-primary mt-2">Submit</button> 
-            <% } %>
-          </form>
+    
 
          
-    </form>
+
     </body>
 </html>
