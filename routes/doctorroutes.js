@@ -63,6 +63,8 @@ router.get("/patientSelect", isAuthenticated ,async (req, res)=>{
     const doctor = await User.findOne({ username: req.user.username });
     doctor.patient.push({userid: pickedUser.id, username:pickedUser.username});
     await doctor.save();
+    pickedUser.doctorName = req.user.firstName + " " + req.user.lastName;
+    await pickedUser.save();
     res.redirect("/");
  })
 
@@ -98,7 +100,55 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
 
 
 
-// fitbit sleep data route
+// fitbit routes
+
+router.get('/fitbit',isAuthenticated, async (req, res) => {
+  const fitbitUsers = await User.find({doctor : false});
+res.render('fitbitData', {fitbitUsers:fitbitUsers});
+})
+
+router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
+  const pickedUser = await User.findById( req.body.userList ).exec();
+  if(pickedUser.fitbitData.accessToken != '' && pickedUser.fitbitData.refreshToken != ''){
+  apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
+      apiCallOptions.headers.Authorization = "Bearer " + (pickedUser.fitbitData.accessToken);
+        //API call
+        axios.request(apiCallOptions).then(function (response) {
+          console.log(response.data);
+          res.status(201).json(response.data);
+          
+        }).catch(function (error) {
+          console.error("API call error" + error);
+          if(error.status = 401){
+            var refreshOptions = {
+              method: 'POST',
+              url: 'https://api.fitbit.com/oauth2/token',
+              headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+              data: new URLSearchParams({
+                grant_type: 'refresh_token',
+                client_id: process.env.CLIENT_ID,
+                refresh_token: pickedUser.fitbitData.accessToken
+              })
+            };
+          axios.request(refreshOptions).then(async function (response) {
+            pickedUser.fitbitData = {
+                user_id: response.data.access_token, 
+                accessToken: response.data.access_token, 
+                refreshToken: response.data.refresh_token
+              };
+              await pickedUser.save();
+            res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
+          }).catch(function (error) {
+            console.error("Token request error " + error);
+            res.redirect("/"); //alert doctor refresh token is null
+          });
+          }
+        });
+      } else {
+        res.redirect("/"); //alert doctor access and refresh token is null
+      }
+
+})
 
 router.get('/fitbit/sleep', (req, res) => {
     //TODO: Get JSON data into ejs variables
