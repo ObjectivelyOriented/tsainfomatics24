@@ -28,6 +28,7 @@ var isAuthenticated = function (req, res, next) {
 
 
 var userToEdit;
+var fitbitUser;
 
 //TODO:
 //Doctor login with NPI id through NPI API
@@ -106,13 +107,45 @@ router.get('/fitbit',isAuthenticated, async (req, res) => {
   const fitbitUsers = await User.find({doctor : false});
 res.render('fitbitData', {fitbitUsers:fitbitUsers});
 })
+router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
+  var refreshOptions = {
+      method: 'POST',
+      url: 'https://api.fitbit.com/oauth2/token',
+      headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+      data: new URLSearchParams({
+        grant_type: 'refresh_token',
+        client_id: process.env.CLIENT_ID,
+        refresh_token: fitbitUser.fitbitData.refreshToken
+      })
+    };
 
+  console.log(req.params);
+  //TODO: Add if statement to check if state in url is equal to generated state
+  //Access token request
+  axios.request(refreshOptions).then(async function (response) {
+    
+    console.log(response.data);
+    
+      fitbitUser.fitbitData = {
+        user_id: response.data.user_id, 
+        accessToken: response.data.access_token, 
+        refreshToken: response.data.refresh_token
+      };
+      await fitbitUser.save();
+      
+      
+    res.redirect("/");
+  }).catch(function (error) {
+    console.error("Token request error " + error);
+  });
+
+});
 router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
-  const pickedUser = await User.findById( req.body.userList ).exec();
-  console.log("User info" + pickedUser.fitbitData.accessToken, " " + pickedUser.fitbitData.refresh_token);
-  if(pickedUser.fitbitData.accessToken != '' && pickedUser.fitbitData.refreshToken != ''){
+  fitbitUser  = await User.findById( req.body.userList ).exec();
+  console.log("User info" + fitbitUser.fitbitData.accessToken, " " + fitbitUser.fitbitData.refreshToken);
+  if(fitbitUser.fitbitData.accessToken != '' && fitbitUser.fitbitData.refreshToken != ''){
   apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
-      apiCallOptions.headers.Authorization = "Bearer " + (pickedUser.fitbitData.accessToken);
+      apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
         //API call
         axios.request(apiCallOptions).then(function (response) {
           console.log(response.data);
@@ -128,17 +161,17 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
               data: new URLSearchParams({
                 grant_type: 'refresh_token',
                 client_id: process.env.CLIENT_ID,
-                refresh_token: pickedUser.fitbitData.refreshToken
+                refresh_token: fitbitUser.fitbitData.refreshToken
               })
             };
           axios.request(refreshOptions).then(async function (response) {
             console.log(response.data);
-            pickedUser.fitbitData = {
+            fitbitUser.fitbitData = {
                 user_id: response.data.user_id, 
                 accessToken: response.data.access_token, 
                 refreshToken: response.data.refresh_token
               };
-              await pickedUser.save();
+              await fitbitUser.save();
             res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
           }).catch(function (error) {
             console.error("Token request error " + error);
