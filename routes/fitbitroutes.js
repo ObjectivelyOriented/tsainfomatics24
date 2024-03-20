@@ -113,6 +113,7 @@ var apiCallOptions = {
         })
         
         const fitbitUser = User.findById(req.user._id);
+        console.log(fitbitUser," " + req.user._id)
         fitbitUser.fitbitData = fitbitModel._id;
         await fitbitUser.save();
         fitbitUser.populate("fitbitData");
