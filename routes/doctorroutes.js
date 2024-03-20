@@ -128,12 +128,12 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
               data: new URLSearchParams({
                 grant_type: 'refresh_token',
                 client_id: process.env.CLIENT_ID,
-                refresh_token: pickedUser.fitbitData.accessToken
+                refresh_token: pickedUser.fitbitData.refresh_token
               })
             };
           axios.request(refreshOptions).then(async function (response) {
             pickedUser.fitbitData = {
-                user_id: response.data.access_token, 
+                user_id: response.data.user_id, 
                 accessToken: response.data.access_token, 
                 refreshToken: response.data.refresh_token
               };
