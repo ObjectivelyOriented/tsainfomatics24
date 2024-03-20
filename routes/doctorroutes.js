@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const JournalModel = require("../models/journal");
-const mongoose = require("mongoose");
 var User = require('../models/userModel');
 var axios = require("axios").default;
 
@@ -27,9 +26,6 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 }
 
-mongoose.connect(process.env.MONGODB_URL).then(() => {
-  console.log("MongoDB is connected!");
-});
 
 var userToEdit;
 

@@ -2,6 +2,10 @@ require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const JournalModel = require("../models/journal");
+
+//TODO: add user objectid when journal is created
+
+
 //Shows newly created journal entry
 router.post("/new", async (req, res)=>{
     try {

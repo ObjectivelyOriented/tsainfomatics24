@@ -27,7 +27,11 @@ user: {type: Boolean, default: false},
 createdOn : { type : Date, default: Date.now },
 appointments: [apptSchema],
 patient:[patientSchema],
-illnesses: {type: Array}
+illnesses: {type: Array},
+fitbitData:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'fitbit'
+}
 
 })
 
