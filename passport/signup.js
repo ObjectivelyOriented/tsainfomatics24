@@ -80,6 +80,11 @@ passport.use('signup', new LocalStrategy({
         newUser.firstName = req.body.firstname;
         newUser.lastName = req.body.lastname;
         newUser.illnesses = req.body.illnesses;
+        newUser.fitbitData = {
+          user_id: "", 
+          accessToken: "", 
+          refreshToken: ""
+        };
         newUser.save();
         return done(null, newUser);
       } catch (error) {

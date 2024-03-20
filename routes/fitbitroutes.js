@@ -109,7 +109,7 @@ var apiCallOptions = {
       res.redirect("/");
     }).catch(function (error) {
       console.error("Token request error " + error);
-      res.redirect("/fitbit/test");
+      res.redirect("/fitbit");
     });
   
   });
