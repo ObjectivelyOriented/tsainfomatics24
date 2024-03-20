@@ -112,11 +112,11 @@ var apiCallOptions = {
           refreshToken: response.data.refresh_token
         })
         
-        const fitbitUser = User.findOne({_id: req.user._id}).exec();
+        const fitbitUser = User.findById(req.user._id).exec();
         console.log(fitbitUser," " + req.user._id)
         fitbitUser.fitbitData = fitbitModel._id;
-        await fitbitUser.save();
         fitbitUser.populate("fitbitData");
+        
         apiCallOptions.headers.Authorization = "Bearer " + fitbitUser.fitbitData.accessToken;
         
         res.redirect("/");
