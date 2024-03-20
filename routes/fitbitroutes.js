@@ -77,6 +77,42 @@ var apiCallOptions = {
     });
   
   });
+
+  router.get("/refreshTokens",isAuthenticated, function (req, res) {
+    var refreshOptions = {
+        method: 'POST',
+        url: 'https://api.fitbit.com/oauth2/token',
+        headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+        data: new URLSearchParams({
+          grant_type: 'refresh_token',
+          client_id: process.env.CLIENT_ID,
+          refresh_token: req.user.fitbitData.accessToken
+        })
+      };
+  
+    console.log(req.params);
+    //TODO: Add if statement to check if state in url is equal to generated state
+    //Access token request
+    axios.request(refreshOptions).then(async function (response) {
+      
+      console.log(response.data);
+      
+      const fitbitUser = await User.findById(req.user._id);
+        fitbitUser.fitbitData = {
+          user_id: response.data.access_token, 
+          accessToken: response.data.access_token, 
+          refreshToken: response.data.refresh_token
+        };
+        await fitbitUser.save();
+        
+        
+      res.redirect("/");
+    }).catch(function (error) {
+      console.error("Token request error " + error);
+      res.redirect("/fitbit");
+    });
+  
+  });
   
   router.get("/testcallback",isAuthenticated, function (req, res) {
     var testAuthOptions = {
@@ -110,9 +146,6 @@ var apiCallOptions = {
           refreshToken: response.data.refresh_token
         };
         await fitbitUser.save();
-        
-        
-        
         res.redirect("/");
        // res.redirect('/')
       }).catch(function (error) {
@@ -129,7 +162,7 @@ var apiCallOptions = {
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
-          res.status(401).json(error);
+          res.status(401).redirect("/fitbit/refreshTokens");
         });
   
     });
@@ -142,6 +175,7 @@ var apiCallOptions = {
           res.render("heart", {heartData: response.data["activities-heart"]});
         }).catch(function (error) {
           console.error("API call error" + error);
+          res.status(401).redirect("/fitbit/refreshTokens");
         });
   
     });
