@@ -132,6 +132,7 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
               })
             };
           axios.request(refreshOptions).then(async function (response) {
+            console.log(response.data);
             pickedUser.fitbitData = {
                 user_id: response.data.user_id, 
                 accessToken: response.data.access_token, 
