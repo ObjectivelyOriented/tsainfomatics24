@@ -141,7 +141,7 @@ router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
 
 });
 router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
-  fitbitUser  = await User.findById( req.body.userList ).exec();
+  fitbitUser = await User.findById( req.body.userList ).exec();
   console.log("User info" + fitbitUser.fitbitData.accessToken, " " + fitbitUser.fitbitData.refreshToken);
   if(fitbitUser.fitbitData.accessToken != '' && fitbitUser.fitbitData.refreshToken != ''){
   apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
