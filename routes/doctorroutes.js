@@ -119,7 +119,7 @@ router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
       })
     };
 
-  console.log(req.params);
+  console.log(fitbitUser);
   //TODO: Add if statement to check if state in url is equal to generated state
   //Access token request
   axios.request(refreshOptions).then(async function (response) {
