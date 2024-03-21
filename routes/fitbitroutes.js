@@ -145,6 +145,7 @@ var apiCallOptions = {
           accessToken: response.data.access_token, 
           refreshToken: response.data.refresh_token
         };
+        console.log("Queried fitbit data, access token: "+response.data.access_token, "refresh token: " + response.data.refresh_token);
         await fitbitUser.save();
         res.redirect("/");
        // res.redirect('/')
