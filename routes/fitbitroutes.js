@@ -64,7 +64,7 @@ var apiCallOptions = {
       
       const fitbitUser = await User.findById(req.user._id);
         fitbitUser.fitbitData = {
-          user_id: response.data.user_id, 
+          userId: response.data.user_id, 
           accessToken: response.data.access_token, 
           refreshToken: response.data.refresh_token
         };
@@ -99,7 +99,7 @@ var apiCallOptions = {
       
       const fitbitUser = await User.findById(req.user._id);
         fitbitUser.fitbitData = {
-          user_id: response.data.user_id, 
+          userId: response.data.user_id, 
           accessToken: response.data.access_token, 
           refreshToken: response.data.refresh_token
         };
@@ -141,7 +141,7 @@ var apiCallOptions = {
 
         const fitbitUser = await User.findById(req.user._id);
         fitbitUser.fitbitData = {
-          user_id: response.data.user_id, 
+          userId: response.data.user_id, 
           accessToken: response.data.access_token, 
           refreshToken: response.data.refresh_token
         };
