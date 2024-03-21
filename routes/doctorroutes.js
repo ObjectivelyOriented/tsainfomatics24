@@ -164,6 +164,7 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
                 refresh_token: fitbitUser.fitbitData.refreshToken
               })
             };
+            console.log(fitbitUser.fitbitData.refreshToken);
           axios.request(refreshOptions).then(async function (response) {
             console.log(response.data);
             fitbitUser.fitbitData = {
