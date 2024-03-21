@@ -115,7 +115,7 @@ router.post('/fitbit/patientSelect',isAuthenticated, async (req, res) => {
       //apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
         //API call
         console.log(fitbitUser.fitbitData.refreshToken);
-        axios.request(apiCallOptions).then(function (response) {
+        axios.request(apiCallOptions).then(async function (response) {
           console.log(response.data);
           res.status(201).json(response.data);
           
