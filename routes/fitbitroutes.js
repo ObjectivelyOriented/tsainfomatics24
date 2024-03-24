@@ -172,8 +172,13 @@ var apiCallOptions = {
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
         axios.request(apiCallOptions).then(function (response) {
-          console.log(response.data["activities-heart"]);
-          res.status(201).json(response.data["activities-heart"][0].value.heartRateZones[0]);
+          var heartLabels = [];
+          var heartRate = [];
+          for(zone of response.data["activities-heart"][0].value.heartRateZones){
+            heartLabels.push(zone.name);
+            heartRate.push(zone.max);
+          }
+          res.render('fitbitData', {fitbitUsers:null, heartLabels:heartLabels, heartRate:heartRate});
         }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
@@ -181,4 +186,5 @@ var apiCallOptions = {
   
     });
 
+module.exports = { replaceStr }
 module.exports = router
