@@ -2,7 +2,7 @@
     <body>
             <form method="POST" action="/doctor/setappt">
                 <% if(patientList != null){ %>
-                    <label for="userList">Choose a car:</label>
+                    <label for="userList">Choose a patient:</label>
                     <select name="userList" id="userList">
                     <% for (patient of patientList) { %>
                         <option value="<%= patient.userid %>"><%= patient.username %></option>

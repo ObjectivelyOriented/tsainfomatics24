@@ -103,8 +103,8 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
 // fitbit routes
 
 router.get('/fitbit',isAuthenticated, async (req, res) => {
-  const fitbitUsers = await User.find({doctor : false});
-res.render('fitbitData', {fitbitUsers:fitbitUsers});
+  const doctor = await User.findOne({ username: req.user.username });
+res.render('fitbitData', {fitbitUsers:doctor.patient});
 })
 
 router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
@@ -201,6 +201,17 @@ router.get('/fitbit/heart/:minDate/:maxdate', (req, res) => {
 
   router.get('/fitbit/activity', (req, res) => {
     res.render('activity');
+  })
+
+  //Doctor journal routes
+  router.get('/journals',isAuthenticated, async (req, res) => {
+  res.render('doctorJournals', {journals:null,patients:req.user.patient});
+  })
+  
+  router.post('/journals/patientSelect', isAuthenticated, async (req, res) => {
+    const journals = await JournalModel.find({postedBy: req.body.userList});
+    console.log("Journals ", journals);
+    res.render('doctorJournals', {patients:req.user.patient, journals: journals});
   })
 
 module.exports = router

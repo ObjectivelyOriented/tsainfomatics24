@@ -18,7 +18,19 @@
            --> 
         </nav>
 
-        <a href="/journals/new">New Journal</a>
+        <form method="POST" action="/doctor/journals/patientSelect">
+            <% if(patients != null){ %>
+              <label for="userList">Select a patient's journals to access:</label>
+              <select name="userList" id="userList">
+              <% for (user of patients) { %>
+                  <option value="<%= user.userid %>"><%= user.username %></option>
+                  <% } %>
+                </select>
+              
+              <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+              <% } %>
+          </form>
+
         <% if(journals == null){ %>
             <p>None Avaliable</p>
         <% }else { %>

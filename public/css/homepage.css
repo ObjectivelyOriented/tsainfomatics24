@@ -7,7 +7,8 @@
     background-color:  #EAEFF1;
     text-align: center;
     text-decoration: wavy;
-    margin:0;
+    margin-bottom:0;
+    padding-bottom:10px;
     
 }
 #blockthree{
@@ -56,6 +57,17 @@ body{
     border-left: none;
   }
   */
+ table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding:5px;
+  }
+  td {
+    background-color: #96D4D4;
+  }
+  .question{
+    background-color: white;
+  }
 .checkbox + label{
     font-size: 6vh;
   width: 5rem;

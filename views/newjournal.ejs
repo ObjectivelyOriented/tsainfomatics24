@@ -1,0 +1,316 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="/css/homepage.css" />
+        
+<meta charset="UTF-8">
+
+        <script type = "text/javascript" src="/js/homepage.js" > </script>
+
+    </head>
+    <body>
+
+
+<div id="container">
+    <form method="POST" action="/journals/new">
+
+<!--
+<div class = "flex-container">
+            <img id="logoimg" src ="/img/logo.png" />
+-->        
+
+            <div class="header">
+            <h1>What was your mood today?</h1>
+            <a href = "/fitbit/profile"> User fitbit Profile</a>
+            <a href = "/fitbit/heart"> User fitbit Heart</a>
+        </div> 
+        
+  <!--
+</div>
+   
+        
+
+
+        
+       
+        <img id="bannerimg" src ="/img/facesgallery.png" />
+        --> 
+    <div class = "flex-container">
+        <div class = "block" id="blockthree">
+            <h3>Click the emoji(s) that best represent your mood today.</h3>
+            <input type="checkbox" name="checkbox" id="checkbox1" class="checkbox"  value="Estatic">
+            <label for="checkbox1">😀</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox2" class="checkbox" value="Pleased">
+            <label for="checkbox2">😊</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox3" class="checkbox" value="Neutral">
+            <label for="checkbox3">😐</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox4" class="checkbox" value="Sad">
+            <label for="checkbox4">😔</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox5" class="checkbox" value="Anxious">
+            <label for="checkbox5">😨</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox6" class="checkbox" value="Angry">
+            <label for="checkbox6">😡</label><br>
+        </div>
+<br/>
+<br/>
+<br/>
+        <div class="block" id="blockone">
+        <h2>How are you today?</h2>
+        <textarea type="text" name="journalOne" id="" rows="33" cols="100"></textarea>
+        <br/>
+        <label for="">Tell me any feelings, concerns, wants, needs or just anything you want to spill out to me. Remember, the only person who sees this is you and me!</label><br>
+     
+        </div>
+    </div>
+    <% if(illnesses.includes("Depression")){ %>
+
+       
+    <div class="block" id="blockone">
+        <h2>Patient Health Questionnaire (PHQ-9)</h2>
+        <table>
+            <tr>
+              <th class = "question">Over the past 2 weeks, how often have you been bothered by any of the following problems?</th>
+              <th style="width:100px">Not At All</th>
+              <th style="width:100px">Several Days</th>
+              <th style="width:100px">More Than Half the Days</th>
+              <th style="width:100px">Nearly Every Day</th>
+            </tr>
+            <tr>
+              <td class = "question">Little interest or pleasure in doing things</td>
+              <td><label for="checkbox5">0</label>
+                <input type="radio" name="depression[][first]"  value=0></td>
+              <td><label for="checkbox5">1</label>
+                <input type="radio" name="depression[][first]" value=1></td>
+                <td><label for="checkbox5">2</label>
+                    <input type="radio" name="depression[][first]" value=2></td>
+                  <td><label for="checkbox5">3</label>
+                    <input type="radio" name="depression[][first]" value=3></td>
+            </tr>
+            <tr>
+                <td class = "question">Feeling down, depressed or hopeless</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][second]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][second]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][second]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][second]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Trouble falling asleep, staying asleep, or sleeping too much</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][third]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][third]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][third]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][third]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Feeling tired or having little energy</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][fourth]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][fourth]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][fourth]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][fourth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Poor appetite or overeating</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][fifth]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][fifth]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][fifth]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][fifth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Feeling bad about yourself - or that you’re a failure or have let yourself or your family down</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][sixth]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][sixth]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][sixth]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][sixth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Trouble concentrating on things, such as reading the newspaper or watching television</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][seventh]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][seventh]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][seventh]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][seventh]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Moving or speaking so slowly that other people could have noticed. Or, the opposite - being so fidgety or restless that you have been moving around a lot more than usual</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][eighth]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][eighth]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][eighth]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][eighth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Thoughts that you would be better off dead or of hurting yourself in some way</td>
+                <td><label for="checkbox5">0</label>
+                    <input type="radio" name="depression[][ninth]"  value=0></td>
+                  <td><label for="checkbox5">1</label>
+                    <input type="radio" name="depression[][ninth]" value=1></td>
+                    <td><label for="checkbox5">2</label>
+                        <input type="radio" name="depression[][ninth]" value=2></td>
+                      <td><label for="checkbox5">3</label>
+                        <input type="radio" name="depression[][ninth]" value=3></td>
+              </tr>
+          </table>
+          <div class = "block">
+            <h3>If you checked off any problems, how difficult have those problems made it for you to
+                Do your work, take care of things at home, or get along with other people?</h3>
+              <label for="checkbox5">Not difficult at all</label>
+                      <input type="radio" name="depressionQuestion" value="Not difficult at all"></td>
+                      <label for="checkbox5">Somewhat difficult</label>
+                      <input type="radio" name="depressionQuestion" value="Somewhat difficult"></td>
+                      <label for="checkbox5">Very difficult</label>
+                      <input type="radio" name="depressionQuestion" value="Very difficult"></td>
+                      <label for="checkbox5">Extremely difficult</label>
+                      <input type="radio" name="depressionQuestion" value="Extremely difficult"></td>
+                      
+          </div>
+          
+    </div>
+    <% } %>
+
+
+<% if(illnesses.includes("Anxiety")){ %>
+    <div class="block" id="blockone">
+        <h2>GAD-7 (General Anxiety Disorder-7)</h2>
+        <table>
+            <tr>
+              <th class = "question">Over the past 2 weeks, how often have you been bothered by any of the following problems?</th>
+              <th style="width:100px">Not At All</th>
+              <th style="width:100px">Several Days</th>
+              <th style="width:100px">More Than Half the Days</th>
+              <th style="width:100px">Nearly Every Day</th>
+            </tr>
+            <tr>
+              <td class = "question">Feeling nervous, anxious, or on edge</td>
+              <td><label for="checkbox5">0</label>
+                <input type="radio" name="anxiety[][first]"  value=0></td>
+              <td><label for="checkbox5">1</label>
+                <input type="radio" name="anxiety[][first]" value=1></td>
+                <td><label for="checkbox5">2</label>
+                    <input type="radio" name="anxiety[][first]" value=2></td>
+                  <td><label for="checkbox5">3</label>
+                    <input type="radio" name="anxiety[][first]" value=3></td>
+            </tr>
+           
+              <tr>
+                <td class = "question">Worrying too much about different things</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][second]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][second]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][second]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][second]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Trouble relaxing</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][third]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][third]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][third]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][third]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Feeling bad about yourself - or that you’re a failure or have let yourself or your family down</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][fourth]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][fourth]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][fourth]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][fourth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Being so restless that it is hard to sit still</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][fifth]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][fifth]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][fifth]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][fifth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Becoming easily annoyed or irritable</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][sixth]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][sixth]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][sixth]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][sixth]" value=3></td>
+              </tr>
+              <tr>
+                <td class = "question">Feeling afraid, as if something awful might happen</td>
+                <td><label for="checkbox5">0</label>
+                  <input type="radio" name="anxiety[][seventh]"  value=0></td>
+                <td><label for="checkbox5">1</label>
+                  <input type="radio" name="anxiety[][seventh]" value=1></td>
+                  <td><label for="checkbox5">2</label>
+                      <input type="radio" name="anxiety[][seventh]" value=2></td>
+                    <td><label for="checkbox5">3</label>
+                      <input type="radio" name="anxiety[][seventh]" value=3></td>
+              </tr>
+          </table>
+          <div class = "block">
+            <h3>If you checked off any problems, how difficult have those problems made it for you to
+                Do your work, take care of things at home, or get along with other people?</h3>
+              <label for="checkbox5">Not difficult at all</label>
+                      <input type="radio" name="anxietyQuestion" value="Not difficult at all"></td>
+                      <label for="checkbox5">Somewhat difficult</label>
+                      <input type="radio" name="anxietyQuestion" value="Somewhat difficult"></td>
+                      <label for="checkbox5">Very difficult</label>
+                      <input type="radio" name="anxietyQuestion" value="Very difficult"></td>
+                      <label for="checkbox5">Extremely difficult</label>
+                      <input type="radio" name="anxietyQuestion" value="Extremely difficult"></td>
+                      
+          </div>
+          
+    </div>
+    <% } %>
+        <div class = "block" id="blocktwo">
+            <label for="">Any extra information to add?</label>
+            <br/>
+            <textarea type="text" name="journalTwo" id="" rows="33" cols="100"></textarea><br>
+            <input type="submit" onclick="formSubmit()">
+        </div>
+      
+       
+        
+
+       
+    </form>
+</body>
+    
+</html>

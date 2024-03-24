@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
+const QuestionaireSchema = new Schema({
+    QuestionaireType: String,
+    formAnswers: Array,
+    optionalQuestion: String
+})
+
 const JournalSchema = new Schema({
     journalType: String,
     
@@ -15,6 +21,11 @@ const JournalSchema = new Schema({
     checkbox: {
         type: Array
     },
+    questionaire: [QuestionaireSchema],
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      },
     time : { type : Date, default: Date.now }
 })
 
