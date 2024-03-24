@@ -178,7 +178,7 @@ var apiCallOptions = {
             heartLabels.push(zone.name);
             heartRate.push(zone.max);
           }
-          res.render('fitbitData', {fitbitUsers:null, heartLabels:heartLabels, heartRate:heartRate});
+          res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
         }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
