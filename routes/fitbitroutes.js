@@ -186,5 +186,5 @@ var apiCallOptions = {
   
     });
 
-module.exports = { replaceStr }
+
 module.exports = router
