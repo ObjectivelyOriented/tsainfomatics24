@@ -172,7 +172,7 @@ var apiCallOptions = {
     });
     router.get("/heart",isAuthenticated, function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
-      apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
+    //  apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
         axios.request(apiCallOptions).then(function (response) {
           console.log(response.data["activities-heart"].heartRateZones[0]);
