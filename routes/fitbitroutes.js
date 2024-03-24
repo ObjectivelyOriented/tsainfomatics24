@@ -7,7 +7,6 @@ const base64url = require("base64url");
 var axios = require("axios").default;
 const User = require('../models/userModel');
 
-
 const code_verifier = randomstring.generate(128);
 const base64Digest = crypto
   .createHash("sha256")
@@ -159,10 +158,8 @@ var apiCallOptions = {
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
-        const fitbitResponseData = [];
         axios.request(apiCallOptions).then(function (response) {
           console.log(response.data);
-          fitbitResponseData.push(response.data.sleep);
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
@@ -172,10 +169,10 @@ var apiCallOptions = {
     });
     router.get("/heart",isAuthenticated, function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
-    //  apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
+      
         //API call
         axios.request(apiCallOptions).then(function (response) {
-          console.log(response.data["activities-heart"].heartRateZones[0]);
+          console.log(response.data["activities-heart"]);
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
