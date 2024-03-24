@@ -172,7 +172,7 @@ var apiCallOptions = {
       
         //API call
         axios.request(apiCallOptions).then(function (response) {
-          console.log(response.data["activities-heart"].heartRateZones[0]);
+          console.log(response.data["activities-heart"]);
           res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
