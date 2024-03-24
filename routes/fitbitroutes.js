@@ -173,7 +173,7 @@ var apiCallOptions = {
         //API call
         axios.request(apiCallOptions).then(function (response) {
           console.log(response.data["activities-heart"]);
-          res.render("heart", {heartData: response.data["activities-heart"]});
+          res.status(201).json(response.data);
         }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
