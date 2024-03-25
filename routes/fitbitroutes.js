@@ -172,8 +172,8 @@ var apiCallOptions = {
       //apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
       //apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
-        const heartRate = [99, 98, 97, 96, 95];
-        res.json(heartRate);
+        const data = [99, 98, 97, 96, 95];
+        res.json(data);
        /* axios.request(apiCallOptions).then(function (response) {
           var heartLabels = [];
           var heartRate = [];
