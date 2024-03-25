@@ -9,7 +9,7 @@ async function drawChart() {
     const svgWidth = 500;
     const svgHeight = 500;
     const barPadding = 5;
-    const barWidth = svgWidth / data.data.length;
+    const barWidth = svgWidth / data.length;
 
     let svg = d3.select("svg");
     let width = svg
