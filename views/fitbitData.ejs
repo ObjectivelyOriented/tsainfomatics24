@@ -63,8 +63,11 @@
 <h2>Fitbit Data</h2>
 //add pooled fitbit data stuff
 <% for (rate of pooledFitbitData) { %>
-<p> exists </p>
-  <% } %>
+  <% if(rate != null){ %>
+    <p> exists </p>
+    <% } %>
+
+<% } %>
 
     </body>
 </html>
