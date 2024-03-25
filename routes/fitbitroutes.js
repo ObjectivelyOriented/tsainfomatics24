@@ -160,7 +160,7 @@ var apiCallOptions = {
        
     });
     
-    router.get("/fitbitData",isAuthenticated, function(req,res){
+    router.post("/fitbitData",isAuthenticated, function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/heart/date/"+req.body.date+"/1d/1min.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
       
@@ -197,10 +197,7 @@ var apiCallOptions = {
        
     });
 
-    router.get("/fitbitData",isAuthenticated, function(req,res){
-      res.render('fitbitData', {fitbitUsers: null});
-  
-    });
+   
 
 
 module.exports = router
