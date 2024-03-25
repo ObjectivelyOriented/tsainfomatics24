@@ -18,7 +18,7 @@ async function drawChart() {
 
     svg
         .selectAll("rect")
-        .data(data.data)
+        .data(data)
         .enter()
         .append("rect")
         .attr("y", (d) => svgHeight - d)
