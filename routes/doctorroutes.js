@@ -28,6 +28,7 @@ var isAuthenticated = function (req, res, next) {
 
 
 var userToEdit;
+var fitbitUser;
 
 //TODO:
 //Doctor login with NPI id through NPI API
@@ -104,13 +105,49 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
 
 router.get('/fitbit',isAuthenticated, async (req, res) => {
   const doctor = await User.findOne({ username: req.user.username });
-res.render('fitbitData', {fitbitUsers:doctor.patient});
+res.render('fitbitData', {fitbitUsers:doctor.patient, pooledFitbitData:null});
 })
 
 router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
-  const fitbitUser = await User.findById( req.body.userList ).exec();
-  console.log("User info, access token: " + fitbitUser.fitbitData.accessToken, " refresh token: " + fitbitUser.fitbitData.refreshToken);
+  fitbitUser = await User.findById( req.body.userList ).exec();
   if(fitbitUser.fitbitData.accessToken != '' && fitbitUser.fitbitData.refreshToken != ''){
+    apiCallOptions.url = "https://api.fitbit.com/1/user/"+fitbitUser.fitbitData.userId+"/activities/heart/date/"+req.body.date+"/1d/1min.json";
+    apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
+    
+      //API call
+      var pooledFitbitData = [];
+     axios.request(apiCallOptions).then(function (response) {
+      pooledFitbitData.push(response.data["activities-heart"][0]);
+
+      apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+fitbitUser.fitbitData.userId+"/sleep/date/"+req.body.date+".json";
+      axios.request(apiCallOptions).then(function (response) {
+        pooledFitbitData.push(response.data.summary);
+
+        apiCallOptions.url = "https://api.fitbit.com/1/user/"+fitbitUser.fitbitData.userId+"/activities/date/"+req.body.date+".json";
+        axios.request(apiCallOptions).then(function (response) {
+          pooledFitbitData.push(response.data.goals);
+          pooledFitbitData.push(response.data.summary);
+          
+          res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+
+            }).catch(function (error) {
+            console.error("API call error" + error);
+            res.status(401).redirect("/doctor/fitbit/refreshTokens");
+          });
+          }).catch(function (error) {
+          console.error("API call error" + error);
+          res.status(401).redirect("/doctor/fitbit/refreshTokens");
+        });
+        }).catch(function (error) {
+        console.error("API call error" + error);
+        res.status(401).redirect("/doctor/fitbit/refreshTokens");
+      });
+          
+
+
+
+
+
   apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
       apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
         //API call
@@ -122,30 +159,7 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
         }).catch(function (error) {
           console.error("API call error" + error);
           if(error.status == 401){
-            var refreshOptions = {
-              method: 'POST',
-              url: 'https://api.fitbit.com/oauth2/token',
-              headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
-              data: new URLSearchParams({
-                grant_type: 'refresh_token',
-                client_id: process.env.CLIENT_ID,
-                refresh_token: fitbitUser.fitbitData.refreshToken
-              })
-            };
-            
-          axios.request(refreshOptions).then(async function (response) {
-            console.log(response.data);
-            fitbitUser.fitbitData = {
-              userId: response.data.user_id, 
-                accessToken: response.data.access_token, 
-                refreshToken: response.data.refresh_token
-              };
-              await fitbitUser.save();
-            res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
-          }).catch(function (error) {
-            console.error("Token request error " + error);
-            res.redirect("/"); //alert doctor refresh token is null
-          });
+           
           }
         });
       } else {
@@ -154,54 +168,35 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
 
 })
 
-router.get('/fitbit/sleep', (req, res) => {
-    //TODO: Get JSON data into ejs variables
-  res.render('sleep', {sleepData:null});
-})
 
-router.post('/fitbit/sleep/:minDate/:maxdate', (req, res) => {
-  testApiCallOptions.url = "https://api.fitbit.com/1.2/user/-/sleep/date/"+req.body.minDate+"/"+req.body.maxDate+".json";
+router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
+  var refreshOptions = {
+    method: 'POST',
+    url: 'https://api.fitbit.com/oauth2/token',
+    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
+    data: new URLSearchParams({
+      grant_type: 'refresh_token',
+      client_id: process.env.CLIENT_ID,
+      refresh_token: fitbitUser.fitbitData.refreshToken
+    })
+  };
   
-    axios.request(authOptions).then(function (response) {
-      
-      //axios.request(testAuthOptions).then(function (response) {
-      console.log(response.data);
-      apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
-      //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
-      //API call
-     
-      axios.request(testApiCallOptions).then(function (response) {
-        console.log(response.data);
-        res.status(201).json(response.data);
-        res.render('sleep', {sleepData:null});
-        alert("Your fitbit has been authorized!");
-      }).catch(function (error) {
-        console.error("API call error" + error);
+axios.request(refreshOptions).then(async function (response) {
+  console.log(response.data);
+  fitbitUser.fitbitData = {
+    userId: response.data.user_id, 
+      accessToken: response.data.access_token, 
+      refreshToken: response.data.refresh_token
+    };
+    await fitbitUser.save();
+  res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
+}).catch(function (error) {
+  console.error("Token request error " + error);
+  res.redirect("/"); //alert doctor refresh token is null
+});
 
-      });
-      
-    }).catch(function (error) {
-      console.error("Token request error " + error);
-    });
- 
-})
+});
 
-router.get('/fitbit/heart/:minDate/:maxdate', (req, res) => {
-    //apiCallOptions.url = "https://api.fitbit.com/1/user/-/spo2/date/"+req.params.minDate+"/"+req.params.maxDate+".json";
-    testApiCallOptions.url = "https://api.fitbit.com/1/user/-/spo2/date/"+req.params.minDate+"/"+req.params.maxDate+".json";
-       //axios.request(apiCallOptions).then(function (response) {
-        axios.request(testApiCallOptions).then(function (response) {
-        console.log(response.data);
-        res.status(201).json(response.data);
-      }).catch(function (error) {
-        console.error("API call error" + error);
-      });
-    res.render('heart');
-  })
-
-  router.get('/fitbit/activity', (req, res) => {
-    res.render('activity');
-  })
 
   //Doctor journal routes
   router.get('/journals',isAuthenticated, async (req, res) => {
