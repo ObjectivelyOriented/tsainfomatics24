@@ -73,5 +73,48 @@
     </ul>
     <% } %>
     <% } %>
+<br />
+    <% if(pooledFitbitData[1] != null){ %>
+    
+        <h3>Sleep stages</h3>
+      <ul>
+        <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
+        <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
+        <li><strong>Time spent in REM sleep: </strong><%= pooledFitbitData[1].stages.rem %> minutes</li>
+        <li><strong>Time spent in awake: </strong><%= pooledFitbitData[1].stages.wake %> minutes</li>
+      </ul>
+      
+      <% } %>
+      <br />
+
+      <% if(pooledFitbitData[2] != null){ %>
+    
+        <h3>Activity goals</h3>
+      <ul>
+        <li><strong>Active minutes goals: </strong><%= pooledFitbitData[2].activeMinutes %> minutes</li>
+        <li><strong>Calories out goals: </strong><%= pooledFitbitData[2].caloriesOut %> calories</li>
+        <li><strong>Distance goals: </strong><%= pooledFitbitData[2].distance %> miles</li>
+        <li><strong>Floors climbed goals: </strong><%= pooledFitbitData[2].floors %> floors</li>
+        <li><strong>Steps count goals: </strong><%= pooledFitbitData[2].steps %> steps</li>
+      </ul>
+      
+      <% } %>
+      <br />
+
+      <% if(pooledFitbitData[3] != null){ %>
+    
+        <h3>Activity summary</h3>
+        <p>Calories out: <%= pooledFitbitData[3].caloriesOut %> </p>
+      <h4>Distance data</h4>
+      <% for(distanceType of pooledFitbitData[3].distances){ %>
+        <h5><%= distanceType.activity %> distance</h5>
+        <h5><%= distanceType.distance %> miles</h5>
+      <br />
+      <% } %>
+      <h4>Elevation: <%= pooledFitbitData[3].elevation %></h4>
+      <h4>Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %></h4>
+      <h4>Floors climbed: <%= pooledFitbitData[3].floors %></h4>
+      <% } %>
+      <br />
     </body>
 </html>
