@@ -5,6 +5,7 @@ const dataSet = async function getData() {
     return await axios.get('/fitbit/heart');
 }
 async function drawChart() {
+    console.log("Here");
     const data = await dataSet();
     const svgWidth = 500;
     const svgHeight = 500;
