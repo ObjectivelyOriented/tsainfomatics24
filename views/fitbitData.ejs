@@ -66,9 +66,9 @@
     <% for(rate of pooledFitbitData[0]){ %>
       <h3><%= rate.name %></h3>
     <ul>
-      <li>Calories Out: <%= rate.caloriesOut %></li>
-      <li>Maximum heart range in this zone: <%= rate.max %></li>
-      <li>Minimum heart range in this zone: <%= rate.min %></li>
+      <li>Calories Out: <%= rate.caloriesOut %> kilocalories </li>
+      <li>Maximum heart range in this zone: <%= rate.max %> beats per minute</li>
+      <li>Minimum heart range in this zone: <%= rate.min %> beats per minute</li>
       <li>Time spent in this zone: <%= rate.minutes %> minutes</li>
     </ul>
     <% } %>
@@ -111,9 +111,17 @@
         <h5><%= distanceType.distance %> miles</h5>
       <br />
       <% } %>
-      <h4>Elevation: <%= pooledFitbitData[3].elevation %></h4>
-      <h4>Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %></h4>
-      <h4>Floors climbed: <%= pooledFitbitData[3].floors %></h4>
+      <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
+      <h4>Floors climbed: <%= pooledFitbitData[3].floors %> floors</h4>
+      
+      <h4>Total marginal estimated calories: <%= pooledFitbitData[3].marginalCalories %> floors</h4>
+
+      <h4>Sedentary Active minutes: <%= pooledFitbitData[3].sedentaryMinutes %></h4>
+      <h4>Lightly Active minutes: <%= pooledFitbitData[3].lightlyActiveMinutes %></h4>
+      <h4>Fairly or Moderately Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %></h4>
+      <h4>Very Active minutes: <%= pooledFitbitData[3].veryActiveMinutes %></h4>
+      
+      
       <% } %>
       <br />
     </body>
