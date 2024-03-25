@@ -169,20 +169,37 @@ var apiCallOptions = {
   
     });
     router.get("/heart", function(req,res){
-      apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
+      apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/heart/date/2024-02-28/1d/1min.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
-        //API call
       
+        //API call
+        var pooledFitbitData = [];
        axios.request(apiCallOptions).then(function (response) {
-          var heartLabels = [];
-          var heartRate = [];
+        pooledFitbitData.push(response.data["activities-heart"][0].value.heartRateZones);
           
-          res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
-        }).catch(function (error) {
+          }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
         });
-  
+        apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/2024-02-28.json";
+        axios.request(apiCallOptions).then(function (response) {
+          pooledFitbitData.push(response.data.summary);
+            
+            }).catch(function (error) {
+            console.error("API call error" + error);
+            res.status(401).redirect("/fitbit/refreshTokens");
+          });
+          apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/date/2024-02-28.json";
+          axios.request(apiCallOptions).then(function (response) {
+            pooledFitbitData.push(response.data.goals);
+            pooledFitbitData.push(response.data.summary);
+              
+              }).catch(function (error) {
+              console.error("API call error" + error);
+              res.status(401).redirect("/fitbit/refreshTokens");
+            });
+        res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+       
     });
 
     router.get("/fitbitData",isAuthenticated, function(req,res){
