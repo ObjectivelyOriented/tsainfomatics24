@@ -168,7 +168,7 @@ var apiCallOptions = {
         });
   
     });
-    router.get("/heart",isAuthenticated, function(req,res){
+    router.get("/heart", function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
