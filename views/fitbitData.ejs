@@ -43,12 +43,12 @@
         }
         </style>
     <body>
-
+      <% if(fitbitUsers != null){ %>
 <h1>Select a user to view their heart, sleep, and activity biometrics</h1>
 
 
     <form method="POST" action="/doctor/fitbit/patientSelect">
-      <% if(fitbitUsers != null){ %>
+     
         <label for="userList">Select a patient:</label>
         <select name="userList" id="userList">
         <% for (user of fitbitUsers) { %>
@@ -57,11 +57,20 @@
           </select>
         
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
-        <% } %>
+      
     </form>
-    <svg class="bar-chart"></svg>
-
+    <% } %>
+<h2>Fitbit Data</h2>
+<% for (rate of heartRate) { %>
+  <p><%= rate.name %></p>
+  <li>
+    <ul>Calories Out: <%= rate.caloriesOut %></ul>
+    <ul>Maximum heart rate in this zone: <%= rate.max %></ul>
+    <ul>Minimum heart rate in this zone: <%= rate.min %></ul>
+    <ul>Minutes spent in this heart rate zoe: <%= rate.minutes %></ul>
+  </li>
+  <br>
+  <% } %>
 
     </body>
 </html>
-<script type = "text/javascript" src="/js/chart.js" > </script>

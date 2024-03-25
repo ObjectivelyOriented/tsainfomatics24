@@ -169,12 +169,11 @@ var apiCallOptions = {
   
     });
     router.get("/heart", function(req,res){
-      //apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
-      //apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
+      apiCallOptions.url = "https://api.fitbit.com/1/user/-/activities/heart/date/2024-02-28/1d/1min.json";
+      apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
         //API call
-        const data = [99, 98, 97, 96, 95];
-        res.json(data);
-       /* axios.request(apiCallOptions).then(function (response) {
+      
+       axios.request(apiCallOptions).then(function (response) {
           var heartLabels = [];
           var heartRate = [];
           for(zone of response.data["activities-heart"][0].value.heartRateZones){
@@ -182,11 +181,11 @@ var apiCallOptions = {
             heartRate.push(zone.max);
           }
           res.json(heartRate);
-          //res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
+          res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
         }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
-        });*/
+        });
   
     });
 
