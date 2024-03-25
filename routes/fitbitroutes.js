@@ -167,7 +167,7 @@ var apiCallOptions = {
         //API call
         var pooledFitbitData = [];
        axios.request(apiCallOptions).then(function (response) {
-        pooledFitbitData.push(response.data["activities-heart"][0].value.heartRateZones);
+        pooledFitbitData.push(response.data["activities-heart"][0]);
 
         apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/"+req.body.date+".json";
         axios.request(apiCallOptions).then(function (response) {

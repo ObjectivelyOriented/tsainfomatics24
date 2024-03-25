@@ -81,11 +81,13 @@
             
           </form>
           <% } %>
-<h2>Fitbit Data</h2>
+<h1>Fitbit Data</h1>
 <% if(pooledFitbitData != null){ %>
-<!--Array order: [heartRateZones, sleep summary, activity goals, activity summary] -->
+<!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null){ %>
-    <% for(rate of pooledFitbitData[0]){ %>
+    <h3>Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
+<h2>Heart rate data</h2>
+    <% for(rate of pooledFitbitData[0].value.heartRateZones){ %>
       <h3><%= rate.name %></h3>
     <ul>
       <li>Calories Out: <%= rate.caloriesOut %> kilocalories </li>
