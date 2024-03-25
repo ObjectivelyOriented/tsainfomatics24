@@ -199,6 +199,7 @@ var apiCallOptions = {
               res.status(401).redirect("/fitbit/refreshTokens");
             });
             res.json(pooledFitbitData);
+            
         //res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
        
     });
