@@ -176,11 +176,7 @@ var apiCallOptions = {
        axios.request(apiCallOptions).then(function (response) {
           var heartLabels = [];
           var heartRate = [];
-          for(zone of response.data["activities-heart"][0].value.heartRateZones){
-            heartLabels.push(zone.name);
-            heartRate.push(zone.max);
-          }
-          res.json(heartRate);
+          
           res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
         }).catch(function (error) {
           console.error("API call error" + error);
