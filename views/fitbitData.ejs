@@ -52,7 +52,7 @@
         <label for="userList">Select a patient:</label>
         <select name="userList" id="userList">
         <% for (user of fitbitUsers) { %>
-            <option value="<%= user._id %>"><%= user.username %></option>
+            <option value="<%= user.userid %>"><%= user.username %></option>
             <% } %>
           </select>
           <div class="mb-2">
