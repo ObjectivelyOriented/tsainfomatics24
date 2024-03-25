@@ -180,7 +180,7 @@ var apiCallOptions = {
           }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
-        });
+        });/*
         apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/2024-02-28.json";
         axios.request(apiCallOptions).then(function (response) {
           pooledFitbitData.push(response.data.summary);
@@ -197,9 +197,9 @@ var apiCallOptions = {
               }).catch(function (error) {
               console.error("API call error" + error);
               res.status(401).redirect("/fitbit/refreshTokens");
-            });
+            });*/
             res.json(pooledFitbitData);
-            
+
         //res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
        
     });
