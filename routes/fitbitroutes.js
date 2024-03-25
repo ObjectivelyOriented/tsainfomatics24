@@ -154,6 +154,7 @@ var apiCallOptions = {
       });
     
     });
+
     router.get("/profile",isAuthenticated, function(req,res){
       apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
@@ -178,11 +179,17 @@ var apiCallOptions = {
             heartLabels.push(zone.name);
             heartRate.push(zone.max);
           }
-          res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
+          res.json(heartRate);
+          //res.render('fitbitData', {fitbitUsers:null, heartRate:response.data["activities-heart"][0].value.heartRateZones});
         }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
         });
+  
+    });
+
+    router.get("/fitbitData",isAuthenticated, function(req,res){
+      res.render('fitbitData', {fitbitUsers:null});
   
     });
 

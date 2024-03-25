@@ -1,4 +1,7 @@
 <html>
+  <head>
+    <script type = "text/javascript" src="/js/chart.js" > </script>
+  </head>
     <style>
         body {font-family: Arial;}
         
@@ -56,9 +59,7 @@
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
         <% } %>
     </form>
-    <% for (zone of heartRate) { %>
-    <p><%= zone.max %></p>
-    <% } %>
+    <svg class="bar-chart"></svg>
     <canvas id="myBarChart"
     width="380"
     height="180">
