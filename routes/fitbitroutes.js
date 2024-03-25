@@ -189,7 +189,7 @@ var apiCallOptions = {
     });
 
     router.get("/fitbitData",isAuthenticated, function(req,res){
-      res.render('fitbitData', {fitbitUsers:null});
+      res.render('fitbitData', {fitbitUsers: null});
   
     });
 
