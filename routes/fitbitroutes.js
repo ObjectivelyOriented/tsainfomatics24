@@ -155,21 +155,13 @@ var apiCallOptions = {
     
     });
 
-    router.get("/profile",isAuthenticated, function(req,res){
-      apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
-      apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
-        //API call
-        axios.request(apiCallOptions).then(function (response) {
-          console.log(response.data);
-          res.status(201).json(response.data);
-        }).catch(function (error) {
-          console.error("API call error" + error);
-          res.status(401).redirect("/fitbit/refreshTokens");
-        });
-  
+    router.get("/fitbitData",isAuthenticated, function(req,res){
+      res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:null});
+       
     });
-    router.get("/heart", function(req,res){
-      apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/heart/date/2024-02-28/1d/1min.json";
+    
+    router.get("/fitbitData",isAuthenticated, function(req,res){
+      apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/heart/date/"+req.body.date+"/1d/1min.json";
       apiCallOptions.headers.Authorization = "Bearer " + (req.user.fitbitData.accessToken);
       
         //API call
@@ -177,11 +169,11 @@ var apiCallOptions = {
        axios.request(apiCallOptions).then(function (response) {
         pooledFitbitData.push(response.data["activities-heart"][0].value.heartRateZones);
 
-        apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/2024-02-28.json";
+        apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/"+req.body.date+".json";
         axios.request(apiCallOptions).then(function (response) {
           pooledFitbitData.push(response.data.summary);
 
-          apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/date/2024-02-28.json";
+          apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/date/"+req.body.date+".json";
           axios.request(apiCallOptions).then(function (response) {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
