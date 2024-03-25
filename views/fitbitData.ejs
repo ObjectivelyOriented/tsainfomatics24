@@ -61,13 +61,17 @@
     </form>
     <% } %>
 <h2>Fitbit Data</h2>
-//add pooled fitbit data stuff
-<% for (rate of pooledFitbitData) { %>
-  <% if(rate != null){ %>
-    <p> exists </p>
+<!--Array order: [heartRateZones, sleep summary, activity goals, activity summary] -->
+  <% if(pooledFitbitData[0] != null){ %>
+    <% for(rate of pooledFitbitData[0]){ %>
+      <h3><%= rate.name %></h3>
+    <ul>
+      <li>Calories Out: <%= rate.caloriesOut %></li>
+      <li>Maximum heart range in this zone: <%= rate.max %></li>
+      <li>Minimum heart range in this zone: <%= rate.min %></li>
+      <li>Time spent in this zone: <%= rate.minutes %> minutes</li>
+    </ul>
     <% } %>
-
-<% } %>
 
     </body>
 </html>

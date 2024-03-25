@@ -176,13 +176,16 @@ var apiCallOptions = {
         var pooledFitbitData = [];
        axios.request(apiCallOptions).then(function (response) {
         pooledFitbitData.push(response.data["activities-heart"][0].value.heartRateZones);
+
         apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+req.user.fitbitData.userId+"/sleep/date/2024-02-28.json";
         axios.request(apiCallOptions).then(function (response) {
           pooledFitbitData.push(response.data.summary);
+
           apiCallOptions.url = "https://api.fitbit.com/1/user/"+req.user.fitbitData.userId+"/activities/date/2024-02-28.json";
           axios.request(apiCallOptions).then(function (response) {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
+            
             res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
 
               }).catch(function (error) {
