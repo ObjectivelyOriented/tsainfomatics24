@@ -82,6 +82,7 @@
           </form>
           <% } %>
 <h2>Fitbit Data</h2>
+<% if(pooledFitbitData != null){ %>
 <!--Array order: [heartRateZones, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null){ %>
     <% for(rate of pooledFitbitData[0]){ %>
@@ -144,6 +145,8 @@
       
       
       <% } %>
+
       <br />
+      <% } %>
     </body>
 </html>
