@@ -198,7 +198,8 @@ var apiCallOptions = {
               console.error("API call error" + error);
               res.status(401).redirect("/fitbit/refreshTokens");
             });
-        res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+            res.json(pooledFitbitData);
+        //res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
        
     });
 
