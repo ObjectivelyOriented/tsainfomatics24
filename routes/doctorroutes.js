@@ -142,26 +142,7 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
         console.error("API call error" + error);
         res.status(401).redirect("/doctor/fitbit/refreshTokens");
       });
-          
 
-
-
-
-
-  apiCallOptions.url = "https://api.fitbit.com/1/user/-/profile.json";
-      apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
-        //API call
-        console.log(fitbitUser.fitbitData.refreshToken);
-        axios.request(apiCallOptions).then(async function (response) {
-          console.log(response.data);
-          res.status(201).json(response.data);
-          
-        }).catch(function (error) {
-          console.error("API call error" + error);
-          if(error.status == 401){
-           
-          }
-        });
       } else {
         res.redirect("/"); //alert doctor access and refresh token is null
       }
