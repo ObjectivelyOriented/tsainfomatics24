@@ -2,7 +2,7 @@ import * as d3 from "https://cdn.skypack.dev/d3@7";
 import axios from 'https://cdn.skypack.dev/axios';
 
 const dataSet = async function getData() {
-    const response = await fetch('/fitbit/heart');
+    const response = await fetch('"https://example.com');
     return response.json();
 }
 async function drawChart() {
