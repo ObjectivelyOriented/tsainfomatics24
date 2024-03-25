@@ -183,7 +183,8 @@ var apiCallOptions = {
           axios.request(apiCallOptions).then(function (response) {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
-            res.json(pooledFitbitData);
+            res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+
               }).catch(function (error) {
               console.error("API call error" + error);
               res.status(401).redirect("/fitbit/refreshTokens");
@@ -195,12 +196,9 @@ var apiCallOptions = {
           }).catch(function (error) {
           console.error("API call error" + error);
           res.status(401).redirect("/fitbit/refreshTokens");
-        });/*
-        
-          */
+        });
             
 
-        //res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
        
     });
 
