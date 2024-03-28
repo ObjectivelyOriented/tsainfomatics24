@@ -9,14 +9,23 @@
 
     </head>
     <body>
-        <nav class="navbar">
-            <a href="/">Home</a>
-            <a href="/journals">Journals</a>
-           <!--
-<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=drIgY9Bnkjj7XDmXLCQrRknHtpUp7W9-Lm61reCu3Pw&code_challenge_method=S256&state=6e6u0a1v3a5j5t42082t2g033g2b690q&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback">
-                Fitbit</a>
-           --> 
-        </nav>
+        <div class="navbar">
+               
+            <div id = "titleBox">
+                <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+            </div>
+            <div id = "titleBox">
+                    Hawk Health
+            </div>
+        <a href="/">Home</a>
+        <a href="/journals">Journals</a>
+    
+<a href="/fitbit">
+            Fitbit</a>
+                    
+<a href="/fitbit/test">
+Test Fitbit</a>
+</div>
 
         <a href="/journals/new">New Journal</a>
         <% if(journals == null){ %>

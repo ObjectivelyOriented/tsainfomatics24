@@ -1,3 +1,223 @@
 #journals{
     border-bottom: 3px solid black;
 }
+.container{
+    height:auto;
+}
+.block{
+   
+    width:100%;
+    text-align: center;
+    text-decoration: wavy;
+    margin-bottom:0;
+    padding-bottom:10px;
+    
+}
+#blockthree{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width:10%;
+ padding: 50px;
+ padding-top: 5px;
+  border-right: solid;
+}
+#blocktwo{
+    border-top: solid;
+}
+.flex-container{
+    display: flex;
+    width:100%;
+    
+}
+body{
+    margin:0;
+}
+.header{
+    padding: 1px;
+    text-align: center;
+    background: rgb(113, 179, 214);;
+    color: #BDE1CE;
+    font-size: 30px;
+    /*width:80%; */
+    
+}
+#avatar{
+  margin-top: 40%;
+  width:200px;
+  height:200px;
+}
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  font-size: 30px; 
+  height:auto;
+  width: 100%;
+  
+  
+}
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+}
+
+.navbar #titleBox img {
+   width:50px;
+   padding-right:3px;
+}
+.navbar #titleBox {
+    padding:3px;
+    font-size: 40px;
+ }
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
+}
+.button{
+  border-radius: 25px;
+  width:40em;
+  height: 120px;
+  text-align: center;
+  border: 2px solid rgb(113, 179, 214);
+  background-color: rgb(113, 179, 214);
+  transition: 1s;
+  margin: 30px;
+  padding: 20px;
+}
+.button:hover{
+  color:white;
+}
+.buttonText{
+  font-size: 50px;
+}
+  .checkbox{
+    display:none;
+    
+  }
+/*  
+  #bannerimg{
+    width:100%;
+  }
+  #logoimg{
+    width:20%;
+    border: 5px solid #488E7A;
+    border-left: none;
+  }
+  */
+ table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding:5px;
+  }
+  td {
+    background-color: #96D4D4;
+  }
+  .question{
+    background-color: white;
+  }
+.checkbox + label{
+    font-size: 6vh;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgb(113, 179, 214);
+  transition: .1s all;
+  cursor: pointer;
+  z-index: 999 !important;
+  margin:5px;
+  margin-left:40px;
+    
+}
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+}
+
+.navbar #titleBox img {
+   width:50px;
+   padding-right:3px;
+}
+.navbar #titleBox {
+    padding:3px;
+    font-size: 40px;
+ }
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
+}
+.checkbox + label:hover{
+    transform: scale(.95);
+}
+
+  .checkbox:checked + label {
+    background: #488E7A;
+    transform: scale(1.1);
+  }
+  
+  .checkbox:checked + label:hover {
+    background: #488E7A;
+    transform: scale(1.05);
+  }
+
+ 
+#blockone h2{
+color: rgb(113, 179, 214);;;
+}
+#blocktwo{
+    padding-top:20px;
+}

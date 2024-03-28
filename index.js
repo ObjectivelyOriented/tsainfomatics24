@@ -66,15 +66,11 @@ app.set("view engine", "ejs")
 
 //Shows home page
 app.get("/", async (req, res) => {
-  try {
-    res.render("index");
-    //res.status(200).json(journals);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-    res.render("error", {error});
-    //res.status(500).json({ error: "Internal Server Error" });
+  if (req.isAuthenticated()){
+    res.redirect('/user/profile');
   }
+  res.render("index");
+
 });
 
 

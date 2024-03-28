@@ -1,6 +1,99 @@
 <html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="/css/profile.css" />
+        
+<meta charset="UTF-8">
+
+    </head>
     <body>
-<h1> Profile </h1>
-        <p><%= user %></p>
+      
+            <div class="navbar">
+               
+                    <div id = "titleBox">
+                        <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+                    </div>
+                    <div id = "titleBox">
+                            Hawk Health
+                    </div>
+                <a href="/">Home</a>
+                <a href="/journals">Journals</a>
+            
+    <a href="/fitbit">
+                    Fitbit</a>
+                            
+    <a href="/fitbit/test">
+        Test Fitbit</a>
+        </div>
+      
+        <div class = "header">
+<h1> Welcome to your portal <%= user.firstName %>! </h1>
+</div>       
+<div class = "flexContainer">
+            <div id = "leftblock">
+                <div>
+                <img id = "avatar" src="https://cdn-icons-png.freepik.com/256/552/552721.png" alt="Avatar"> 
+<div>
+    <p>First Name: <%= user.firstName %></p>
+    <p>Last Name: <%= user.lastName %></p>
+    <p>Doctor Name: <%= user.doctorName %></p>
+    <p>Recorded Mental Illnesses</p>
+    <br />
+    <% for (illness of user.illnesses) { %>
+<span><strong><%= illness %>;</strong></span>
+        <% } %>
+<br />
+        <% for (appt of user.appointments) { %>
+            <% if (appt.meds) { %>
+            <p><%= appt.apptName %> Medication scheduled on <%= appt.date %> at <%= appt.startTime %> </p>
+                    <% } %>
+             <% if (appt.doctor) { %>
+            <p><%= appt.apptName %> Doctor's appointment on <%= appt.date %> from  <%= appt.startTime %> to <%= appt.endTime %> </p>
+                    <% } %>
+                    <% } %>
+</div>
+    
+</div>
+        </div>
+        <div id = "rightblock">
+<a href = "/fitbit/fitbitData">
+    <button class = "button">
+        <div class = "buttondiv">
+            <img class = "buttonicon" src = "https://static-00.iconduck.com/assets.00/fitbit-icon-2048x2047-zukto6n3.png">
+            <div class = "buttonText">
+                Fitbit
+            </div>
+        </div>
+        
+    </button>
+</a>
+
+<a href = "/fitbit/fitbitData">
+    <button class = "button">
+        <div class = "buttondiv">
+            <img class = "buttonicon" src = "https://cdn-icons-png.flaticon.com/512/1701/1701244.png">
+            <div class = "buttonText">
+                Journals
+            </div>
+        </div>
+        
+    </button>
+</a>
+
+<a href = "/fitbit/fitbitData">
+    <button class = "button">
+        <div class = "buttondiv">
+            <img class = "buttonicon" src = "https://static-00.iconduck.com/assets.00/calendar-small-icon-1863x2048-ves2yjyu.png">
+            <div class = "buttonText">
+                Scheduler
+            </div>
+        </div>
+        
+    </button>
+</a>
+        </div>
+
+        </div>
+
     </body>
 </html>

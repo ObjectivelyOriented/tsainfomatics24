@@ -1,106 +1,86 @@
 <html>
-    <style>
-        body {font-family: Arial;}
-        
-        /* Style the tab */
-        .tab {
-          overflow: hidden;
-          border: 1px solid #ccc;
-          background-color: #f1f1f1;
-        }
-        
-        /* Style the buttons inside the tab */
-        .tab button {
-          background-color: inherit;
-          float: left;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          padding: 14px 16px;
-          transition: 0.3s;
-          font-size: 17px;
-        }
-        
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-          background-color: #ddd;
-        }
-        
-        /* Create an active/current tablink class */
-        .tab button.active {
-          background-color: #ccc;
-        }
-        
-        /* Style the tab content */
-        .tabcontent {
-          display: none;
-          padding: 6px 12px;
-          border: 1px solid #ccc;
-          border-top: none;
-        }
-        </style>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="/css/appt.css" />
+    
+<meta charset="UTF-8">
+
+
+</head>
     <body>
 
 <h1>Appointment Scheduler</h1>
-<div class="tab">
-    <button class="tablinks" onclick="schedulerTabs('appt')">Appointment</button>
-    <button class="tablinks" onclick="schedulerTabs('meds')">Medication</button>
-  </div>
-<div id="appt" class="tabcontent">
-    <form method="POST" action="/appt/newappt">
-     
-        <div class="mb-2">
-            <label for="apptName" class="form-label">Name of Appointment</label>
-            <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
-        </div>
-    
-        <div class="mb-2">
-             <label for="date">Date:</label>
-    <input type="date" id="date" name="date"> 
-        </div>
-    
-       <div class="mb-2">
-        <label for="startTime">Start Time:</label>
-    <input type="time" id="startTime" name="startTime"> 
-    </div>
-    <div class="mb-2">
-       <label for="endTime">End Time:</label>
-    <input type="time" id="endTime" name="endTime"> 
-    </div>
-    <div class="mb-2" style="display:none;">
-        <input type="checkbox" id="doctor" name="doctor" value="true" checked>
-        <label for="doctor">Doctor's appointment?</label><br>
-     </div>
-   
-      <button type="submit" class="btn btn-primary mt-2">Submit</button>    
-    </form>
-</div>
+<button id="myBtn">Open Modal</button>
 
-<div id="meds" class="tabcontent">
-    <form method="POST" action="/appt/newappt">
-        <div class="mb-2">
-            <label for="apptName" class="form-label">Name of Medication</label>
-            <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
-        </div>
-    
-        <div class="mb-2">
-             <label for="date">Date:</label>
-    <input type="date" id="date" name="date"> 
-        </div>
-    
-       <div class="mb-2">
-        <label for="startTime">Time:</label>
-    <input type="time" id="startTime" name="startTime"> 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="tab">
+      <button class="tablinks" onclick="schedulerTabs('appt')">Appointment</button>
+      <button class="tablinks" onclick="schedulerTabs('meds')">Medication</button>
     </div>
- 
-    <div class="mb-2" style="display:none;" >
-        <input type="checkbox" id="meds" name="meds" value="true" checked>
-        <label for="meds">Medication Scheduling?</label><br>
-     </div>
-      <button type="submit" class="btn btn-primary mt-2">Submit</button>    
-    </form>
-</div>
+    <div id="appt" class="tabcontent">
+      <form method="POST" action="/appt/newappt">
+       
+          <div class="mb-2">
+              <label for="apptName" class="form-label">Name of Appointment</label>
+              <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
+          </div>
+      
+          <div class="mb-2">
+               <label for="date">Date:</label>
+      <input type="date" id="date" name="date"> 
+          </div>
+      
+         <div class="mb-2">
+          <label for="startTime">Start Time:</label>
+      <input type="time" id="startTime" name="startTime"> 
+      </div>
+      <div class="mb-2">
+         <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" name="endTime"> 
+      </div>
+      <div class="mb-2" style="display:none;">
+          <input type="checkbox" id="doctor" name="doctor" value="true" checked>
+          <label for="doctor">Doctor's appointment?</label><br>
+       </div>
+     
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+      </form>
+  </div>
   
+  <div id="meds" class="tabcontent">
+      <form method="POST" action="/appt/newappt">
+          <div class="mb-2">
+              <label for="apptName" class="form-label">Name of Medication</label>
+              <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
+          </div>
+      
+          <div class="mb-2">
+               <label for="date">Date:</label>
+      <input type="date" id="date" name="date"> 
+          </div>
+      
+         <div class="mb-2">
+          <label for="startTime">Time:</label>
+      <input type="time" id="startTime" name="startTime"> 
+      </div>
+   
+      <div class="mb-2" style="display:none;" >
+          <input type="checkbox" id="meds" name="meds" value="true" checked>
+          <label for="meds">Medication Scheduling?</label><br>
+       </div>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+      </form>
+  </div>
+    
+  </div>
+  </div>
+
+
 <% if(appointments.appointments == null){ %>
     <p>No appointments/medications scheduled</p>
 <% }else { %>
@@ -131,6 +111,31 @@
           document.getElementById(tabs).style.display = "block";
           event.currentTarget.className += " active";
         }
+
+        var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+} 
         </script>
     </body>
 </html>

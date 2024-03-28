@@ -186,7 +186,6 @@ axios.request(refreshOptions).then(async function (response) {
   
   router.post('/journals/patientSelect', isAuthenticated, async (req, res) => {
     const journals = await JournalModel.find({postedBy: req.body.userList});
-    console.log("Journals ", journals);
     res.render('doctorJournals', {patients:req.user.patient, journals: journals});
   })
 
