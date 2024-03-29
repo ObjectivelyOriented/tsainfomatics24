@@ -131,11 +131,13 @@ Test Fitbit</a>
       <% } %>
       <br />
 
-      <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
+     
         <div class = "datablock">
           <h3>Activity</h3>
+          
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+            <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
             <div class = "dataText">
               <h3>Activity goals</h3>
               <ul>
@@ -147,13 +149,15 @@ Test Fitbit</a>
               </ul>
                 
             </div>
+            <% } %>
           </div>
-          <% } %>
+        
           <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+            <h3>Calories out</h3>
             <div class = "dataText">
-              <h3>Calories out</h3>
+              
               <p> <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
             </div>
             <div class = "dataText">
