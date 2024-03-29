@@ -54,9 +54,9 @@ Test Fitbit</a>
            
              
               <div class="mb-2">
-                <label for="date"><h2>
+                <label for="date">
                   On
-                </h2></label>
+                </label>
                 <% if(date != null){ %>
        <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>"> 
        <% } else { %>
@@ -70,7 +70,7 @@ Test Fitbit</a>
           </form>
           <% } %>
 
-<div class = "datablock">
+
  
 <% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
