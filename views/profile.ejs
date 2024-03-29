@@ -18,12 +18,14 @@
                     </div>
                 <a href="/">Home</a>
                 <a href="/journals">Journals</a>
-            
+                <a href="/appt">Scheduler</a>
     <a href="/fitbit">
                     Fitbit</a>
                             
     <a href="/fitbit/test">
         Test Fitbit</a>
+        <a href="/auth/signout" style = "margin-left: auto;">
+            Log Out</a>
         </div>
       
         <div class = "header">
@@ -37,7 +39,7 @@
     <p>First Name: <%= user.firstName %></p>
     <p>Last Name: <%= user.lastName %></p>
     <p>Doctor Name: <%= user.doctorName %></p>
-    <p>Recorded Mental Illnesses</p>
+    <p>Recorded Mental Illnesses: </p>
     <br />
     <% for (illness of user.illnesses) { %>
 <span><strong><%= illness %>;</strong></span>
@@ -68,7 +70,7 @@
     </button>
 </a>
 
-<a href = "/fitbit/fitbitData">
+<a href = "/journals">
     <button class = "button">
         <div class = "buttondiv">
             <img class = "buttonicon" src = "https://cdn-icons-png.flaticon.com/512/1701/1701244.png">
@@ -80,7 +82,7 @@
     </button>
 </a>
 
-<a href = "/fitbit/fitbitData">
+<a href = "/appt">
     <button class = "button">
         <div class = "buttondiv">
             <img class = "buttonicon" src = "https://static-00.iconduck.com/assets.00/calendar-small-icon-1863x2048-ves2yjyu.png">

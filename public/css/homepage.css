@@ -43,7 +43,7 @@ body{
     
 }
 #avatar{
-  margin-top: 40%;
+  margin-top: 5%;
   width:200px;
   height:200px;
 }
@@ -77,6 +77,8 @@ body{
   font-size: 30px; 
   height:auto;
   width: 100%;
+  text-align: center;
+  line-height: 1%;
   
   
 }

@@ -11,24 +11,10 @@ var isAuthenticated = function (req, res, next) {
 
 router.get("/", isAuthenticated ,async (req, res)=>{
 
-    res.render("appt", {appointments: req.user});
+    res.render("appt", {user: req.user});
   })
   
 
-  router.post("/newappt", isAuthenticated, async (req, res) => {
-    try {
-    const user = await User.findOne({ username: req.user.username });
-      user.appointments.push(req.body);
-      await user.save();
-      res.render("/appt");
-      //res.status(200).json(journals);
-    } catch (error) {
-      //res.status(500).json({ error: "Internal Server Error" });
-      console.log(error);
-      res.status(500);
-      res.render("error", {error});
-    }
-  });
   router.post("/newappt", isAuthenticated, async (req, res) => {
     try {
     const user = await User.findOne({ username: req.user.username });

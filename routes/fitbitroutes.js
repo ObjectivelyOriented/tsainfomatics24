@@ -156,7 +156,7 @@ var apiCallOptions = {
     });
 
     router.get("/fitbitData",isAuthenticated, function(req,res){
-      res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:null});
+      res.render('fitbitData', {user:req.user,fitbitUsers:null, pooledFitbitData:null});
        
     });
     
@@ -178,7 +178,7 @@ var apiCallOptions = {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
             
-            res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+            res.render('fitbitData', {user:req.user, fitbitUsers:null, pooledFitbitData:pooledFitbitData});
 
               }).catch(function (error) {
               console.error("API call error" + error);

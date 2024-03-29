@@ -6,7 +6,7 @@ const router = express.Router();
       return next();
     res.redirect('/');
   }
-router.get('/profile', isAuthenticated, async(req, res)=>{
+router.get('/home', isAuthenticated, async(req, res)=>{
     res.render('profile', { user: req.user });
   });
   module.exports = router

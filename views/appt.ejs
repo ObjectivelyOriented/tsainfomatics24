@@ -8,19 +8,59 @@
 
 </head>
     <body>
+      <div class="navbar">
+               
+        <div id = "titleBox">
+            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+        </div>
+        <div id = "titleBox">
+                Hawk Health
+        </div>
+    <a href="/">Home</a>
+    <a href="/journals">Journals</a>
+    <a href="/appt">Scheduler</a>
+<a href="/fitbit">
+        Fitbit</a>
+                
+<a href="/fitbit/test">
+Test Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+  Log Out</a>
+</div>
 
-<h1>Appointment Scheduler</h1>
-<button id="myBtn">Open Modal</button>
+
+
+<div class = "header">
+  <h1>Appointment Scheduler</h1>
+  </div>     
+  <div class = "container">
+   
+        <button id="myBtn" class = "button">
+            <div class = "buttondiv">
+                <img class = "buttonicon" src = "https://static-00.iconduck.com/assets.00/calendar-small-icon-1863x2048-ves2yjyu.png">
+                <div class = "buttonText">
+                  <p>
+                    Schedule an Appointment or 
+                    New Medication Plan
+                  </p>
+                    
+                </div>
+            </div>
+            
+        </button>
+  
+  </div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
+    
     <div class="tab">
       <button class="tablinks" onclick="schedulerTabs('appt')">Appointment</button>
       <button class="tablinks" onclick="schedulerTabs('meds')">Medication</button>
+      <span class="close">&times;</span>
     </div>
     <div id="appt" class="tabcontent">
       <form method="POST" action="/appt/newappt">
@@ -50,7 +90,7 @@
      
         <button type="submit" class="btn btn-primary mt-2">Submit</button>    
       </form>
-  </div>
+    </div>
   
   <div id="meds" class="tabcontent">
       <form method="POST" action="/appt/newappt">
@@ -60,8 +100,12 @@
           </div>
       
           <div class="mb-2">
-               <label for="date">Date:</label>
-      <input type="date" id="date" name="date"> 
+               <label for="date">Frequency:</label>
+                    <select name="date" id="date">
+                        <option value="Twice a Day">Twice a Day</option>
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                      </select>
           </div>
       
          <div class="mb-2">
@@ -75,29 +119,53 @@
        </div>
         <button type="submit" class="btn btn-primary mt-2">Submit</button>    
       </form>
-  </div>
+  
     
+  
   </div>
+
+</div>
+</div>
+
+
+    <div class = "flexContainer">
+      <div id = "leftblock">
+        <h2> upcoming appointments </h2>
+        <% for (appt of user.appointments) { %>
+          <% if (appt.doctor) { %>
+            <div class = "contentblock">
+              <p>
+                <strong><%= new Date(appt.date+" "+appt.startTime).toDateString() %> </strong>
+                <br/>
+                <%= appt.apptName %> scheduled by <%= user.firstName %> <%= user.lastName %>  from  <%= appt.startTime %> to <%= appt.endTime %>
+               </p>
+              <a href = "/appt/purge/<%= appt._id %>">Delete Appointment</a>
+            </div>
+        
+              <% } %>
+          <% } %>
+  </div>
+  <div id = "leftblock">
+    <h2>medication plan </h2>
+    <% for (appt of user.appointments) { %>
+          <% if (appt.meds) { %>
+            <div class = "contentblock">
+              <p>
+                <strong><%= appt.apptName %></strong>
+                <br/>
+                <%= appt.date %>
+               </p>
+              <a href = "/appt/purge/<%= appt._id %>">Delete medication plan</a>
+            </div>
+              
+                  <% } %>
+      <% } %>
   </div>
 
+  </div>
 
-<% if(appointments.appointments == null){ %>
-    <p>No appointments/medications scheduled</p>
-<% }else { %>
-    <% for (appt of appointments.appointments) { %>
-        <% if (appt.doctor) { %>
-        <p><%= appt.apptName %> Doctor's Appointment scheduled by <%= appointments.firstName %> <%= appointments.lastName %> on <%= appt.date %> from  <%= appt.startTime %> to <%= appt.endTime %> </p>
-        <a href = "/appt/purge/<%= appt._id %>">Delete <%= appt.apptName %> Doctor's Appointment</a>
-            <% } %>
-            <% if (appt.meds) { %>
-                <p><%= appt.apptName %> Medication scheduled by <%= appointments.firstName %> <%= appointments.lastName %> on <%= appt.date %> at <%= appt.startTime %>  </p>
-                <a href = "/appt/purge/<%= appt._id %>">Delete scheduled <%= appt.apptName %> medication</a>
-                    <% } %>
-        <% } %>
-    <% } %>
-
-
-    <script>
+    </body>
+      <script>
         function schedulerTabs(tabs) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
@@ -137,5 +205,4 @@ window.onclick = function(event) {
   }
 } 
         </script>
-    </body>
 </html>

@@ -11,12 +11,12 @@ module.exports = function(passport){
     });
     /* Handle Login POST */
     router.post('/login', passport.authenticate('login', {
-      successRedirect: '/user/profile',
+      successRedirect: '/user/home',
       failureRedirect: '/',
       failureFlash : true  
     }));
     router.post('/doctorslogin', passport.authenticate('login', {
-      successRedirect: '/user/profile',
+      successRedirect: '/user/home',
       failureRedirect: '/',
       failureMessage: true,
       failureFlash : true  
@@ -31,13 +31,13 @@ module.exports = function(passport){
     });
     /* Handle Registration POST */
     router.post('/signup', passport.authenticate('signup', {
-      successRedirect: '/user/profile',
+      successRedirect: '/user/home',
       failureRedirect: '/',
       failureMessage: true,
       failureFlash : true  
     }));
     router.post('/doctorsignup', passport.authenticate('docSignup', {
-      successRedirect: '/user/profile',
+      successRedirect: '/user/home',
       failureRedirect: '/auth/doctor/signup',
       failureFlash : true  
     }));

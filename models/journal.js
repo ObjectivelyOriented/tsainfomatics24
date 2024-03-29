@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const QuestionaireSchema = new Schema({
-    QuestionaireType: String,
-    formAnswers: Array,
-    optionalQuestion: String
-})
+
 
 const JournalSchema = new Schema({
     journalType: String,
@@ -15,13 +11,11 @@ const JournalSchema = new Schema({
         required: [true, "Firstname is required"]
     }, 
     journalTwo: {
-        type: String,
-        required: [true, "Lastname is required"]
+        type: String
     },
     checkbox: {
         type: Array
     },
-    questionaire: [QuestionaireSchema],
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

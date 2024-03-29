@@ -1,7 +1,7 @@
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="/css/homepage.css" />
+        <link rel="stylesheet" type="text/css" href="/css/journals.css" />
         
 <meta charset="UTF-8">
 
@@ -19,41 +19,82 @@
             </div>
         <a href="/">Home</a>
         <a href="/journals">Journals</a>
-    
+        <a href="/appt">Scheduler</a>
 <a href="/fitbit">
             Fitbit</a>
                     
 <a href="/fitbit/test">
 Test Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+    Log Out</a>
 </div>
+<div class="header">
+    <h1>Journals</h1>
+  </div> 
+  <div class = "container">
+    <a href = "/journals/new">
+        <button class = "button">
+            <div class = "buttondiv">
+                <img class = "buttonicon" src = "https://cdn-icons-png.flaticon.com/512/1701/1701244.png">
+                <div class = "buttonText">
+                    Create A New Journal
+                </div>
+            </div>
+            
+        </button>
+    </a>
+  </div>
 
-        <a href="/journals/new">New Journal</a>
+        
         <% if(journals == null){ %>
             <p>None Avaliable</p>
         <% }else { %>
     
             
+
                 <% for (journal of journals) { %>
-        <div id="journals">
+                    <button type="button" class="collapsible">Journal entry from <%= journal.time.toDateString() %> </button>
+        <div class="journals">
             
-            <h3>Title: <%= journal.firstname %></h3>
-            <h4>Date: <%= journal.time.getFullYear() %>-<%= (journal.time.getMonth()) + 1 %>-<%= journal.time.getDate() %></h4>
+           
+           <h4>
+            
+           </h4>
+            <h4>How you were feeling: </h4>
+            <p> <%= journal.journalOne %></p>
+            <h4>Extra information added: </h4>
+            <p> <%= journal.journalTwo %></p>
             <P>Recorded Moods: </P>
             <ul>
                 <% for (mood of journal.checkbox) { %>
 <li><%= mood %></li>
-                    <% } %> 
+<% } %>
+
             </ul>
-          
-            <p><%= journal.lastname %></p>
+           
         </div>
-                    
+        <% } %>         
 
         
-                <% } %>
+               
  
-
+       
             <% } %>
-        
     </body>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
 </html>

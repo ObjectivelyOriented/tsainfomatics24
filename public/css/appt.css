@@ -47,6 +47,18 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
   
   /* Modal Content/Box */
   .modal-content {
@@ -71,3 +83,113 @@
     text-decoration: none;
     cursor: pointer;
   }
+  .navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+}
+
+.navbar #titleBox img {
+   width:50px;
+   padding-right:3px;
+}
+.navbar #titleBox {
+    padding:3px;
+    font-size: 40px;
+ }
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
+}
+.header{
+    padding: 1px;
+    text-align: center;
+    background: rgb(113, 179, 214);;
+    color: #BDE1CE;
+    font-size: 30px;
+    /*width:80%; */
+    
+}
+body{
+    margin:0;
+}
+.button{
+    border-radius: 25px;
+    height: auto;
+    text-align: left;
+    border: 2px solid rgb(113, 179, 214);
+    background-color: rgb(113, 179, 214);
+    transition: 1s;
+    margin-bottom: 10px;
+
+    
+}
+.button:hover{
+    color:white;
+    background-color: rgb(93, 145, 173);
+}
+.buttonicon{
+    width:10%;
+    
+}
+.buttonText{
+    font-size: 40px;
+}
+
+.buttondiv{
+    display: flex;
+ padding:10px;
+ gap: 20px;
+    align-items: center;
+    justify-content: center;
+     
+}
+.container{
+    padding:20px;
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+  
+  
+}
+#leftblock{
+    background-color: white;
+    padding: 20px;
+   width:50%;
+   
+    border-right: 2px dashed black;
+    display: flex;
+flex-direction: column;
+}
+#leftblock p{
+    width:50%;
+}
+#leftblock h2{
+    text-align: center;
+    font-size: 36px;
+}
+
+.flexContainer { 
+    display: flex;
+    height: 100%;
+    
+    }
+.contentblock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}

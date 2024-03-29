@@ -67,7 +67,7 @@ app.set("view engine", "ejs")
 //Shows home page
 app.get("/", async (req, res) => {
   if (req.isAuthenticated()){
-    res.redirect('/user/profile');
+    res.redirect('/user/home');
   }
   res.render("index");
 
