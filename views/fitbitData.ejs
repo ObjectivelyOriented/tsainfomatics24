@@ -137,7 +137,18 @@ Test Fitbit</a>
             </div>
             <% } %>
           </div>
-        
+          <div class = "datadiv">
+            <img class = "dataicon" src = "https://static.thenounproject.com/png/18279-200.png">
+            <div class = "dataText">
+              <h3>Sleep stages</h3>
+              <ul>
+                <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
+                <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
+                <li><strong>Time spent in REM sleep: </strong><%= pooledFitbitData[1].stages.rem %> minutes</li>
+                <li><strong>Time spent in awake: </strong><%= pooledFitbitData[1].stages.wake %> minutes</li>
+              </ul>
+            </div>
+          </div>
           <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
