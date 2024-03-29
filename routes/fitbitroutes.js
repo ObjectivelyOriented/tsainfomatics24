@@ -177,7 +177,6 @@ var apiCallOptions = {
           axios.request(apiCallOptions).then(function (response) {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
-            console.log("pooledFitbitData: " + pooledFitbitData);
             res.render('fitbitData', {user:req.user, fitbitUsers:null, pooledFitbitData:pooledFitbitData});
 
               }).catch(function (error) {
