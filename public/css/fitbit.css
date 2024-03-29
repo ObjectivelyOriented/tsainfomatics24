@@ -99,4 +99,6 @@
         }
         .datablock{
             text-align: center;
+            border: 2px solid rgb(113, 179, 214);
+            background-color: rgb(113, 179, 214);
         }

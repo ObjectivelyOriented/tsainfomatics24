@@ -89,7 +89,7 @@ Test Fitbit</a>
 <% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
-    <h3>Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
+    <h3 style = "text-align: center;">Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
     <div class = "datablock">
       <h2>Heart Rate Data</h2>
       <div class = "datadiv">
@@ -155,17 +155,15 @@ Test Fitbit</a>
           <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
-            <h3>Calories out</h3>
             <div class = "dataText">
               
-              <p> <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
+              <p>Calories out: <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
             </div>
             <h4>Distance data</h4>
             <div class = "dataText">
               
               <% for(distanceType of pooledFitbitData[3].distances){ %>
-                <h5><%= distanceType.activity %> distance</h5>
-                <h5><%= distanceType.distance %> miles</h5>
+                <h5><%= distanceType.activity %> distance: <%= distanceType.distance %> miles</h5>
               <% } %>
             </div>
             <h3>Activity summary</h3>
