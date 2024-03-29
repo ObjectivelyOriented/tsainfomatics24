@@ -67,9 +67,9 @@ Test Fitbit</a>
           </form>
           <% } %>
 <h1>Fitbit Data</h1>
-<% if(pooledFitbitData != null && pooledFitbitData.length){ %>
+<% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
-  <% if(pooledFitbitData[0] != null){ %>
+  <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
     <h3>Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
 <h2>Heart rate data</h2>
     <% for(rate of pooledFitbitData[0].value.heartRateZones){ %>
@@ -83,7 +83,7 @@ Test Fitbit</a>
     <% } %>
     <% } %>
 <br />
-    <% if(pooledFitbitData[1] != null){ %>
+    <% if(pooledFitbitData[1] != null && pooledFitbitData[1] != undefined){ %>
     
         <h3>Sleep stages</h3>
       <ul>
@@ -96,7 +96,7 @@ Test Fitbit</a>
       <% } %>
       <br />
 
-      <% if(pooledFitbitData[2] != null){ %>
+      <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
     
         <h3>Activity goals</h3>
       <ul>
@@ -110,7 +110,7 @@ Test Fitbit</a>
       <% } %>
       <br />
 
-      <% if(pooledFitbitData[3] != null){ %>
+      <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
     
         <h3>Activity summary</h3>
         <p>Calories out: <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
