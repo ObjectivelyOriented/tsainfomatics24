@@ -19,7 +19,7 @@
 <a href="/fitbit">
         Fitbit</a>
                 
-<a href="/fitbit/test">
+<a href="/fitbit/fitbitData">
 Test Fitbit</a>
 <a href="/auth/signout" style = "margin-left: auto;">
   Log Out</a>
@@ -71,73 +71,114 @@ Test Fitbit</a>
           </form>
           <% } %>
 <h1>Fitbit Data</h1>
+
+<div class = "datablock">
+  <h3>Pink</h3>
+  <div class = "datadiv">
+    <img class = "dataicon" src = "https://static-00.iconduck.com/assets.00/symbol-heart-rate-icon-2048x2048-f4a2f30c.png">
+    <div class = "dataText">
+      <h4>Hello</h4>
+      <p>
+        Schedule an Appointment or 
+        New Medication Plan
+      </p>
+        
+    </div>
+  </div>
+  </div>
 <% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
     <h3>Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
-<h2>Heart rate data</h2>
-    <% for(rate of pooledFitbitData[0].value.heartRateZones){ %>
-      <h3><%= rate.name %></h3>
-    <ul>
-      <li>Calories Out: <%= rate.caloriesOut %> kilocalories </li>
-      <li>Maximum heart rate in this zone: <%= rate.max %> beats per minute</li>
-      <li>Minimum heart rate in this zone: <%= rate.min %> beats per minute</li>
-      <li>Time spent in this zone: <%= rate.minutes %> minutes</li>
-    </ul>
+    <div class = "datablock">
+      <h2>Heart Rate Data</h2>
+      <div class = "datadiv">
+        <img class = "dataicon" src = "https://static-00.iconduck.com/assets.00/symbol-heart-rate-icon-2048x2048-f4a2f30c.png">
+        <% for(rate of pooledFitbitData[0].value.heartRateZones){ %>
+        <div class = "dataText">
+          <h3><%= rate.name %></h3>
+          <ul>
+            <li>Calories Out: <%= rate.caloriesOut %> kilocalories </li>
+            <li>Maximum heart rate in this zone: <%= rate.max %> beats per minute</li>
+            <li>Minimum heart rate in this zone: <%= rate.min %> beats per minute</li>
+            <li>Time spent in this zone: <%= rate.minutes %> minutes</li>
+          </ul>
+            
+        </div>
+        <% } %>
+      </div>
+      </div>
     <% } %>
-    <% } %>
-<br />
     <% if(pooledFitbitData[1] != null && pooledFitbitData[1].stages != undefined){ %>
-    
-        <h3>Sleep stages</h3>
-      <ul>
-        <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
-        <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
-        <li><strong>Time spent in REM sleep: </strong><%= pooledFitbitData[1].stages.rem %> minutes</li>
-        <li><strong>Time spent in awake: </strong><%= pooledFitbitData[1].stages.wake %> minutes</li>
-      </ul>
+      <div class = "datablock">
+        <h3>Sleep Data</h3>
+        <div class = "datadiv">
+          <img class = "dataicon" src = "https://static.thenounproject.com/png/18279-200.png">
+          <div class = "dataText">
+            <h3>Sleep stages</h3>
+            <ul>
+              <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
+              <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
+              <li><strong>Time spent in REM sleep: </strong><%= pooledFitbitData[1].stages.rem %> minutes</li>
+              <li><strong>Time spent in awake: </strong><%= pooledFitbitData[1].stages.wake %> minutes</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+       
+      
       
       <% } %>
       <br />
 
       <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
-    
-        <h3>Activity goals</h3>
-      <ul>
-        <li><strong>Active minutes goals: </strong><%= pooledFitbitData[2].activeMinutes %> minutes</li>
-        <li><strong>Calories out goals: </strong><%= pooledFitbitData[2].caloriesOut %> kilocalories</li>
-        <li><strong>Distance goals: </strong><%= pooledFitbitData[2].distance %> miles</li>
-        <li><strong>Floors climbed goals: </strong><%= pooledFitbitData[2].floors %> floors</li>
-        <li><strong>Steps count goals: </strong><%= pooledFitbitData[2].steps %> steps</li>
-      </ul>
-      
-      <% } %>
-      <br />
-
-      <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
-    
-        <h3>Activity summary</h3>
-        <p>Calories out: <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
-      <h4>Distance data</h4>
-      <% for(distanceType of pooledFitbitData[3].distances){ %>
-        <h5><%= distanceType.activity %> distance</h5>
-        <h5><%= distanceType.distance %> miles</h5>
-      <br />
-      <% } %>
-      <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
-      <h4>Floors climbed: <%= pooledFitbitData[3].floors %> floors</h4>
-      
-      <h4>Total marginal estimated calories: <%= pooledFitbitData[3].marginalCalories %> kilocalories</h4>
-
-      <h4>Sedentary Active minutes: <%= pooledFitbitData[3].sedentaryMinutes %> minutes</h4>
-      <h4>Lightly Active minutes: <%= pooledFitbitData[3].lightlyActiveMinutes %> minutes</h4>
-      <h4>Fairly or Moderately Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %> minutes</h4>
-      <h4>Very Active minutes: <%= pooledFitbitData[3].veryActiveMinutes %> minutes</h4>
-      
-      
-      <% } %>
-
-      <br />
-      <% } %>
+        <div class = "datablock">
+          <h3>Activity</h3>
+          <div class = "datadiv">
+            <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+            <div class = "dataText">
+              <h3>Activity goals</h3>
+              <ul>
+                <li><strong>Active minutes goals: </strong><%= pooledFitbitData[2].activeMinutes %> minutes</li>
+                <li><strong>Calories out goals: </strong><%= pooledFitbitData[2].caloriesOut %> kilocalories</li>
+                <li><strong>Distance goals: </strong><%= pooledFitbitData[2].distance %> miles</li>
+                <li><strong>Floors climbed goals: </strong><%= pooledFitbitData[2].floors %> floors</li>
+                <li><strong>Steps count goals: </strong><%= pooledFitbitData[2].steps %> steps</li>
+              </ul>
+                
+            </div>
+          </div>
+          <% } %>
+          <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
+          <div class = "datadiv">
+            <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+            <div class = "dataText">
+              <h3>Calories out</h3>
+              <p> <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
+            </div>
+            <div class = "dataText">
+              <h4>Distance data</h4>
+              <% for(distanceType of pooledFitbitData[3].distances){ %>
+                <h5><%= distanceType.activity %> distance</h5>
+                <h5><%= distanceType.distance %> miles</h5>
+              <% } %>
+            </div>
+            <div class = "dataText">
+              <h3>Activity summary</h3>
+              <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
+              <h4>Floors climbed: <%= pooledFitbitData[3].floors %> floors</h4>
+              
+              <h4>Total marginal estimated calories: <%= pooledFitbitData[3].marginalCalories %> kilocalories</h4>
+        
+              <h4>Sedentary Active minutes: <%= pooledFitbitData[3].sedentaryMinutes %> minutes</h4>
+              <h4>Lightly Active minutes: <%= pooledFitbitData[3].lightlyActiveMinutes %> minutes</h4>
+              <h4>Fairly or Moderately Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %> minutes</h4>
+              <h4>Very Active minutes: <%= pooledFitbitData[3].veryActiveMinutes %> minutes</h4>
+            </div>
+          </div>
+          <% } %>
+          </div>
+  
+     
     </body>
 </html>

@@ -78,4 +78,22 @@
             background-color: black;
             color: white;
         }
+        .dataicon{
+            width:100px;
+            
+        }
+        .datatext{
+            border-right: 2px solid;
+        }
         
+       
+        .datadiv{
+            display: flex;
+         padding:10px;
+         gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .datablock{
+            text-align: center;
+        }
