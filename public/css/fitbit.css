@@ -99,6 +99,9 @@
         }
         .datablock{
             text-align: center;
+            border-radius: 25px;
             border: 2px solid rgb(113, 179, 214);
             background-color: rgb(113, 179, 214);
+            margin-bottom: 10px;
+
         }

@@ -49,47 +49,33 @@ Test Fitbit</a>
       
     </form>
     <% } else { %>
-
- 
-      <h2>Select a date to view data</h2>
-      
       
           <form method="POST" action="/fitbit/fitbitData">
            
              
               <div class="mb-2">
-                <label for="date">Select a Date:</label>
+                <label for="date"><h2>
+                  On
+                </h2></label>
                 <% if(date != null){ %>
        <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>"> 
        <% } else { %>
         <input type="date" id="date" name="date"> 
         <% } %>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
            </div>
               
-              <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+              
             
           </form>
           <% } %>
-<h1>Fitbit Data</h1>
 
 <div class = "datablock">
-  <h3>Pink</h3>
-  <div class = "datadiv">
-    <img class = "dataicon" src = "https://static-00.iconduck.com/assets.00/symbol-heart-rate-icon-2048x2048-f4a2f30c.png">
-    <div class = "dataText">
-      <h4>Hello</h4>
-      <p>
-        Schedule an Appointment or 
-        New Medication Plan
-      </p>
-        
-    </div>
-  </div>
-  </div>
+ 
 <% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
-    <h3 style = "text-align: center;">Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h3>
+    <h2 style = "text-align: center;">Data Queried on <strong><%= pooledFitbitData[0].dateTime %> </strong></h2>
     <div class = "datablock">
       <h2>Heart Rate Data</h2>
       <div class = "datadiv">
