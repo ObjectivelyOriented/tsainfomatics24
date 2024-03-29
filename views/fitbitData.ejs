@@ -59,7 +59,11 @@ Test Fitbit</a>
              
               <div class="mb-2">
                 <label for="date">Select a Date:</label>
-       <input type="date" id="date" name="date"> 
+                <% if(date != null){ %>
+       <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>"> 
+       <% } else { %>
+        <input type="date" id="date" name="date"> 
+        <% } %>
            </div>
               
               <button type="submit" class="btn btn-primary mt-2">Submit</button> 
