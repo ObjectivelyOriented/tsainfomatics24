@@ -147,7 +147,7 @@ var apiCallOptions = {
         };
         console.log("Queried fitbit data, access token: "+response.data.access_token, "refresh token: " + response.data.refresh_token);
         await fitbitUser.save();
-        res.redirect("/");
+        res.redirect("/fitbit/fitbitData");
        // res.redirect('/')
       }).catch(function (error) {
         console.error("Token request error " + error.response.data.message);
