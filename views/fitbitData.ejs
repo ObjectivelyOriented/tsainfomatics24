@@ -138,8 +138,9 @@ Test Fitbit</a>
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
             <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
-            <div class = "dataText">
               <h3>Activity goals</h3>
+              <div class = "dataText">
+             
               <ul>
                 <li><strong>Active minutes goals: </strong><%= pooledFitbitData[2].activeMinutes %> minutes</li>
                 <li><strong>Calories out goals: </strong><%= pooledFitbitData[2].caloriesOut %> kilocalories</li>
@@ -160,15 +161,17 @@ Test Fitbit</a>
               
               <p> <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
             </div>
+            <h4>Distance data</h4>
             <div class = "dataText">
-              <h4>Distance data</h4>
+              
               <% for(distanceType of pooledFitbitData[3].distances){ %>
                 <h5><%= distanceType.activity %> distance</h5>
                 <h5><%= distanceType.distance %> miles</h5>
               <% } %>
             </div>
+            <h3>Activity summary</h3>
             <div class = "dataText">
-              <h3>Activity summary</h3>
+              
               <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
               <h4>Floors climbed: <%= pooledFitbitData[3].floors %> floors</h4>
               

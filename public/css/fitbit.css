@@ -84,6 +84,8 @@
         }
         .datatext{
             border-right: 2px solid;
+            padding:10px;
+            overflow: auto;
         }
         
        
