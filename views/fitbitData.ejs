@@ -97,11 +97,11 @@ Test Fitbit</a>
     <% } %>
     <% if(pooledFitbitData[1] != null && pooledFitbitData[1].stages != undefined){ %>
       <div class = "datablock">
-        <h3>Sleep Data</h3>
+        <h2>Sleep Data</h2>
         <div class = "datadiv">
           <img class = "dataicon" src = "https://static.thenounproject.com/png/18279-200.png">
           <div class = "dataText">
-            <h3>Sleep stages</h3>
+            <h3>Sleep Stages</h3>
             <ul>
               <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
               <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
@@ -119,11 +119,11 @@ Test Fitbit</a>
 
      
         <div class = "datablock">
-          <h3>Activity</h3>
+          <h2>Activity</h2>
           
           <div class = "datadiv">
             <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
-              <h3>Activity goals</h3>
+              <h3>Activity Goals</h3>
               <div class = "dataText">
              
               <ul>
@@ -141,18 +141,19 @@ Test Fitbit</a>
           <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
           <div class = "datadiv">
             <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+            <h3>Calories Out</h3>
             <div class = "dataText">
               
-              <p>Calories out: <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
+              <p> <%= pooledFitbitData[3].caloriesOut %> kilocalories </p>
             </div>
-            <h4>Distance data</h4>
+            <h3>Distance Data</h3>
             <div class = "dataText">
               
               <% for(distanceType of pooledFitbitData[3].distances){ %>
                 <h5><%= distanceType.activity %> distance: <%= distanceType.distance %> miles</h5>
               <% } %>
             </div>
-            <h3>Activity summary</h3>
+            <h3>Activity Summary</h3>
             <div class = "dataText">
               
               <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
