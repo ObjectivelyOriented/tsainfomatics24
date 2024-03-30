@@ -66,7 +66,7 @@ router.get("/patientSelect", isAuthenticated ,async (req, res)=>{
     await doctor.save();
     pickedUser.doctorName = req.user.firstName + " " + req.user.lastName;
     await pickedUser.save();
-    res.redirect("/");
+    res.redirect("/doctor/patientSelect");
  })
 
 
@@ -84,7 +84,7 @@ router.post("/setappt", isAuthenticated ,async (req, res)=>{
   const pickedUser = await User.findById( req.body.userList ).exec();
   pickedUser.appointments.push(req.body);
   await pickedUser.save();
-  res.redirect("/");
+  res.redirect("/doctor/setappt");
 })
 
 router.post("/patientSelect", isAuthenticated ,async (req, res)=>{
@@ -100,7 +100,7 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
   const pickedUser = await User.findById( userToEdit.id ).exec();
   pickedUser.illnesses = req.body.illnesses;
   await pickedUser.save();
-  res.redirect("/");
+  res.redirect("/doctor/setappt");
 })
 
 
@@ -178,7 +178,7 @@ axios.request(refreshOptions).then(async function (response) {
   res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
 }).catch(function (error) {
   console.error("Token request error " + error);
-  res.redirect("/"); //alert doctor refresh token is null
+  res.redirect("/doctor"); //alert doctor refresh token is null
 });
 
 });
