@@ -43,8 +43,11 @@ router.use((req, res, next) => {
 })
 // home page route
 router.get('/',isAuthenticated,async (req, res) => {
-  const journals = await JournalModel.find();
-  res.render('doctorindex', {user:req.user});
+  
+    const patients = await User.find({doctorName:req.user.firstName + " " + req.user.lastName});
+
+
+  res.render('doctorindex', {user:req.user, patients:patients});
   
 })
 
@@ -114,7 +117,7 @@ res.render('fitbitData', {fitbitUsers:doctor.patient, pooledFitbitData:null, dat
 })
 
 router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
-  fitbitUser = await User.findById( req.body.userList ).exec();
+  fitbitUser = await User.findOne({ _id: req.body.userList }).exec();
   if(fitbitUser.fitbitData.accessToken != '' && fitbitUser.fitbitData.refreshToken != ''){
     apiCallOptions.url = "https://api.fitbit.com/1/user/"+fitbitUser.fitbitData.userId+"/activities/heart/date/"+req.body.date+"/1d/1min.json";
     apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);

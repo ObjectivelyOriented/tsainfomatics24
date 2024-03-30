@@ -27,30 +27,34 @@
 <h1> Fitbit </h1>
 </div>  
       <% if(fitbitUsers != null || fitbitUsers != undefined){ %>
-<h1>Select a user to view their heart, sleep, and activity biometrics</h1>
+<h1 style = "text-align: center;">Select a user to view their heart, sleep, and activity biometrics</h1>
 
 
-    <form method="POST" action="/doctor/fitbit/patientSelect">
-     
-        <label for="userList">Select a patient:</label>
-        <select name="userList" id="userList">
-        <% for (user of fitbitUsers) { %>
-            <option value="<%= user.userid %>"><%= user.username %></option>
-            <% } %>
-          </select>
-          <div class="mb-2">
-            <label for="date">Select a Date:</label>
-   <input type="date" id="date" name="date"> 
+    <form method="POST" action="/doctor/fitbit/patientSelect" class="form">
+     <div>
+      <label for="userList">Select a patient:</label>
+      <select name="userList" id="userList">
+      <% for (user of fitbitUsers) { %>
+          <option value="<%= user.userid %>"><%= user.username %></option>
+          <% } %>
+        </select>
+     </div>
+       <div>
+        <div class="mb-2">
+          <label for="date">Select a Date:</label>
+ <input type="date" id="date" name="date"> 
+     </div>
+        
        </div>
           
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
       
     </form>
     <% } else { %>
-      
-          <form method="POST" action="/fitbit/fitbitData">
+      <h1 style = "text-align: center;">Select a date to view your heart, sleep, and activity biometrics</h1>
+          <form method="POST" action="/fitbit/fitbitData" class="form">
            
-             
+             <div>
               <div class="mb-2">
                 <label for="date">
                   Select Date:
@@ -62,9 +66,7 @@
         <% } %>
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
            </div>
-              
-              
-            
+             </div>
           </form>
           <% } %>
 
@@ -73,7 +75,7 @@
 <% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
 <!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
   <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
-    <h2 style = "text-align: center;"><strong><%= fitbitUser.username %>'s <%= new Date(pooledFitbitData[0].dateTime).toDateString() %></strong> Fitbit Data</h2>
+    <h2 style = "text-align: center;"><strong><%= fitbitUser.firstName %> <%= fitbitUser.lastName %>'s <%= new Date(pooledFitbitData[0].dateTime).toDateString() %></strong> Fitbit Data</h2>
     <div class = "datablock">
       <h2>Heart Rate Data</h2>
       <div class = "datadiv">

@@ -103,3 +103,10 @@
             margin-bottom: 20px;
 
         }
+        .form{
+          display: flex;
+          justify-content: center;
+        }
+        .form div{
+          margin-left:10px;
+        }

@@ -39,10 +39,12 @@
     <p>Last Name: <%= user.lastName %></p>
     <p>Doctor Name: <%= user.doctorName %></p>
     <p>Registered Patients: </p>
-    <br />
-    <% for (illness of user.illnesses) { %>
-<span><strong><%= illness %>;</strong></span>
-        <% } %>
+    <ul>
+        <% for (patient of patients) { %>
+            <li><strong><%= patient.firstName %> <%= patient.lastName %></strong></li>
+                    <% } %>
+    </ul>
+   
 <br />
    
 </div>
