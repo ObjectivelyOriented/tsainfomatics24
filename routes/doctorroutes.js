@@ -110,7 +110,7 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
 
 router.get('/fitbit',isAuthenticated, async (req, res) => {
   const doctor = await User.findOne({ username: req.user.username });
-res.render('fitbitData', {fitbitUsers:doctor.patient, pooledFitbitData:null});
+res.render('fitbitData', {fitbitUsers:doctor.patient, pooledFitbitData:null, date:null});
 })
 
 router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
@@ -133,7 +133,7 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
           pooledFitbitData.push(response.data.goals);
           pooledFitbitData.push(response.data.summary);
           
-          res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+          res.render('fitbitData', {fitbitUsers:null, pooledFitbitData:pooledFitbitData, date:null});
 
             }).catch(function (error) {
             console.error("API call error" + error);
