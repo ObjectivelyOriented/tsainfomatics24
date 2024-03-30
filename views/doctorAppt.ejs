@@ -1,74 +1,233 @@
 <html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="/css/appt.css" />
+    
+<meta charset="UTF-8">
+
+
+</head>
     <body>
-            <form method="POST" action="/doctor/setappt">
-                <% if(patientList != null){ %>
-                    <label for="userList">Choose a patient:</label>
-                    <select name="userList" id="userList">
-                    <% for (patient of patientList) { %>
-                        <option value="<%= patient.userid %>"><%= patient.username %></option>
-                        <% } %>
-                      </select>
-                    
-                    <% } %>
-     
-                <div class="mb-2">
-                    <label for="apptName" class="form-label">Name of Appointment</label>
-                    <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
-                </div>
-            
-                <div class="mb-2">
-                     <label for="date">Date:</label>
-            <input type="date" id="date" name="date"> 
-                </div>
-            
-               <div class="mb-2">
-                <label for="startTime">Start Time:</label>
-            <input type="time" id="startTime" name="startTime"> 
-            </div>
-            <div class="mb-2">
-               <label for="endTime">End Time:</label>
-            <input type="time" id="endTime" name="endTime"> 
-            </div>
-            <div class="mb-2" style="display:none;">
-                <input type="checkbox" id="doctor" name="doctor" value="true" checked>
-                <label for="doctor">Doctor's appointment?</label><br>
-             </div>
-           
-              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
-            </form>
+      <div class="navbar">
+               
+        <div id = "titleBox">
+            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
         </div>
-        
-        <div id="meds" class="tabcontent">
-            <form method="POST" action="/doctor/setappt">
-                <% if(patientList != null){ %>
-                    <label for="userList">Choose a car:</label>
-                    <select name="userList" id="userList">
-                    <% for (patient of patientList) { %>
-                        <option value="<%= patient.userid %>"><%= patient.username %></option>
-                        <% } %>
-                      </select>
+        <div id = "titleBox">
+                Hawk Health
+        </div>
+    <a href="/">Home</a>
+    <a href="/doctor/journals">Journals</a>
+    <a href="/doctor/setappt">Scheduler</a>
+                
+<a href="/doctor/fitbit">
+Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+  Log Out</a>
+</div>
+
+
+
+<div class = "header">
+  <h1>Appointment Scheduler</h1>
+  </div>     
+  <div class = "container">
+   
+        <button id="myBtn" class = "button">
+            <div class = "buttondiv">
+                <img class = "buttonicon" src = "https://static-00.iconduck.com/assets.00/calendar-small-icon-1863x2048-ves2yjyu.png">
+                <div class = "buttonText">
+                  <p>
+                    Schedule an Appointment or 
+                    New Medication Plan
+                  </p>
                     
-                    <% } %>
-                <div class="mb-2">
-                    <label for="apptName" class="form-label">Name of Medication</label>
-                    <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
                 </div>
-            
-                <div class="mb-2">
-                     <label for="date">Date:</label>
-            <input type="date" id="date" name="date"> 
-                </div>
-            
-               <div class="mb-2">
-                <label for="startTime">Time:</label>
-            <input type="time" id="startTime" name="startTime"> 
             </div>
-         
-            <div class="mb-2" style="display:none;" >
-                <input type="checkbox" id="meds" name="meds" value="true" checked>
-                <label for="meds">Medication Scheduling?</label><br>
-             </div>
-              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
-            </form>
+            
+        </button>
+  
+  </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    
+    <div class="tab">
+      <button class="tablinks" onclick="schedulerTabs('appt')">Appointment</button>
+      <button class="tablinks" onclick="schedulerTabs('meds')">Medication</button>
+      <span class="close">&times;</span>
+    </div>
+    <div id="appt" class="tabcontent">
+      <form method="POST" action="/appt/newappt">
+        <% if(patientList != null){ %>
+            <label for="userList">Choose a patient:</label>
+            <select name="userList" id="userList">
+            <% for (patient of patientList) { %>
+                <option value="<%= patient.userid %>"><%= patient.username %></option>
+                <% } %>
+              </select>
+            
+            <% } %>
+          <div class="mb-2">
+              <label for="apptName" class="form-label">Name of Appointment</label>
+              <input type="text" class="form-control" name="apptName" placeholder="Name of Appointment" required>
+          </div>
+      
+          <div class="mb-2">
+               <label for="date">Date:</label>
+      <input type="date" id="date" name="date"> 
+          </div>
+      
+         <div class="mb-2">
+          <label for="startTime">Start Time:</label>
+      <input type="time" id="startTime" name="startTime"> 
+      </div>
+      <div class="mb-2">
+         <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" name="endTime"> 
+      </div>
+      <div class="mb-2" style="display:none;">
+          <input type="checkbox" id="doctor" name="doctor" value="true" checked>
+          <label for="doctor">Doctor's appointment?</label><br>
+       </div>
+     
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+      </form>
+    </div>
+  
+  <div id="meds" class="tabcontent">
+      <form method="POST" action="/appt/newappt">
+        <% if(patientList != null){ %>
+            <label for="userList">Choose a patient:</label>
+            <select name="userList" id="userList">
+            <% for (patient of patientList) { %>
+                <option value="<%= patient.userid %>"><%= patient.username %></option>
+                <% } %>
+              </select>
+            
+            <% } %>
+          <div class="mb-2">
+              <label for="apptName" class="form-label">Name of Medication</label>
+              <input type="text" class="form-control" name="apptName" placeholder="Name of Medication" required>
+          </div>
+      
+          <div class="mb-2">
+               <label for="date">Frequency:</label>
+                    <select name="date" id="date">
+                        <option value="Twice a Day">Twice a Day</option>
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                      </select>
+          </div>
+      
+         <div class="mb-2">
+          <label for="startTime">Time:</label>
+      <input type="time" id="startTime" name="startTime"> 
+      </div>
+   
+      <div class="mb-2" style="display:none;" >
+          <input type="checkbox" id="meds" name="meds" value="true" checked>
+          <label for="meds">Medication Scheduling?</label><br>
+       </div>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+      </form>
+  
+    
+  
+  </div>
+
+</div>
+</div>
+
+
+    <div class = "flexContainer">
+      <div id = "leftblock">
+        <h2> upcoming appointments </h2>
+        <% for (patient of patients) { %>
+            <% if (patient.appointments != null) { %>
+            <% for (apptindex of patient.appointments) { %>
+          <% if (apptindex.doctor) { %>
+            <div class = "contentblock">
+              <p>
+                <strong><%= new Date(apptindex.date+" "+apptindex.startTime).toDateString() %> </strong>
+                <br/>
+                <%= apptindex.apptName %> scheduled by <%= patient.firstName %> <%= patient.lastName %>  from  <%= apptindex.startTime %> to <%= apptindex.endTime %>
+               </p>
+              <a href = "/appt/purge/<%= apptindex._id %>">Delete Appointment</a>
+            </div>
+        
+              <% } %>
+              <% } %>
+              <% } %>
+          <% } %>
+  </div>
+  <div id = "leftblock">
+    <h2>medication plan </h2>
+    <% for (patient of patients) { %>
+        <% if (patient.appointments != null) { %>
+        <% for (apptindex of patient.appointments) { %>
+          <% if (apptindex.meds) { %>
+            <div class = "contentblock">
+              <p>
+                <strong><%= apptindex.apptName %></strong>
+                <br/>
+                To be taken <%= apptindex.date %>
+              </br>
+                Scheduled by <%= patient.firstName %> <%= patient.lastName %>
+                
+               </p>
+              <a href = "/appt/purge/<%= apptindex._id %>">Delete medication plan</a>
+            </div>
+            <% } %>
+            <% } %>
+        <% } %>
+        <% } %>
+  </div>
+
+  </div>
+
     </body>
+      <script>
+        function schedulerTabs(tabs) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabs).style.display = "block";
+          event.currentTarget.className += " active";
+        }
+
+        var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+} 
+        </script>
 </html>

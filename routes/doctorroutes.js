@@ -42,9 +42,9 @@ router.use((req, res, next) => {
   next();
 })
 // home page route
-router.get('/', async (req, res) => {
+router.get('/',isAuthenticated,async (req, res) => {
   const journals = await JournalModel.find();
-  res.render('doctorindex',);
+  res.render('doctorindex', {user:req.user});
   
 })
 
@@ -72,7 +72,12 @@ router.get("/patientSelect", isAuthenticated ,async (req, res)=>{
 
 router.get("/setappt", isAuthenticated ,async (req, res)=>{
   const doctor = await User.findOne({ username: req.user.username });
-  res.render("doctorAppt", {patientList: doctor.patient});
+  var patients = [];
+  for(const patient of doctor.patient){
+    const user = await User.findOne({ _id: patient.userid });
+    patients.push(user)
+  }
+  res.render("doctorAppt", {patientList: doctor.patient, patients:patients});
 })
 
 router.post("/setappt", isAuthenticated ,async (req, res)=>{
@@ -144,7 +149,7 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
       });
 
       } else {
-        res.redirect("/"); //alert doctor access and refresh token is null
+        res.redirect("/doctor"); //alert doctor access and refresh token is null
       }
 
 })
@@ -186,7 +191,8 @@ axios.request(refreshOptions).then(async function (response) {
   
   router.post('/journals/patientSelect', isAuthenticated, async (req, res) => {
     const journals = await JournalModel.find({postedBy: req.body.userList});
-    res.render('doctorJournals', {patients:req.user.patient, journals: journals});
+    const user = await User.find({_id: req.body.userList});
+    res.render('doctorJournals', {patients:req.user.patient,user: user, journals: journals});
   })
 
 module.exports = router

@@ -1,7 +1,7 @@
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="/css/homepage.css" />
+        <link rel="stylesheet" type="text/css" href="/css/journals.css" />
         
 <meta charset="UTF-8">
 
@@ -9,17 +9,23 @@
 
     </head>
     <body>
-        <nav class="navbar">
-            <a href="/">Home</a>
-            <a href="/journals">Journals</a>
-            <a href="/appt">Scheduler</a>
-           <!--
-<a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=23RTQD&scope=activity+cardio_fitness+electrocardiogram+heartrate+location+nutrition+oxygen_saturation+profile+respiratory_rate+settings+sleep+social+temperature+weight&code_challenge=drIgY9Bnkjj7XDmXLCQrRknHtpUp7W9-Lm61reCu3Pw&code_challenge_method=S256&state=6e6u0a1v3a5j5t42082t2g033g2b690q&redirect_uri=https%3A%2F%2Ftsamentalhealthapp-0fee6615a9d9.herokuapp.com%2Fcallback">
-                Fitbit</a>
-           --> 
-           <a href="/auth/signout" style = "margin-left: auto;">
-            Log Out</a>
-        </nav>
+        <div class="navbar">
+               
+            <div id = "titleBox">
+                <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+            </div>
+            <div id = "titleBox">
+                    Hawk Health
+            </div>
+        <a href="/">Home</a>
+        <a href="/doctor/journals">Journals</a>
+        <a href="/doctor/setappt">Scheduler</a>
+                    
+    <a href="/doctor/fitbit">
+    Fitbit</a>
+    <a href="/auth/signout" style = "margin-left: auto;">
+      Log Out</a>
+    </div>
 
         <form method="POST" action="/doctor/journals/patientSelect">
             <% if(patients != null){ %>
@@ -39,27 +45,49 @@
         <% }else { %>
     
             
-                <% for (journal of journals) { %>
-        <div id="journals">
-            
-            <h3>Title: <%= journal.firstname %></h3>
-            <h4>Date: <%= journal.time.getFullYear() %>-<%= (journal.time.getMonth()) + 1 %>-<%= journal.time.getDate() %></h4>
-            <P>Recorded Moods: </P>
-            <ul>
-                <% for (mood of journal.checkbox) { %>
+            <% for (journal of journals) { %>
+                <button type="button" class="collapsible"><%= user.username %>'s Journal entry from <%= journal.time.toDateString() %> </button>
+    <div class="journals">
+        
+       
+       <h4>
+        
+       </h4>
+        <h4>How you were feeling: </h4>
+        <p> <%= journal.journalOne %></p>
+        <h4>Extra information added: </h4>
+        <p> <%= journal.journalTwo %></p>
+        <P>Recorded Moods: </P>
+        <ul>
+            <% for (mood of journal.checkbox) { %>
 <li><%= mood %></li>
-                    <% } %> 
-            </ul>
-          
-            <p><%= journal.lastname %></p>
-        </div>
-                    
+<% } %>
 
-        
-                <% } %>
- 
+        </ul>
+       
+    </div>
+    <% } %>         
 
-            <% } %>
-        
-    </body>
+    
+           
+
+   
+        <% } %>
+</body>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
 </html>

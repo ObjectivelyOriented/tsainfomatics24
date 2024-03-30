@@ -16,7 +16,7 @@ module.exports = function(passport){
       failureFlash : true  
     }));
     router.post('/doctorslogin', passport.authenticate('login', {
-      successRedirect: '/user/home',
+      successRedirect: '/doctor',
       failureRedirect: '/',
       failureMessage: true,
       failureFlash : true  
@@ -31,7 +31,7 @@ module.exports = function(passport){
     });
     /* Handle Registration POST */
     router.post('/signup', passport.authenticate('signup', {
-      successRedirect: '/user/home',
+      successRedirect: '/doctor',
       failureRedirect: '/',
       failureMessage: true,
       failureFlash : true  
