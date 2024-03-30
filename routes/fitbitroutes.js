@@ -156,7 +156,7 @@ var apiCallOptions = {
     });
 
     router.get("/fitbitData",isAuthenticated, function(req,res){
-      res.render('fitbitData', {user:req.user,fitbitUsers:null, pooledFitbitData:null,date:null});
+      res.render('fitbitData', {user:req.user,fitbitUsers:null, pooledFitbitData:null,date:null,fitbitUser:null});
        
     });
     
@@ -177,7 +177,7 @@ var apiCallOptions = {
           axios.request(apiCallOptions).then(function (response) {
             pooledFitbitData.push(response.data.goals);
             pooledFitbitData.push(response.data.summary);
-            res.render('fitbitData', {user:req.user,date:req.body.date, fitbitUsers:null, pooledFitbitData:pooledFitbitData});
+            res.render('fitbitData', {fitbitUser:req.user,date:req.body.date, fitbitUsers:null, pooledFitbitData:pooledFitbitData});
 
               }).catch(function (error) {
               console.error("API call error" + error);
