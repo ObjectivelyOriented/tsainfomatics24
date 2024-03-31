@@ -1,0 +1,86 @@
+<html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="/css/appt.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+
+
+</head>
+    <body>
+      <div class="navbar">
+               
+        <div id = "titleBox">
+            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+        </div>
+        <div id = "titleBox">
+                Hawk Health
+        </div>
+    <a href="/doctor">Home</a>
+    <a href="/doctor/journals">Journals</a>
+    <a href="/doctor/setappt">Scheduler</a>
+    <a href="/doctor/patientSelect">
+      Patient Select</a> 
+<a href="/doctor/fitbit">
+Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+  Log Out</a>
+</div>
+<div class = "header">
+  <h1>Patient Edit And Register</h1>
+  </div>  
+
+
+
+    <form method="POST" action="/doctor/patientRegister">
+      <% if(userList != null){ %>
+        <h1>Select a patient to register</h1>
+        <label for="userList">Register a patient:</label>
+        <select name="userList" id="userList">
+        <% for (user of userList) { %>
+            <option value="<%= user._id %>"><%= user.username %></option>
+            <% } %>
+          </select>
+        
+        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+        <% } %>
+    </form>
+    <% if(patientList != null){ %>
+    <h1>Edit patient records</h1>
+    <form method="POST" action="/doctor/patientSelect">
+   
+        <label for="patientList">Patient list:</label>
+        <select name="patientList" id="patientList">
+        <% for (user of patientList) { %>
+            <option value="<%= user.userid %>"><%= user.username %></option>
+            <% } %>
+          </select>
+        
+        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+        <% } %>
+      </form>
+        <% if(pickedUser != null){ %>
+          <h1><%= pickedUser.firstName %> <%= pickedUser.lastName %> Patient Record:</h1>
+          <ul>
+            <% for (illness of pickedUser.illnesses) { %>
+              <li><%= illness %></li>
+              <% } %>
+          </ul>
+          <form method="POST" action="/doctor/editRecords">
+            <div class="mb-2">
+              <input type="checkbox" name="illnesses" id="illnesses1" class="illnesses"  value="Anxiety">
+              <label for="checkbox1">Anxiety</label><br>
+              <input type="checkbox" name="illnesses" id="illnesses2" class="illnesses" value="Depression">
+              <label for="checkbox2">Depression</label><br>
+          </div>
+            
+            <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+            <% } %>
+          </form>
+
+         
+    </form>
+    </body>
+</html>

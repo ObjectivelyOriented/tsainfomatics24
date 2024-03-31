@@ -1,0 +1,98 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="/css/journals.css" />
+        
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <script type = "text/javascript" src="/js/homepage.js" > </script>
+
+    </head>
+    <body>
+        <div class="navbar">
+               
+            <div id = "titleBox">
+                <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+            </div>
+            <div id = "titleBox">
+                    Hawk Health
+            </div>
+        <a href="/doctor">Home</a>
+        <a href="/doctor/journals">Journals</a>
+        <a href="/doctor/setappt">Scheduler</a>
+        <a href="/doctor/patientSelect">
+          Patient Select</a> 
+    <a href="/doctor/fitbit">
+    Fitbit</a>
+    <a href="/auth/signout" style = "margin-left: auto;">
+      Log Out</a>
+    </div>
+    <div class="header">
+      <h1>Journals</h1>
+    </div> 
+        <form method="POST" action="/doctor/journals/patientSelect">
+            <% if(patients != null){ %>
+              <label for="userList">Select a patient's journals to access:</label>
+              <select name="userList" id="userList">
+              <% for (user of patients) { %>
+                  <option value="<%= user.userid %>"><%= user.username %></option>
+                  <% } %>
+                </select>
+              
+              <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+              <% } %>
+          </form>
+
+        <% if(journals == null){ %>
+            <p>None Avaliable</p>
+        <% }else { %>
+    
+            
+            <% for (journal of journals) { %>
+                <button type="button" class="collapsible"><%= user.username %>'s Journal entry from <%= journal.time.toDateString() %> </button>
+    <div class="journals">
+        
+       
+       <h4>
+        
+       </h4>
+        <h4>How you were feeling: </h4>
+        <p> <%= journal.journalOne %></p>
+        <h4>Extra information added: </h4>
+        <p> <%= journal.journalTwo %></p>
+        <P>Recorded Moods: </P>
+        <ul>
+            <% for (mood of journal.checkbox) { %>
+<li><%= mood %></li>
+<% } %>
+
+        </ul>
+       
+    </div>
+    <% } %>         
+
+    
+           
+
+   
+        <% } %>
+</body>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
+</html>

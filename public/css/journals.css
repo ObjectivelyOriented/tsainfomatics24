@@ -1,3 +1,194 @@
 #journals{
     border-bottom: 3px solid black;
 }
+.container{
+    height:auto;
+}
+.block{
+   
+    width:100%;
+    text-align: center;
+    text-decoration: wavy;
+    margin-bottom:0;
+    padding-bottom:10px;
+    
+}
+#blockthree{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width:10%;
+ padding: 50px;
+ padding-top: 5px;
+  border-right: solid;
+}
+#blocktwo{
+    border-top: solid;
+}
+.flex-container{
+    display: flex;
+    width:100%;
+    
+}
+body{
+    margin:0;
+}
+.header{
+    padding: 1px;
+    text-align: center;
+    background: rgb(113, 179, 214);;
+    color: #BDE1CE;
+    font-size: 30px;
+    /*width:80%; */
+    
+}
+#avatar{
+  margin-top: 40%;
+  width:200px;
+  height:200px;
+}
+
+.container{
+    padding:20px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  
+  
+}
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+}
+
+.navbar #titleBox img {
+   width:50px;
+   padding-right:3px;
+}
+.navbar #titleBox {
+    padding:3px;
+    font-size: 40px;
+ }
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
+}
+
+  .checkbox{
+    display:none;
+    
+  }
+  body{
+    font-family: "Unna", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+.checkbox + label{
+    font-size: 6vh;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgb(113, 179, 214);
+  transition: .1s all;
+  cursor: pointer;
+  z-index: 999 !important;
+  margin:5px;
+  margin-left:40px;
+    
+}
+
+.checkbox + label:hover{
+    transform: scale(.95);
+}
+
+  .checkbox:checked + label {
+    background: #488E7A;
+    transform: scale(1.1);
+  }
+  
+  .checkbox:checked + label:hover {
+    background: #488E7A;
+    transform: scale(1.05);
+  }
+
+ 
+#blockone h2{
+color: rgb(113, 179, 214);;;
+}
+#blocktwo{
+    padding-top:20px;
+}
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .journals {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+  .buttondiv{
+    display: flex;
+ padding:10px;
+ gap: 20px;
+    align-items: center;
+    justify-content: center;
+     
+}
+
+.button{
+    border-radius: 25px;
+    height: 200px;
+    text-align: left;
+    border: 2px solid rgb(113, 179, 214);
+    background-color: rgb(113, 179, 214);
+    transition: 1s;
+    margin-bottom: 10px;
+    
+}
+.button:hover{
+    color:white;
+    background-color: rgb(93, 145, 173);
+}
+.buttonicon{
+    width:20%;
+    
+}
+.buttonText{
+    font-size: 40px;
+}
+

@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/fitbit.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+  </head>
+    <body>
+      <% if(user.doctor){ %>
+        <div class="navbar">
+               
+          <div id = "titleBox">
+              <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+          </div>
+          <div id = "titleBox">
+                  Hawk Health
+          </div>
+      <a href="/doctor">Home</a>
+      <a href="/doctor/journals">Journals</a>
+      <a href="/doctor/setappt">Scheduler</a>
+      <a href="/doctor/patientSelect">
+        Patient Select</a> 
+  <a href="/doctor/fitbit">
+  Fitbit</a>
+  <a href="/auth/signout" style = "margin-left: auto;">
+    Log Out</a>
+  </div>
+<% }  else {%>
+  <div class="navbar">
+               
+    <div id = "titleBox">
+        <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+    </div>
+    <div id = "titleBox">
+            Hawk Health
+    </div>
+<a href="/">Home</a>
+<a href="/journals">Journals</a>
+<a href="/appt">Scheduler</a>
+            
+<a href="/fitbit/fitbitData">
+Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+Log Out</a>
+</div>
+  <% } %>  
+<div class = "header">
+<h1> Fitbit </h1>
+</div>  
+      <% if(fitbitUsers != null || fitbitUsers != undefined){ %>
+<h1 style = "text-align: center;">Select a user to view their heart, sleep, and activity biometrics</h1>
+
+
+    <form method="POST" action="/doctor/fitbit/patientSelect" class="form">
+     <div>
+      <label for="userList">Select a patient:</label>
+      <select name="userList" id="userList">
+      <% for (user of fitbitUsers) { %>
+          <option value="<%= user.userid %>"><%= user.username %></option>
+          <% } %>
+        </select>
+     </div>
+       <div>
+        <div class="mb-2">
+          <label for="date">Select a Date:</label>
+ <input type="date" id="date" name="date"> 
+     </div>
+        
+       </div>
+          
+        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+      
+    </form>
+    <% } else { %>
+      <h1 style = "text-align: center;">Select a date to view your heart, sleep, and activity biometrics</h1>
+          <form method="POST" action="/fitbit/fitbitData" class="form">
+           
+             <div>
+              <div class="mb-2">
+                <label for="date">
+                  Select Date:
+                </label>
+                <% if(date != null){ %>
+       <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>"> 
+       <% } else { %>
+        <input type="date" id="date" name="date"> 
+        <% } %>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+           </div>
+             </div>
+          </form>
+          <% } %>
+
+
+ 
+<% if(pooledFitbitData != null && pooledFitbitData.length > 0){ %>
+<!--Array order: [activity-heart, sleep summary, activity goals, activity summary] -->
+  <% if(pooledFitbitData[0] != null && pooledFitbitData[0] != undefined){ %>
+    <h2 style = "text-align: center;"><strong><%= fitbitUser.firstName %> <%= fitbitUser.lastName %>'s <%= new Date(pooledFitbitData[0].dateTime).toDateString() %></strong> Fitbit Data</h2>
+    <div class = "datablock">
+      <h2>Heart Rate Data</h2>
+      <div class = "datadiv">
+        <img class = "dataicon" src = "https://static-00.iconduck.com/assets.00/symbol-heart-rate-icon-2048x2048-f4a2f30c.png">
+        <% for(rate of pooledFitbitData[0].value.heartRateZones){ %>
+        <div class = "dataText">
+          <h3><%= rate.name %></h3>
+          <ul>
+            <li>Calories Out: <%= rate.caloriesOut %> kilocalories </li>
+            <li>Maximum heart rate in this zone: <%= rate.max %> beats per minute</li>
+            <li>Minimum heart rate in this zone: <%= rate.min %> beats per minute</li>
+            <li>Time spent in this zone: <%= rate.minutes %> minutes</li>
+          </ul>
+            
+        </div>
+        <% } %>
+      </div>
+      </div>
+    <% } %>
+    <% if(pooledFitbitData[1] != null && pooledFitbitData[1].stages != undefined){ %>
+      <div class = "datablock">
+        <h2>Sleep Data</h2>
+        <div class = "datadiv">
+          <img class = "dataicon" src = "https://static.thenounproject.com/png/18279-200.png">
+          <div class = "dataText">
+            <h3>Sleep Stages</h3>
+            <ul>
+              <li><strong>Time spent in deep sleep: </strong><%= pooledFitbitData[1].stages.deep %> minutes</li>
+              <li><strong>Time spent in light sleep: </strong><%= pooledFitbitData[1].stages.light %> minutes</li>
+              <li><strong>Time spent in REM sleep: </strong><%= pooledFitbitData[1].stages.rem %> minutes</li>
+              <li><strong>Time spent in awake: </strong><%= pooledFitbitData[1].stages.wake %> minutes</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+       
+      
+      
+      <% } %>
+      <br />
+
+     
+        <div class = "datablock">
+          <h2>Activity</h2>
+          
+          <div class = "datadiv">
+            <% if(pooledFitbitData[2] != null && pooledFitbitData[2] != undefined){ %>
+              <h3>Activity Goals</h3>
+              <div class = "dataText">
+             
+              <ul>
+                <li><strong>Active minutes goals: </strong><%= pooledFitbitData[2].activeMinutes %> minutes</li>
+                <li><strong>Calories out goals: </strong><%= pooledFitbitData[2].caloriesOut %> kilocalories</li>
+                <li><strong>Distance goals: </strong><%= pooledFitbitData[2].distance %> miles</li>
+                <li><strong>Floors climbed goals: </strong><%= pooledFitbitData[2].floors %> floors</li>
+                <li><strong>Steps count goals: </strong><%= pooledFitbitData[2].steps %> steps</li>
+              </ul>
+                
+            </div>
+            <% } %>
+          </div>
+        
+          <% if(pooledFitbitData[3] != null && pooledFitbitData[3] != undefined){ %>
+          <div class = "datadiv">
+            <img class = "dataicon" src = "https://icons.iconarchive.com/icons/icons8/ios7/512/Sports-Exercise-icon.png">
+      
+            <div class = "dataText">
+              <h3>Calories Out</h3>
+              <h5>  <%= pooledFitbitData[3].caloriesOut %> kilocalories </h5>
+            </div>
+            <h3>Distance Data</h3>
+            <div class = "dataText">
+              
+              <% for(distanceType of pooledFitbitData[3].distances){ %>
+                <h5><%= distanceType.activity %> distance: <%= distanceType.distance %> miles</h5>
+              <% } %>
+            </div>
+            <h3>Activity Summary</h3>
+            <div class = "dataText">
+              
+              <h4>Elevation: <%= pooledFitbitData[3].elevation %> feet</h4>
+              <h4>Floors climbed: <%= pooledFitbitData[3].floors %> floors</h4>
+              
+              <h4>Total marginal estimated calories: <%= pooledFitbitData[3].marginalCalories %> kilocalories</h4>
+        
+              <h4>Sedentary Active minutes: <%= pooledFitbitData[3].sedentaryMinutes %> minutes</h4>
+              <h4>Lightly Active minutes: <%= pooledFitbitData[3].lightlyActiveMinutes %> minutes</h4>
+              <h4>Fairly or Moderately Active minutes: <%= pooledFitbitData[3].fairlyActiveMinutes %> minutes</h4>
+              <h4>Very Active minutes: <%= pooledFitbitData[3].veryActiveMinutes %> minutes</h4>
+            </div>
+          </div>
+          <% } %>
+          </div>
+  
+         
+          <% } %>
+    </body>
+</html>

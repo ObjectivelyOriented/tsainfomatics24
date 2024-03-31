@@ -1,18 +1,25 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
+
+
 const JournalSchema = new Schema({
-    firstname: {
+    journalType: String,
+    
+    journalOne: {
         type: String,
         required: [true, "Firstname is required"]
     }, 
-    lastname: {
-        type: String,
-        required: [true, "Lastname is required"]
+    journalTwo: {
+        type: String
     },
     checkbox: {
         type: Array
     },
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      },
     time : { type : Date, default: Date.now }
 })
 

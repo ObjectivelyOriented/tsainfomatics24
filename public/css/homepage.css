@@ -1,13 +1,19 @@
 .container{
     height:auto;
 }
+body{
+  font-family: "Unna", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .block{
    
     width:100%;
     background-color:  #EAEFF1;
     text-align: center;
     text-decoration: wavy;
-    margin:0;
+    margin-bottom:0;
+    padding-bottom:10px;
     
 }
 #blockthree{
@@ -41,74 +47,94 @@ body{
     /*width:80%; */
     
 }
-
-  .checkbox{
-    display:none;
-    
-  }
-/*  
-  #bannerimg{
-    width:100%;
-  }
-  #logoimg{
-    width:20%;
-    border: 5px solid #488E7A;
-    border-left: none;
-  }
-  */
-.checkbox + label{
-    font-size: 6vh;
-  width: 5rem;
-  height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: #488E7A;
-  transition: .1s all;
-  cursor: pointer;
-  z-index: 999 !important;
-  margin:5px;
-  margin-left:40px;
-    
+#avatar{
+  margin-top: 5%;
+  width:200px;
+  height:200px;
 }
-.checkbox + label:hover{
-    transform: scale(.95);
-}
-
-  .checkbox:checked + label {
-    background: red;
-    transform: scale(1.1);
-  }
-  
-  .checkbox:checked + label:hover {
-    background: red;
-    transform: scale(1.05);
-  }
-
-  .navbar {
-	background-color: #111;
-	padding: 1rem;
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
 }
 .navbar a {
 	text-decoration: none;
-	color: white;
+	color: black;
 	padding: 1rem;
     transition: .5s all;
+    height:auto;
+    display: inline-block;
 }
 .navbar a:hover {
 	text-decoration: none;
-    background-color: white;
-	color: #111;
-	padding: 1rem;
+    background-color: black;
+	color: white;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  font-size: 30px; 
+  height:auto;
+  width: 100%;
+  text-align: center;
+  line-height: 1%;
+  
+  
 }
 
-.current {
-	color: #df3e23;
+.button{
+  border-radius: 25px;
+  width:40em;
+  height: 120px;
+  text-align: center;
+  border: 2px solid rgb(113, 179, 214);
+  background-color: rgb(113, 179, 214);
+  transition: 1s;
+  margin: 30px;
+  padding: 20px;
 }
-#blockone h2{
-color: #488E7A;
+.button:hover{
+  color:white;
 }
-#blocktwo{
-    padding-top:20px;
+.buttonText{
+  font-size: 50px;
+}
+#titleBox{
+  font-size: 40px;
+}
+.navbar {
+	border-bottom: 2px solid black;
+	width: 90%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+}
+
+.navbar #titleBox img {
+   width:50px;
+   padding-right:3px;
+}
+.navbar #titleBox {
+    padding:3px;
+    font-size: 40px;
+ }
+.navbar a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+    transition: .5s all;
+    height:auto;
+    display: inline-block;
+}
+.navbar a:hover {
+	text-decoration: none;
+    background-color: black;
+	color: white;
 }

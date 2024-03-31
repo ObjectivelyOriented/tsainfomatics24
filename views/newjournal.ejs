@@ -1,0 +1,84 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="/css/journals.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+
+        <script type = "text/javascript" src="/js/homepage.js" > </script>
+
+    </head>
+    <body>
+      <div class="navbar">
+               
+        <div id = "titleBox">
+            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+        </div>
+        <div id = "titleBox">
+                Hawk Health
+        </div>
+    <a href="/">Home</a>
+    <a href="/journals">Journals</a>
+    <a href="/appt">Scheduler</a>
+
+                
+<a href="/fitbit/fitbitData">
+Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+    Log Out</a>
+</div>
+
+<div id="container">
+    <form method="POST" action="/journals/new">
+     
+
+<div class="header">
+  <h1>What was your mood today?</h1>
+</div> 
+        
+    <div class = "flex-container">
+        <div class = "block" id="blockthree">
+            <h3>Click the emoji(s) that best represent your mood today.</h3>
+            <input type="checkbox" name="checkbox" id="checkbox1" class="checkbox"  value="Estatic">
+            <label for="checkbox1">😀</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox2" class="checkbox" value="Pleased">
+            <label for="checkbox2">😊</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox3" class="checkbox" value="Neutral">
+            <label for="checkbox3">😐</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox4" class="checkbox" value="Sad">
+            <label for="checkbox4">😔</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox5" class="checkbox" value="Anxious">
+            <label for="checkbox5">😨</label><br>
+            <input type="checkbox" name="checkbox" id="checkbox6" class="checkbox" value="Angry">
+            <label for="checkbox6">😡</label><br>
+        </div>
+<br/>
+<br/>
+<br/>
+        <div class="block" id="blockone">
+        <h2>How are you today?</h2>
+        <textarea type="text" name="journalOne" id="" rows="33" cols="100"></textarea>
+        <br/>
+        <label for="">Tell me any feelings, concerns, wants, needs or just anything you want to spill out to me. Remember, the only person who sees this is you and me!</label><br>
+     
+        </div>
+    </div>
+   
+        <div class = "block" id="blocktwo">
+            <label for="">Any extra information to add?</label>
+            <br/>
+            <textarea type="text" name="journalTwo" id="" rows="33" cols="100"></textarea><br>
+            <input type="submit" onclick="formSubmit()">
+        </div>
+      
+       
+        
+
+       
+    </form>
+    </div>
+</body>
+    
+</html>

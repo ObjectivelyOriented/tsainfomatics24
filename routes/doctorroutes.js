@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const JournalModel = require("../models/journal");
-const mongoose = require("mongoose");
+var User = require('../models/userModel');
 var axios = require("axios").default;
 
 var apiCallOptions = {
@@ -16,10 +17,24 @@ var testApiCallOptions = {
   headers: {'content-type': 'application/json', Authorization: ''}
 };
 
-mongoose.connect(process.env.MONGODB_URL).then(() => {
-  console.log("MongoDB is connected!");
-});
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()){
+  if(req.user.doctor){
+    return next();
+  }
+}
+  res.redirect('/');
+}
 
+
+var userToEdit;
+var fitbitUser;
+
+//TODO:
+//Doctor login with NPI id through NPI API
+//Doctor is able to select users to treat(MyModel.find({});), once that is done in the doctor model(TODO) there will be 
+//the username and object_id added in the user object. Then (using find by id/findOne), the doctor
+// can see stored fitbit data(TODO), journals, and appt dates (can also add appt/medication dates)
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
@@ -27,94 +42,160 @@ router.use((req, res, next) => {
   next();
 })
 // home page route
-router.get('/', async (req, res) => {
-  const journals = await JournalModel.find();
-  res.render('doctorindex',);
+router.get('/',isAuthenticated,async (req, res) => {
+  
+    const patients = await User.find({doctorName:req.user.firstName + " " + req.user.lastName});
+
+
+  res.render('doctorindex', {user:req.user, patients:patients});
   
 })
 
-// fitbit sleep data route
+router.get("/patientSelect", isAuthenticated ,async (req, res)=>{
+     const uncoveredUsers = await User.find({ 
+      $and: [
+        {$or: [{ doctorName: null }, { doctorName: { $exists: false } }]},
+        {doctor : false}
+      ]  
+    });
+     res.render("patientSelect", {userList: uncoveredUsers, patientList: req.user.patient, pickedUser: null});
+  })
 
-router.get('/fitbit/sleep', (req, res) => {
-    //TODO: Get JSON data into ejs variables
-  res.render('sleep', {sleepData:null});
+  router.post("/patientRegister", isAuthenticated ,async (req, res)=>{
+    
+    const pickedUser = await User.findById( req.body.userList ).exec();
+    const doctor = await User.findOne({ username: req.user.username });
+    doctor.patient.push({userid: pickedUser.id, username:pickedUser.username});
+    await doctor.save();
+    pickedUser.doctorName = req.user.firstName + " " + req.user.lastName;
+    await pickedUser.save();
+    res.redirect("/doctor/patientSelect");
+ })
+
+
+router.get("/setappt", isAuthenticated ,async (req, res)=>{
+  const doctor = await User.findOne({ username: req.user.username });
+  var patients = [];
+  for(const patient of doctor.patient){
+    const user = await User.findOne({ _id: patient.userid });
+    patients.push(user)
+  }
+  res.render("doctorAppt", {patientList: doctor.patient, patients:patients});
 })
 
-router.post('/fitbit/sleep/:minDate/:maxdate', (req, res) => {
-  testApiCallOptions.url = "https://api.fitbit.com/1.2/user/-/sleep/date/"+req.body.minDate+"/"+req.body.maxDate+".json";
-  var authOptions = {
+router.post("/setappt", isAuthenticated ,async (req, res)=>{
+  const pickedUser = await User.findById( req.body.userList ).exec();
+  pickedUser.appointments.push(req.body);
+  await pickedUser.save();
+  res.redirect("/doctor/setappt");
+})
+
+router.post("/patientSelect", isAuthenticated ,async (req, res)=>{
+    
+  userToEdit = await User.findById( req.body.patientList ).exec();
+  
+  res.render("patientSelect", {userList: null, patientList: req.user.patient, pickedUser: userToEdit});
+
+})
+
+
+router.post("/editRecords", isAuthenticated ,async (req, res)=>{
+  const pickedUser = await User.findById( userToEdit.id ).exec();
+  pickedUser.illnesses = req.body.illnesses;
+  await pickedUser.save();
+  res.redirect("/doctor/patientSelect");
+})
+
+
+
+
+// fitbit routes
+
+router.get('/fitbit',isAuthenticated, async (req, res) => {
+  const doctor = await User.findOne({ username: req.user.username });
+res.render('fitbitData', {user:req.user, fitbitUsers:doctor.patient, pooledFitbitData:null, date:null,fitbitUser:null});
+})
+
+router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
+  fitbitUser = await User.findOne({ _id: req.body.userList }).exec();
+  if(fitbitUser.fitbitData.accessToken != '' && fitbitUser.fitbitData.refreshToken != ''){
+    apiCallOptions.url = "https://api.fitbit.com/1/user/"+fitbitUser.fitbitData.userId+"/activities/heart/date/"+req.body.date+"/1d/1min.json";
+    apiCallOptions.headers.Authorization = "Bearer " + (fitbitUser.fitbitData.accessToken);
+    
+      //API call
+      var pooledFitbitData = [];
+     axios.request(apiCallOptions).then(function (response) {
+      pooledFitbitData.push(response.data["activities-heart"][0]);
+
+      apiCallOptions.url = "https://api.fitbit.com/1.2/user/"+fitbitUser.fitbitData.userId+"/sleep/date/"+req.body.date+".json";
+      axios.request(apiCallOptions).then(function (response) {
+        pooledFitbitData.push(response.data.summary);
+
+        apiCallOptions.url = "https://api.fitbit.com/1/user/"+fitbitUser.fitbitData.userId+"/activities/date/"+req.body.date+".json";
+        axios.request(apiCallOptions).then(function (response) {
+          pooledFitbitData.push(response.data.goals);
+          pooledFitbitData.push(response.data.summary);
+          
+          res.render('fitbitData', {user:req.user, fitbitUsers:req.user.patient, pooledFitbitData:pooledFitbitData, date:null,fitbitUser:fitbitUser });
+
+            }).catch(function (error) {
+            console.error("API call error" + error);
+            res.status(401).redirect("/doctor/fitbit/refreshTokens");
+          });
+          }).catch(function (error) {
+          console.error("API call error" + error);
+          res.status(401).redirect("/doctor/fitbit/refreshTokens");
+        });
+        }).catch(function (error) {
+        console.error("API call error" + error);
+        res.status(401).redirect("/doctor/fitbit/refreshTokens");
+      });
+
+      } else {
+        res.redirect("/doctor"); //alert doctor access and refresh token is null
+      }
+
+})
+
+
+router.get("/fitbit/refreshTokens",isAuthenticated, function (req, res) {
+  var refreshOptions = {
     method: 'POST',
     url: 'https://api.fitbit.com/oauth2/token',
     headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET, 'utf-8').toString('base64')},
     data: new URLSearchParams({
-      grant_type: 'authorization_code',
+      grant_type: 'refresh_token',
       client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
-      code: req.query.code,
-      redirect_uri: 'https://tsamentalhealthapp-0fee6615a9d9.herokuapp.com/callback',
-      code_verifier: "454z096b410b5s17555j3s0o423u164i3b1j5908533m270i5w2q61620i42106n086q4t2v3m674c0e1p1q3d5d011j5d4z61436n3a542i536j2h6i0q445g0o4z1n"
+      refresh_token: fitbitUser.fitbitData.refreshToken
     })
   };
-  var testAuthOptions = {
-    method: 'POST',
-    url: 'https://api.fitbit.com/oauth2/token',
-    headers: {'content-type': 'application/x-www-form-urlencoded', Authorization: "Basic " + Buffer.from(process.env.TEST_CLIENT_ID + ":" + process.env.TEST_CLIENT_SECRET, 'utf-8').toString('base64')},
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: process.env.TEST_CLIENT_ID,
-      client_secret: process.env.TEST_CLIENT_SECRET,
-      code: req.query.code,
-      redirect_uri: 'https://arcane-castle-84229-a0015ab2dc2b.herokuapp.com/callback',
-      code_verifier: '4w2y554p2d5f3u323b1k3m032w6v442g3610362j2o354l713y116d1k3q1n5f6i04004a3y2f2k4k2h4p5215434z3r361j0q4s474z1n5x1x716w4221631q2g6s5y'
-    })
-  };
-    console.log(req.query);
-    //TODO: Add if statement to check if state in url is equal to generated state
-    //Access token request
-    axios.request(authOptions).then(function (response) {
-      
-      //axios.request(testAuthOptions).then(function (response) {
-      console.log(response.data);
-      apiCallOptions.headers.authorization = "Bearer " + response.data.access_token;
-      //testApiCallOptions.headers.Authorization = "Bearer " + response.data.access_token;
-      //API call
-     
-      axios.request(testApiCallOptions).then(function (response) {
-        console.log(response.data);
-        res.status(201).json(response.data);
-        res.render('sleep', {sleepData:null});
-        alert("Your fitbit has been authorized!");
-      }).catch(function (error) {
-        console.error("API call error" + error);
-
-      });
-      
-    }).catch(function (error) {
-      console.error("Token request error " + error);
-    });
-    //apiCallOptions.url = "https://api.fitbit.com/1.2/user/-/sleep/date/"+req.params.minDate+"/"+req.params.maxDate+".json";
-    testApiCallOptions.url = "https://api.fitbit.com/1.2/user/-/sleep/date/"+req.body.minDate+"/"+req.body.maxDate+".json";
-    //axios.request(apiCallOptions).then(function (response) {
   
-      //TODO: Get JSON data into ejs variables
- 
-})
+axios.request(refreshOptions).then(async function (response) {
+  console.log(response.data);
+  fitbitUser.fitbitData = {
+    userId: response.data.user_id, 
+      accessToken: response.data.access_token, 
+      refreshToken: response.data.refresh_token
+    };
+    await fitbitUser.save();
+  res.redirect("/doctor/fitbit"); //alert doctor that access token has been updatted adn they can retry their query
+}).catch(function (error) {
+  console.error("Token request error " + error);
+  res.redirect("/doctor"); //alert doctor refresh token is null
+});
 
-router.get('/fitbit/heart/:minDate/:maxdate', (req, res) => {
-    //apiCallOptions.url = "https://api.fitbit.com/1/user/-/spo2/date/"+req.params.minDate+"/"+req.params.maxDate+".json";
-    testApiCallOptions.url = "https://api.fitbit.com/1/user/-/spo2/date/"+req.params.minDate+"/"+req.params.maxDate+".json";
-       //axios.request(apiCallOptions).then(function (response) {
-        axios.request(testApiCallOptions).then(function (response) {
-        console.log(response.data);
-        res.status(201).json(response.data);
-      }).catch(function (error) {
-        console.error("API call error" + error);
-      });
-    res.render('heart');
+});
+
+
+  //Doctor journal routes
+  router.get('/journals',isAuthenticated, async (req, res) => {
+  res.render('doctorJournals', {journals:null,patients:req.user.patient});
   })
-
-  router.get('/fitbit/activity', (req, res) => {
-    res.render('activity');
+  
+  router.post('/journals/patientSelect', isAuthenticated, async (req, res) => {
+    const journals = await JournalModel.find({postedBy: req.body.userList});
+    const user = await User.find({_id: req.body.userList});
+    res.render('doctorJournals', {patients:req.user.patient,user: user, journals: journals});
   })
 
 module.exports = router

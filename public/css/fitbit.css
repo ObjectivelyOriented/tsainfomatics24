@@ -1,0 +1,117 @@
+  
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #ddd;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #ccc;
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #ccc;
+          border-top: none;
+        }
+        body{
+            margin:0;
+        }
+        .header{
+            padding: 1px;
+            text-align: center;
+            background: rgb(113, 179, 214);;
+            color: #BDE1CE;
+            font-size: 30px;
+            /*width:80%; */
+            
+        }
+
+        .navbar {
+            border-bottom: 2px solid black;
+            width: 90%; /* Can be in percentage also. */
+            height: auto;
+            margin: 0 auto;
+            position: relative;
+            display:flex;
+        }
+        
+        .navbar #titleBox img {
+           width:50px;
+           padding-right:3px;
+        }
+        .navbar #titleBox {
+            padding:3px;
+            font-size: 40px;
+         }
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            padding: 1rem;
+            transition: .5s all;
+            height:auto;
+            display: inline-block;
+        }
+        .navbar a:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white;
+        }
+        .dataicon{
+            width:100px;
+            
+        }
+        .datatext{
+            border-right: 2px solid;
+            padding:10px;
+            overflow: auto;
+        }
+        
+       
+        .datadiv{
+            display: flex;
+         padding:10px;
+         gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .datablock{
+            text-align: center;
+            border-radius: 25px;
+            border-bottom: 2px solid rgb(113, 179, 214);
+            margin-bottom: 20px;
+
+        }
+        .form{
+          display: flex;
+          justify-content: center;
+        }
+        .form div{
+          margin-left:10px;
+        }
+        body{
+          font-family: "Unna", serif;
+          font-weight: 400;
+          font-style: normal;
+        }
