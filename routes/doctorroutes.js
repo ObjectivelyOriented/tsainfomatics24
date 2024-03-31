@@ -103,7 +103,7 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
   const pickedUser = await User.findById( userToEdit.id ).exec();
   pickedUser.illnesses = req.body.illnesses;
   await pickedUser.save();
-  res.redirect("/doctor/setappt");
+  res.redirect("/doctor/patientSelect");
 })
 
 
@@ -113,7 +113,7 @@ router.post("/editRecords", isAuthenticated ,async (req, res)=>{
 
 router.get('/fitbit',isAuthenticated, async (req, res) => {
   const doctor = await User.findOne({ username: req.user.username });
-res.render('fitbitData', {fitbitUsers:doctor.patient, pooledFitbitData:null, date:null,fitbitUser:null});
+res.render('fitbitData', {user:req.user, fitbitUsers:doctor.patient, pooledFitbitData:null, date:null,fitbitUser:null});
 })
 
 router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
@@ -136,7 +136,7 @@ router.post('/fitbit/patientSelect', isAuthenticated, async (req, res) => {
           pooledFitbitData.push(response.data.goals);
           pooledFitbitData.push(response.data.summary);
           
-          res.render('fitbitData', {fitbitUsers:req.user.patient, pooledFitbitData:pooledFitbitData, date:null,fitbitUser:fitbitUser });
+          res.render('fitbitData', {user:req.user, fitbitUsers:req.user.patient, pooledFitbitData:pooledFitbitData, date:null,fitbitUser:fitbitUser });
 
             }).catch(function (error) {
             console.error("API call error" + error);

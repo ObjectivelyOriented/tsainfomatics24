@@ -4,7 +4,9 @@
         <link rel="stylesheet" type="text/css" href="/css/journals.css" />
         
 <meta charset="UTF-8">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <script type = "text/javascript" src="/js/homepage.js" > </script>
 
     </head>
@@ -17,16 +19,19 @@
             <div id = "titleBox">
                     Hawk Health
             </div>
-        <a href="/">Home</a>
+        <a href="/doctor">Home</a>
         <a href="/doctor/journals">Journals</a>
         <a href="/doctor/setappt">Scheduler</a>
-                    
+        <a href="/doctor/patientSelect">
+          Patient Select</a> 
     <a href="/doctor/fitbit">
     Fitbit</a>
     <a href="/auth/signout" style = "margin-left: auto;">
       Log Out</a>
     </div>
-
+    <div class="header">
+      <h1>Journals</h1>
+    </div> 
         <form method="POST" action="/doctor/journals/patientSelect">
             <% if(patients != null){ %>
               <label for="userList">Select a patient's journals to access:</label>

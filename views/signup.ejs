@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/register.css" />
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="navbar">
+               
+            <div id = "titleBox">
+                <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+            </div>
+            <div id = "titleBox">
+                    Hawk Health
+            </div>
+       
+</div>   
+        <div class="tab">
+            <button class="tablinks active" onclick="schedulerTabs('user')">User</button>
+            <button class="tablinks" onclick="schedulerTabs('doc')">Doctor</button>
+          </div>
+         
+
+          </div>
+          <div class = "tabcontent" id = "user">
+            <h1>User Signup</h1>
+            <form method="POST" action="/auth/signup">
+                <div class="mb-2">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+                </div>
+                <div class="mb-2">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+                </div>
+              <div class="mb-2">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" placeholder="Username" required>
+              </div>
+              <div class="mb-2">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" placeholder="Password" required>
+              </div>
+              <div class="mb-2">
+                <input type="checkbox" name="illnesses" id="illnesses1" class="illnesses"  value="Anxiety">
+                <label for="checkbox1">Anxiety</label><br>
+                <input type="checkbox" name="illnesses" id="illnesses2" class="illnesses" value="Depression">
+                <label for="checkbox2">Depression</label><br>
+            </div>
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+            </form>
+          </div>
+          <div class = "tabcontent" id = "doc">
+            <h1>Doctor Signup</h1>
+            <form method="POST" action="/auth/doctorsignup">
+              <div class="mb-2">
+                  <label for="npiId" class="form-label">NPI ID</label>
+                  <input type="text" class="form-control" name="username" placeholder="NPI Id" required>
+              </div>
+              <div class="mb-2">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" placeholder="Password" required>
+              </div>
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>    
+            </form>
+          </div>
+
+    </body>
+    <script>
+        function schedulerTabs(tabs) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabs).style.display = "block";
+          event.currentTarget.className += " active";
+        }
+</script>
+</html>

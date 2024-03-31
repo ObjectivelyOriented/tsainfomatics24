@@ -1,51 +1,42 @@
 <html>
-    <style>
-        body {font-family: Arial;}
-        
-        /* Style the tab */
-        .tab {
-          overflow: hidden;
-          border: 1px solid #ccc;
-          background-color: #f1f1f1;
-        }
-        
-        /* Style the buttons inside the tab */
-        .tab button {
-          background-color: inherit;
-          float: left;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          padding: 14px 16px;
-          transition: 0.3s;
-          font-size: 17px;
-        }
-        
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-          background-color: #ddd;
-        }
-        
-        /* Create an active/current tablink class */
-        .tab button.active {
-          background-color: #ccc;
-        }
-        
-        /* Style the tab content */
-        .tabcontent {
-          display: none;
-          padding: 6px 12px;
-          border: 1px solid #ccc;
-          border-top: none;
-        }
-        </style>
-    <body>
+  <head>
 
-<h1>Patient register</h1>
+    <link rel="stylesheet" type="text/css" href="/css/appt.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+
+
+</head>
+    <body>
+      <div class="navbar">
+               
+        <div id = "titleBox">
+            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+        </div>
+        <div id = "titleBox">
+                Hawk Health
+        </div>
+    <a href="/doctor">Home</a>
+    <a href="/doctor/journals">Journals</a>
+    <a href="/doctor/setappt">Scheduler</a>
+    <a href="/doctor/patientSelect">
+      Patient Select</a> 
+<a href="/doctor/fitbit">
+Fitbit</a>
+<a href="/auth/signout" style = "margin-left: auto;">
+  Log Out</a>
+</div>
+<div class = "header">
+  <h1>Patient Edit And Register</h1>
+  </div>  
+
 
 
     <form method="POST" action="/doctor/patientRegister">
       <% if(userList != null){ %>
+        <h1>Select a patient to register</h1>
         <label for="userList">Register a patient:</label>
         <select name="userList" id="userList">
         <% for (user of userList) { %>
@@ -71,7 +62,7 @@
         <% } %>
       </form>
         <% if(pickedUser != null){ %>
-          <h1><%= firstName %> <%= lastName %> Patient Record:</h1>
+          <h1><%= pickedUser.firstName %> <%= pickedUser.lastName %> Patient Record:</h1>
           <ul>
             <% for (illness of pickedUser.illnesses) { %>
               <li><%= illness %></li>

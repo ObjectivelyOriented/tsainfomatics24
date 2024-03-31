@@ -106,3 +106,8 @@ body{
     font-size: 100px;
     float:left;
 }
+body{
+    font-family: "Unna", serif;
+    font-weight: 400;
+    font-style: normal;
+  }

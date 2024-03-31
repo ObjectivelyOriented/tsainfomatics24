@@ -94,6 +94,11 @@ body{
     display:none;
     
   }
+  body{
+    font-family: "Unna", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 .checkbox + label{
     font-size: 6vh;
   width: 5rem;

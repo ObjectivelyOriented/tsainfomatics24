@@ -1,28 +1,50 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/css/fitbit.css" />
-        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
   </head>
     <body>
-      <div class="navbar">
+      <% if(user.doctor){ %>
+        <div class="navbar">
                
-        <div id = "titleBox">
-            <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
-        </div>
-        <div id = "titleBox">
-                Hawk Health
-        </div>
-    <a href="/">Home</a>
-    <a href="/journals">Journals</a>
-    <a href="/appt">Scheduler</a>
-                
+          <div id = "titleBox">
+              <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+          </div>
+          <div id = "titleBox">
+                  Hawk Health
+          </div>
+      <a href="/doctor">Home</a>
+      <a href="/doctor/journals">Journals</a>
+      <a href="/doctor/setappt">Scheduler</a>
+      <a href="/doctor/patientSelect">
+        Patient Select</a> 
+  <a href="/doctor/fitbit">
+  Fitbit</a>
+  <a href="/auth/signout" style = "margin-left: auto;">
+    Log Out</a>
+  </div>
+<% }  else {%>
+  <div class="navbar">
+               
+    <div id = "titleBox">
+        <img src = "https://cdn-icons-png.flaticon.com/512/4773/4773146.png">
+    </div>
+    <div id = "titleBox">
+            Hawk Health
+    </div>
+<a href="/">Home</a>
+<a href="/journals">Journals</a>
+<a href="/appt">Scheduler</a>
+            
 <a href="/fitbit/fitbitData">
- Fitbit</a>
+Fitbit</a>
 <a href="/auth/signout" style = "margin-left: auto;">
-  Log Out</a>
+Log Out</a>
 </div>
-
+  <% } %>  
 <div class = "header">
 <h1> Fitbit </h1>
 </div>  

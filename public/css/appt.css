@@ -4,7 +4,11 @@
     border: 1px solid #ccc;
     background-color: #f1f1f1;
   }
-  
+  body{
+    font-family: "Unna", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
   /* Style the buttons inside the tab */
   .tab button {
     background-color: inherit;
