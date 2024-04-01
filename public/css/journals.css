@@ -48,6 +48,8 @@ body{
   margin-top: 40%;
   width:200px;
   height:200px;
+  border: 5px solid #1dbea5;
+  border-radius: 100%;
 }
 
 .container{
