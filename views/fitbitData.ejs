@@ -64,7 +64,7 @@ Log Out</a>
        <div>
         <div class="mb-2">
           <label for="date">Select a Date:</label>
- <input type="date" id="date" name="date"> 
+ <input type="date" id="date" name="date" required> 
      </div>
         
        </div>
@@ -82,9 +82,9 @@ Log Out</a>
                   Select Date:
                 </label>
                 <% if(date != null){ %>
-       <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>"> 
+       <input type="date" id="date" name="date" value="<%= pooledFitbitData[0].dateTime %>" required> 
        <% } else { %>
-        <input type="date" id="date" name="date"> 
+        <input type="date" id="date" name="date" required> 
         <% } %>
         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
            </div>
